@@ -1,0 +1,622 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLSU UNIMAP</title>
+    <link rel="icon" href="./img/slsu-logo.webp">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div id="toast" class="toast">Toast message</div>
+
+    <div class="header">
+        <a href="./index.html"><img src="./img/slsu-logo.webp" alt="SLSU Logo"></a>
+        <a href="./index.html" style="text-decoration: none; font-weight: bold; color:whitesmoke;">
+            <div class="header-text">
+                <h1>Southern Luzon State University</h1>
+                <h1 class="unimap">
+                    <span>U</span><span>N</span><span>I</span><span>M</span><span>A</span><span>P</span>
+                </h1>
+            </div>
+        </a>
+    </div>
+
+    <div class="tool-dropdown" id="toolDropdown">
+        <!-- 🔘 Toggle Button (Image-Based) -->
+        <div class="tool-toggle" id="toolToggle">
+            <img src="./img/menu.png" alt="Grid Button" />
+        </div>
+
+        <!-- ⬇️ Dropdown Content -->
+        <div class="tool-dropdown-menu" id="toolDropdownMenu">
+            <ul>
+                <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-school"></i> Colleges</a></li>
+                <li><a href="/orgchart"><i class="fas fa-users"></i> People Behind CHERM</a>
+                </li>
+                <li><a href="/feedback"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+                <li><a href="javascript:window.print()" onclick="printMap(event)"><i class="fas fa-print"></i> Print
+                        Map</a></li>
+                <li><a href="#" onclick="shareMap()"><i class="fas fa-share-alt"></i> Share Map</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-profile" id="userToggle">
+            <div id="headerAvatar" style="width:60px;height:60px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#085C76;flex-shrink:0;">
+                <canvas id="headerAvatarCanvas" width="60" height="60" style="display:block;border-radius:50%;"></canvas>
+            </div>
+        </div>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-header">
+                <div id="dropdownAvatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1c7294;flex-shrink:0;">
+                    <canvas id="dropdownAvatarCanvas" width="36" height="36" style="display:block;border-radius:50%;"></canvas>
+                </div>
+                <span class="username" id="userFullname">Guest</span>
+            </div>
+            <ul>
+                <li id="accountSettingsItem"><a href="#" onclick="openAccountSettings(); return false;"><i class="fas fa-cog"></i> Account Settings</a></li>
+                <li id="loginItem"><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li id="logoutItem"><a href="#" onclick="logoutUser(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="menu-wrapper">
+        <input type="checkbox" id="menuToggle">
+
+        <button id="menuToggleBtn">☰ Open Menu</button>
+        <div class="slide">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="menu-scroll">
+                <ul>
+                    <!-- Dropdown 1 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-properties" hidden>
+                        <label for="dropdown-properties" class="dropdown-label">
+                            <i class="fas fa-globe"></i> University Properties and Land Holdings
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="#" onclick="goToCampus('main')">Main Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('lucena')">Lucena Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('gumaca')">Gumaca Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('alabat')">Alabat Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('catanauan')">Catanauan Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('polillo')">Polillo Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('infanta')">Infanta Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('tagkawayan')">Tagkawayan Campus</a></li>
+                            <li><a href="#" onclick="goToCampus('tiaong')">Tiaong Campus</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdown 2 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-infra" hidden>
+                        <label for="dropdown-infra" class="dropdown-label">
+                            <i class="fas fa-industry"></i> Infrastructure
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-roads"><span class="custom-checkbox"></span>Roads & Pathways</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-electrical"><span class="custom-checkbox"></span>Electrical Systems</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-drainage"><span class="custom-checkbox"></span>Drainage / Water Lines</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-fencing"><span class="custom-checkbox"></span>Perimeter Fencing</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-communication"><span class="custom-checkbox"></span>Communication Lines</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="infra-ongoing"><span class="custom-checkbox"></span>Ongoing Infrastructure Projects</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 3 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-facilities" hidden>
+                        <label for="dropdown-facilities" class="dropdown-label">
+                            <i class="fas fa-building"></i> Facilities
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-academic"><span class="custom-checkbox"></span>Academic Buildings</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-admin"><span class="custom-checkbox"></span>Administrative Buildings</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-libraries"><span class="custom-checkbox"></span>Libraries</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-labs"><span class="custom-checkbox"></span>Laboratories</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-dorms"><span class="custom-checkbox"></span>Dormitories</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-canteens"><span class="custom-checkbox"></span>Canteens & Food Areas</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-recreational"><span class="custom-checkbox"></span>Recreational Facilities</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="fac-parking"><span class="custom-checkbox"></span>Parking Areas</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 4 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-research" hidden>
+                        <label for="dropdown-research" class="dropdown-label">
+                            <i class="fas fa-flask"></i> Research Projects
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-active"><span class="custom-checkbox"></span>Active Research Projects</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-completed"><span class="custom-checkbox"></span>Completed Projects</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-centers"><span class="custom-checkbox"></span>Research Centers</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-locations"><span class="custom-checkbox"></span>Project Locations</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-funding"><span class="custom-checkbox"></span>Funding Agencies</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="res-thematic"><span class="custom-checkbox"></span>Research Thematic Areas</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 5 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-production" hidden>
+                        <label for="dropdown-production" class="dropdown-label">
+                            <i class="fas fa-seedling"></i> Production and Development
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="prod-agri"><span class="custom-checkbox"></span>Agricultural Lands</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="prod-areas"><span class="custom-checkbox"></span>Production Areas</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="prod-zones"><span class="custom-checkbox"></span>Development Zones</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="prod-income"><span class="custom-checkbox"></span>Income-Generating Projects</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="prod-facilities"><span class="custom-checkbox"></span>Facilities for Production</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 6 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-innovation" hidden>
+                        <label for="dropdown-innovation" class="dropdown-label">
+                            <i class="fas fa-lightbulb"></i> Innovation and Technology
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="innov-hubs"><span class="custom-checkbox"></span>Innovation Hubs</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="innov-startups"><span class="custom-checkbox"></span>Tech Startups</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="innov-patents"><span class="custom-checkbox"></span>Patents / Inventions</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="innov-ict"><span class="custom-checkbox"></span>ICT Facilities</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="innov-digital"><span class="custom-checkbox"></span>Digital Platforms</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 7 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-academic" hidden>
+                        <label for="dropdown-academic" class="dropdown-label">
+                            <i class="fas fa-user-graduate"></i> Academic Profile
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="acad-population"><span class="custom-checkbox"></span>Student Population</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="acad-faculty"><span class="custom-checkbox"></span>Faculty Demographics</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="acad-enrollment"><span class="custom-checkbox"></span>Enrollment Trends</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="acad-graduate"><span class="custom-checkbox"></span>Graduate Output</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="acad-programs"><span class="custom-checkbox"></span>Academic Program Locations</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 8 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-nonacademic" hidden>
+                        <label for="dropdown-nonacademic" class="dropdown-label">
+                            <i class="fas fa-user-tie"></i> Non-Academic Profile
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="nonacad-staff"><span class="custom-checkbox"></span>Staff Distribution</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="nonacad-admin"><span class="custom-checkbox"></span>Admin Offices</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="nonacad-hr"><span class="custom-checkbox"></span>HR-related Locations</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="nonacad-services"><span class="custom-checkbox"></span>Non-teaching Services</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 9 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-hazards" hidden>
+                        <label for="dropdown-hazards" class="dropdown-label">
+                            <i class="fas fa-mountain"></i> Geologic Hazards
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="haz-faults"><span class="custom-checkbox"></span>Fault Lines</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="haz-flood"><span class="custom-checkbox"></span>Flood-Prone Areas</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="haz-landslide"><span class="custom-checkbox"></span>Landslide Risk Zones</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="haz-heatmaps"><span class="custom-checkbox"></span>Hazard Heatmaps</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="haz-evacuation"><span class="custom-checkbox"></span>Evacuation Sites</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 10 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-health" hidden>
+                        <label for="dropdown-health" class="dropdown-label">
+                            <i class="fas fa-notes-medical"></i> Health Services
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="health-clinics"><span class="custom-checkbox"></span>Campus Clinics</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="health-covid"><span class="custom-checkbox"></span>COVID-19 Isolation Areas</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="health-emergency"><span class="custom-checkbox"></span>Emergency Response Facilities</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="health-personnel"><span class="custom-checkbox"></span>Health Personnel Map</label></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown 11 -->
+                    <hr>
+                    <li class="dropdown">
+                        <input type="checkbox" id="dropdown-pwd" hidden>
+                        <label for="dropdown-pwd" class="dropdown-label">
+                            <i class="fas fa-wheelchair"></i> PWD Friendly Areas
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu checklist-submenu">
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="pwd-ramps"><span class="custom-checkbox"></span>Ramps / Accessible Entrances</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="pwd-comfort"><span class="custom-checkbox"></span>PWD Comfort Rooms</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="pwd-elevators"><span class="custom-checkbox"></span>Elevators / Lifts</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="pwd-zones"><span class="custom-checkbox"></span>Designated PWD Zones</label></li>
+                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox" data-layer="pwd-compliance"><span class="custom-checkbox"></span>Compliance Level per Building</label></li>
+                        </ul>
+                    </li>
+                    <hr>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="main-layout">
+        <button id="toggleSidePanelBtn">✖ Close About</button>
+        <div class="side-panel">
+                <div class="about">
+                    <img src="./img/slsu-logo.webp" alt="SLSU Logo">
+                    <h3>About</h3>
+                </div>
+                <div class="about-details">
+                    <p>The Unified Control Mapping (UCM) System is a strategic initiative designed to enhance the
+                        University's capacity
+                        for data-driven planning, resource management, and disaster preparedness. Using ArcGIS
+                        technology,
+                        the
+                        system consolidates key information on infrastructure, academic demographics, research and
+                        extension
+                        services,
+                        and environmental risks into one accessible platform.
+                        This initiative supports more efficient decision-making by providing up-to-date geospatial data
+                        for
+                        both management and external stakeholders. The system includes two major components: the UNIMap
+                        Portal,
+                        which is focused on internal planning and operations, and an interactive online map for public
+                        and
+                        client
+                        use. Together, these tools promote transparency, adaptability, and resilience across all
+                        University
+                        functions.
+                    </p>
+                    <br>
+                    <p><strong>Led by:</strong></p>
+                    <p>Center for Hazard and Environmental Resource Mapping (CHERM)</p>
+                    <p>Planning and Development Office</p>
+                    <p>MIS-ICT Office</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <iframe id="campusMap" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=14.1120879,121.5614933&output=embed">
+            </iframe>
+        </div>
+
+    </div>
+
+    <div class="condition-button" id="conditionButton">
+        <div class="conditions-wrapper">
+            <button class="conditions-button" id="conditionsToggle">
+                Conditions <i id="arrowIcon">▲</i>
+            </button>
+
+            <div class="conditions-content" id="conditionsContent">
+
+                <div class="condition-item">
+                    <button>Status</button>
+                    <div class="condition-modal">
+                        <div class="legend">
+                            <div><span class="box none"></span> Functional</div>
+                            <div><span class="box major"></span> Ongoing Construction</div>
+                            <div><span class="box minor"></span> Not Functional</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="condition-item">
+                    <button>AghonImp</button>
+                    <div class="condition-modal">
+                        <div class="legend">
+                            <div><span class="box none"></span> Not Damaged</div>
+                            <div><span class="box minor"></span> Damaged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="condition-item">
+                    <button>AghonRecon</button>
+                    <div class="condition-modal">
+                        <div class="legend">
+                            <div><span class="box none"></span> None</div>
+                            <div><span class="box major"></span> Major Repairs</div>
+                            <div><span class="box minor"></span> Minor Repairs</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <img src="./img/bagong-pilipinas.webp" alt="Bagong Pilipinas Logo" class="bagong-pilipinas">
+        <div class="footer-content">
+
+            <div class="footer-branding">
+                <div class="logos">
+                    <img src="./img/slsu-logo.webp" alt="SLSU Logo">
+                    <img src="./img/slsu-cherm-logo.webp" alt="CHERM Logo">
+                    <img src="./img/pdo-logo.webp" alt="PDO Logo">
+                    <img src="./img/mis-logo.webp" alt="MIS-ICT Logo">
+                </div>
+                <h3 style="font-weight: bold;">Organizations</h3>
+                <div class="org-info">
+                    <a href="https://www.facebook.com/slsuMain" style="text-decoration: none; color: #2b2b2b;">
+                        <p>Southern Luzon State University</p>
+                    </a>
+                    <a href="https://www.facebook.com/slsuCHERM" style="text-decoration: none; color: #2b2b2b;">
+                        <p>Center for Hazard and Environmental Resource Mapping (CHERM)</p>
+                    </a>
+                    <a href="https://www.facebook.com/slsu.pdo" style="text-decoration: none; color: #2b2b2b;">
+                        <p>Planning and Development Office</p>
+                    </a>
+                    <a href="https://www.facebook.com/slsu.misict" style="text-decoration: none; color: #2b2b2b;">
+                        <p>MIS-ICT Office</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3 style="font-weight: bold;">Contact Us</h3>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/slsuMain" target="_blank">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://mail.google.com/mail/u/0/">
+                            <i class="fas fa-envelope"></i> Gmail
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.slsu.edu.ph/" target="_blank">
+                            <i class="fas fa-globe"></i> Visit SLSU 
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.google.com/maps/place/Southern+Luzon+State+University/@14.1126557,121.5585887,1103m/data=!3m2!1e3!4b1!4m6!3m5!1s0x33bd538ac62e0daf:0x8f0c8e2dcd66050d!8m2!3d14.1126505!4d121.5611636!16s%2Fm%2F02qfcg6?entry=ttu&g_ep=EgoyMDI1MDUwMy4wIKXMDSoASAFQAw%3D%3D">
+                            <i class="fas fa-map-marker-alt"></i> Quezon Avenue, Lucban, Philippines
+                        </a>
+                    </li>
+                    <li class="copyable" onclick="copyToClipboard('(042) 540 6635')" style="margin-left: 6%;">
+                        <i class="fas fa-phone-alt"></i> (042) 540 6635
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SLSU - UNIMap. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./js/main.js"></script>
+    <script>
+        // Function to share the map
+        function shareMap() {
+            const shareURL = "https://www.google.com/maps?q=14.1120879,121.5614933";
+            navigator.clipboard.writeText(shareURL).then(() => {
+                alert("Map shareable link copied to clipboard: " + shareURL);
+            });
+        }
+
+        // COPYABLE PHONE NUMBER AT FOOTER
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Phone number copied: " + text);
+            });
+        }
+
+        // SHOW LOGGED-IN FULL NAME AND CONTROL MENU VISIBILITY
+        document.addEventListener("DOMContentLoaded", () => {
+            const fullname = localStorage.getItem("fullname");
+            const username = localStorage.getItem("username");
+            
+            // Update display name
+            if (fullname) {
+                const el = document.getElementById("userFullname");
+                if (el) el.textContent = fullname;
+            }
+
+            // Get menu items
+            const loginItem = document.getElementById("loginItem");
+            const logoutItem = document.getElementById("logoutItem");
+            const accountSettingsItem = document.getElementById("accountSettingsItem");
+
+            // Check if user is logged in
+            const isLoggedIn = username && username !== "guest";
+
+            if (isLoggedIn) {
+                // User IS logged in
+                if (loginItem) loginItem.style.display = "none";
+                if (logoutItem) logoutItem.style.display = "block";
+                if (accountSettingsItem) accountSettingsItem.style.display = "block";
+            } else {
+                // User is NOT logged in
+                if (loginItem) loginItem.style.display = "block";
+                if (logoutItem) logoutItem.style.display = "none";
+                if (accountSettingsItem) accountSettingsItem.style.display = "none";
+            }
+
+            // Load profile picture
+            loadProfilePicture();
+        });
+
+        // Draw avatar onto a canvas element — matches acc-settings.html approach
+        function drawAvatarCanvas(canvas, src) {
+            const ctx = canvas.getContext("2d");
+            const s   = canvas.width;
+
+            function drawFallback() {
+                ctx.clearRect(0, 0, s, s);
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(s/2, s/2, s/2, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.fillStyle = "#085C76";
+                ctx.fillRect(0, 0, s, s);
+                ctx.fillStyle = "#ffffff";
+                ctx.beginPath(); // head
+                ctx.arc(s/2, s * 0.36, s * 0.20, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath(); // body
+                ctx.arc(s/2, s * 0.88, s * 0.30, Math.PI, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            if (!src) { drawFallback(); return; }
+
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, s, s);
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(s/2, s/2, s/2, 0, Math.PI * 2);
+                ctx.clip();
+                const scale = Math.max(s / img.width, s / img.height);
+                const w = img.width  * scale;
+                const h = img.height * scale;
+                ctx.drawImage(img, (s - w) / 2, (s - h) / 2, w, h);
+                ctx.restore();
+            };
+            img.onerror = drawFallback;
+            img.src = src;
+        }
+
+        // Function to render the profile avatar
+        function renderAvatar(src) {
+            const headerCanvas   = document.getElementById("headerAvatarCanvas");
+            const dropdownCanvas = document.getElementById("dropdownAvatarCanvas");
+            if (headerCanvas)   drawAvatarCanvas(headerCanvas,   src);
+            if (dropdownCanvas) drawAvatarCanvas(dropdownCanvas, src);
+        }
+
+        // Re-render avatar when localStorage is updated from another tab (e.g. Account Settings)
+        window.addEventListener("storage", function(e) {
+            if (e.key === "profilePictureCache" || e.key === "profilePicture") {
+                const src = localStorage.getItem("profilePictureCache") || localStorage.getItem("profilePicture");
+                renderAvatar(src || null);
+            }
+        });
+
+        // Function to load profile picture
+        async function loadProfilePicture() {
+            const username = localStorage.getItem("username");
+            
+            // Show cached picture immediately
+            const cached = localStorage.getItem("profilePictureCache") || localStorage.getItem("profilePicture");
+            renderAvatar(cached || null);
+
+            // Fetch latest from server
+            if (username && username !== "guest") {
+                try {
+                    const res = await fetch(`/api/profile?username=${encodeURIComponent(username)}`);
+                    const data = await res.json();
+                    if (data.success && data.user.profile_picture) {
+                        const src = data.user.profile_picture + "?t=" + Date.now();
+                        localStorage.setItem("profilePicture", data.user.profile_picture);
+                        renderAvatar(src);
+                    } else if (!cached) {
+                        renderAvatar(null);
+                    }
+                } catch (e) {
+                    // Server unreachable — keep cached picture
+                }
+            }
+        }
+
+         
+        function logoutUser() {
+            localStorage.removeItem("fullname");
+            localStorage.removeItem("username");
+            localStorage.removeItem("email");
+            localStorage.removeItem("profilePicture");
+            localStorage.removeItem("profilePictureCache");
+            window.location.href = "/login";
+        }
+
+        function openAccountSettings() {
+            const username = localStorage.getItem("username");
+
+            if (username === "guest") {
+                showToast("Log in to view account settings");
+                return;
+            }
+
+            window.location.href = "/accountsettings";
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
+    </script>
+
+</body>
+
+</html>

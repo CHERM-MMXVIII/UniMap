@@ -1,0 +1,20 @@
+{
+  "name": "unified-map-master",
+  "version": "1.0.0",
+  "description": "https://jimarus.github.io/Unified-Map/",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "multer": "^2.0.2",
+    "pg": "^8.18.0"
+  }
+}

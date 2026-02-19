@@ -1,0 +1,296 @@
+/* =========================
+   GLOBAL
+========================= */
+* { box-sizing: border-box; }
+
+:root{
+  --brown: #b06a2a;      /* screenshot brown */
+  --brown2:#9a581f;
+  --text:  #0f172a;
+  --muted: #6b7280;
+  --bg:    #ffffff;
+  --panel: transparent;
+  --shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+}
+
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #fff;
+  color: var(--text);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+.back-btn{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #333;
+  z-index: 100;
+}
+
+.back-btn i{ margin-right: 6px; }
+
+/* =========================
+   PAGE CONTAINER
+========================= */
+.container{
+  max-width: 1100px;      /* matches screenshot width vibe */
+  margin: auto;
+  padding: 4.5rem 1rem 3rem;
+}
+
+/* =========================
+   HEADER LIKE SCREENSHOT
+========================= */
+.page-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.page-kicker{
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: var(--brown);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.page-title{
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.all-members-btn{
+  margin-top: 6px;
+  text-decoration: none;
+  color: #fff;
+  background: var(--brown);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.all-members-btn:hover{ background: var(--brown2); }
+
+/* =========================
+   SECTIONS
+   (keeps your groups, but styled cleaner)
+========================= */
+.team-section{
+  margin-top: 28px;
+}
+
+.section-title{
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #94a3b8;
+  margin: 0 0 14px;
+}
+
+.section-title::after{
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  background: rgba(176,106,42,0.35);
+  margin: 10px 0 0;
+  border-radius: 999px;
+}
+
+/* =========================
+   CARD ROW (4 across like screenshot)
+========================= */
+.card-row{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* =========================
+   TEAM CARD (tile like screenshot)
+========================= */
+.team-card{
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  width: 320px;
+}
+
+/* =========================
+   IMAGE AREA
+========================= */
+.image-wrapper{
+  position: relative;
+  width: 100%;
+  height: 340px; /* screenshot-like */
+  overflow: hidden;
+  border-radius: 18px; /* rounded like screenshot */
+}
+
+.image-wrapper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================
+   SHARE BUTTON (top-right square)
+========================= */
+.share-btn{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brown);
+  color: #fff;
+  text-decoration: none;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+}
+
+.share-btn:hover{
+  background: var(--brown2);
+}
+
+/* =========================
+   SOCIAL STRIP (vertical brown bar)
+   Your existing .social-overlay becomes the strip.
+========================= */
+.social-overlay{
+  position: absolute;
+  top: 22px;
+  right: 14px;
+
+  width: 44px;
+  padding: 10px 0;
+  border-radius: 999px;
+  background: var(--brown);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  /* In screenshot: visible (at least on the first card).
+     We'll show on hover for all by default. */
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 2;
+}
+
+.image-wrapper:hover .social-overlay{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.social-overlay a{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.social-overlay a:hover{
+  background: rgba(255,255,255,0.20);
+}
+
+/* =========================
+   NAME PANEL + ROLE TAG
+   Your existing h4 + p are used.
+========================= */
+.team-card h4{
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 26px;
+
+  margin: 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 14px;
+
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--text);
+
+  box-shadow: 0 -10px 22px rgba(15, 23, 42, 0.10);
+  z-index: 2;
+}
+
+/* Hide role text visually (we’ll display it as the brown tag like screenshot) */
+.team-card p{
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  margin: 0;
+
+  color: transparent;  /* keeps your text for screen readers/SEO */
+  font-size: 0;
+}
+
+/* Brown tag label (default uses your role text by reading it from data-role) */
+.team-card p::after{
+  content: attr(data-role);
+  display: inline-block;
+  background: var(--brown);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 10px;
+}
+
+/* If you forget to add data-role, show nothing instead of blank tag */
+.team-card p:not([data-role])::after{
+  content: "";
+  display: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1000px){
+  .card-row{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px){
+  .page-head{ flex-direction: column; align-items: flex-start; }
+  .page-title{ font-size: 26px; }
+  .card-row{ grid-template-columns: 1fr; }
+  .image-wrapper{ height: 280px; }
+
+  /* show social strip on touch devices */
+  .social-overlay{ opacity: 1; transform: none; }
+}

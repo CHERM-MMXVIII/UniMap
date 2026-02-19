@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="flex h-screen bg-#d1e0d6">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 shadow-sm" id="sidebar">
+            <!-- Close Button (visible when expanded) -->
+            <button class="close-btn" aria-label="Close sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Logo/Brand Section -->
+            <div class="sidebar-header p-4 flex items-center justify-center">
+                <h1 class="text-xl font-semibold text-white brand-title">SLSU UniMap</h1>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="sidebar-nav">
+                <ul class="space-y-1">
+                    <li>
+                        <button class="sidebar-item active w-full text-white"
+                            onclick="showPage('dashboard')">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
+                                </svg>
+                                <span class="font-medium sidebar-text">Main Dashboard</span>
+                            </div>
+                            <span class="item-subtitle">Overview & monitoring</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="sidebar-item w-full text-white"
+                            onclick="showPage('departments')">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                                <span class="font-medium sidebar-text">Departments</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="sidebar-item w-full text-white"
+                            onclick="showPage('campuses')">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="font-medium sidebar-text">Campuses</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="sidebar-item w-full text-white"
+                            onclick="showPage('buildings')">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span class="font-medium sidebar-text">Building Count</span>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Back to Main Page and Logout Buttons -->
+            <div class="sidebar-actions">
+                <a href="/" class="action-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="action-text">Back to Main Page</span>
+                </a>
+                <button class="action-link logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="action-text">Logout</span>
+                </button>
+            </div>
+
+            <!-- Hamburger Menu at Very Bottom -->
+            <div class="sidebar-footer hidden md:flex">
+                <button class="menu-toggle-btn" id="avatarBtn" aria-label="Toggle sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="px-4 py-3 flex justify-between items-center">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+
+                    <!-- Search Bar -->
+                    <div class="hidden md:flex items-center bg-gray-100 rounded-lg px-3 py-2 w-96" style="position:relative;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Search for buildings, departments, campuses..."
+                            class="ml-2 bg-transparent border-none focus:outline-none text-sm flex-grow">
+                        <div id="searchResults" style="position:absolute;top:100%;left:0;right:0;background:white;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);margin-top:8px;max-height:400px;overflow-y:auto;display:none;z-index:1000;"></div>
+                    </div>
+
+                    <!-- Right Side Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notification Icon -->
+                        <div class="relative">
+                            <button class="p-1 rounded-full hover:bg-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                <span class="notification-badge">3</span>
+                            </button>
+                        </div>
+
+                          <!-- User Info: name between bell and avatar -->
+                        <div class="flex items-center">
+                            <div class="hidden md:flex flex-col mr-3 text-left">
+                                <span class="text-sm font-medium text-gray-800" id="headerUserName">Guest</span>
+                            </div>
+
+                            <!-- User Profile Dropdown -->   
+                            <div class="user-dropdown" id="userDropdown">
+                                <div class="user-profile" id="userToggle">
+                                    <div id="headerAvatar" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #085C76;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:30px;height:30px;color:#ffffff;">
+                                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="user-dropdown-menu" id="userDropdownMenu">
+                                    <div class="user-dropdown-header">
+                                        <div class="user-dropdown-avatar" id="dropdownAvatar">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="dropdown-avatar-icon">
+                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="user-dropdown-name" id="userFullname">Guest</p>
+                                        </div>
+                                    </div>
+                                    <ul class="user-dropdown-list">
+                                        <li><a href="/accountsettings" onclick="openAccountSettings(); return false;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                                            Account Settings
+                                        </a></li>
+                                        <li class="user-dropdown-divider"></li>
+                                        <li><a href="#" onclick="logoutUser(); return false;" class="logout-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                                            Logout
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
+                <!-- Main Dashboard Page -->
+                <div id="dashboard" class="page active space-y-6">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Hello, <span id="welcomeUserName">Guest</span> 👋</h1>
+                        <p class="text-gray-500">What are you looking for today?</p>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Main Dashboard</h2>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span id="lastUpdatedDashboard">Last updated: Today, 10:45 AM</span>
+                            <button class="ml-2 text-green-600 hover:text-green-700 refresh-btn" onclick="refreshDashboard('dashboard')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stat Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Hazard Mapping Coverage -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 card stat-card">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">Hazard Mapping Coverage</p>
+                                    <div class="flex items-end mt-1">
+                                        <h3 class="text-3xl font-bold text-gray-800">75%</h3>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-[rgb(209,183,106)] h-2 rounded-full" style="width: 75%"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Research Projects -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 card stat-card"
+                            style="border-left-color: #8b5cf6;">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">Research Projects</p>
+                                    <div class="flex items-end mt-1">
+                                        <h3 class="text-3xl font-bold text-gray-800">42</h3>
+                                        <span class="text-xs text-green-600 ml-2 mb-1">+3 this month</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Across 8 departments</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Land Area -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 card stat-card"
+                            style="border-left-color: #10b981;">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">Total Land Area</p>
+                                    <div class="flex items-end mt-1">
+                                        <h3 class="text-3xl font-bold text-gray-800">145.3</h3>
+                                        <span class="text-sm text-gray-600 ml-1 mb-1">hectares</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">9 campuses nationwide</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Access Buttons -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Access</h2>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="openModal('addProjectModal')"
+                                class="quick-btn flex items-center bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Add Project
+                            </button>
+                            <button onclick="openModal('updateMapModal')"
+                                class="quick-btn flex items-center bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Update Map
+                            </button>
+                            <button onclick="openModal('viewReportsModal')"
+                                class="quick-btn flex items-center bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                View Reports
+                            </button>
+                            <button onclick="openModal('scheduleEventModal')"
+                                class="quick-btn flex items-center bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Schedule Event
+                            </button>
+                            <button onclick="document.getElementById('photoUploadInput').click()"
+                                class="quick-btn flex items-center bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Upload Photos
+                            </button>
+                            <!-- Hidden file input for photo upload -->
+                            <input type="file" id="photoUploadInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(event)">
+                        </div>
+                    </div>
+
+                    <!-- Map and Recent Updates -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Map Preview -->
+                        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-semibold text-gray-800">Campus Map</h2>
+                                <button
+                                    class="text-green-600 hover:text-green-700 text-sm font-medium flex items-center">
+                                    View Full Map
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="map-container h-80 w-full rounded-lg"></div>
+                            <div class="flex justify-between mt-4">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-green-600 rounded-full"></div>
+                                    <span class="text-xs text-gray-500 ml-1">High Traffic</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                    <span class="text-xs text-gray-500 ml-1">Medium Traffic</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <span class="text-xs text-gray-500 ml-1">Construction</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <span class="text-xs text-gray-500 ml-1">Closed Area</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Updates -->
+                        <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-semibold text-gray-800">Recent Updates</h2>
+                                <button class="text-green-600 hover:text-green-700 text-sm font-medium" onclick="openModal('viewAllUpdatesModal')">View
+                                    All</button>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="update-box">
+                                <div class="title-row">
+                                <p class="title">New Science Building Opening</p>
+                                <span class="update-arrow">↗</span>
+                                </div>
+                                <p class="desc">
+                                    The new Science Building will open next Monday with state-of-the-art laboratories.
+                                </p>
+                                <p class="time">Today, 9:30 AM</p>
+                            </div>
+
+                            <div class="update-box">
+                                <div class="title-row">
+                                <p class="title">Library Renovation Notice</p>
+                                <span class="update-arrow">↗</span>
+                                </div>
+                                <p class="desc">
+                                    The west wing of the library will be closed for renovations starting next week.
+                                </p>
+                                <p class="time">Yesterday, 2:15 PM</p>
+                            </div>
+
+                            <div class="update-box">
+                                <div class="title-row">
+                                <p class="title">New Campus Map Updates</p>
+                                <span class="update-arrow">↗</span>
+                                </div>
+                                <p class="desc">
+                                    The latest version of the campus map now includes accessibility routes and emergency exits.
+                                </p>
+                                <p class="time">Oct 15, 11:45 AM</p>
+                                
+                            </div>
+
+                            <div class="update-box">
+                                <div class="title-row">
+                                <p class="title">Research Grant Approved</p>
+                                <span class="update-arrow">↗</span>
+                                </div>
+                                <p class="desc">
+                                    The university received a $2.5M grant for environmental research projects.</p>
+                                <p class="time">Oct 12, 4:20 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Yearly Student Population Line Chart -->
+                <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Yearly Student Population</h2>
+                        <div class="h-80">
+                            <canvas id="yearlyPopulationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Departments Page -->
+                <div id="departments" class="page space-y-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Departments</h1>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span id="lastUpdatedDepartments">Last updated: Today, 10:45 AM</span>
+                            <button class="ml-2 text-green-600 hover:text-green-700 refresh-btn" onclick="refreshDashboard('departments')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Department Chart -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Population of Students per Department (Main
+                            Campus)</h2>
+                        <div class="h-80">
+                            <canvas id="departmentChart"></canvas>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Department Data Table -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Department Population Data</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Department</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Student Population</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Faculty Count</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Building Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CABHA
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">45</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">North Campus</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CIT
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">500</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">22</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">East Campus</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CEN
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">38</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">South Campus</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CAM
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">300</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">15</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">West Campus</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">GAG
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">200</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">12</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">North Campus</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CAS
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">50</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Central Campus
+                                        </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">CTE
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">42</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">East Campus</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+                <!-- Campuses Page -->
+                <div id="campuses" class="page space-y-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Campuses</h1>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span id="lastUpdatedCampuses">Last updated: Today, 10:45 AM</span>
+                            <button class="ml-2 text-green-600 hover:text-green-700 refresh-btn" onclick="refreshDashboard('campuses')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Campus Chart -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Student Population per Campus</h2>
+                        <div class="h-80">
+                            <canvas id="campusChart"></canvas>
+                        </div>
+                    </div>
+
+
+                    <!-- Campus Data Table -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Campus Population Data</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Campus</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Student Population</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Land Area (hectares)</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Building Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="table-row bg-green-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-800">
+                                            Lucban</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-800">5,000
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">45.2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">55</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Catanauan</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">3,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">22.5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">28</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Alabat
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">3,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">18.7</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">25</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Gumaca
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">2,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">15.3</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">18</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Infanta</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">2,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">12.8</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">15</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Tiaong
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">2,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">10.5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">12</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Lucena
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">8.2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">10</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Polillo</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">7.5</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">8</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Tagkawayan</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">1,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">4.6</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">6</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Building Count Page -->
+                <div id="buildings" class="page space-y-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Building Count</h1>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span id="lastUpdatedBuildings">Last updated: Today, 10:45 AM</span>
+                            <button class="ml-2 text-green-600 hover:text-green-700 refresh-btn" onclick="refreshDashboard('buildings')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Building Chart -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Building Count in Main Campus</h2>
+                        <div class="h-80">
+                            <canvas id="buildingChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Building Data Table -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
+
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Building Count Summary</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Building Type</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Count</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Percentage</th>
+                                        <th
+                                            class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Total Area (sq.m)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Academic</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">35</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">64%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">42,500</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Laboratories</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">10</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">18%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">15,200</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Admin/Services</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">7</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">13%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">8,750</td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            Dormitories</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">3</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">5%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">12,300</td>
+                                    </tr>
+                                    <tr class="table-row bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Total
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">55
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">100%
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">78,750
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+
+    <!-- ===== QUICK ACCESS MODALS ===== -->
+
+    <!-- Add Project Modal -->
+    <div id="addProjectModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'addProjectModal')">
+        <div class="qa-modal">
+            <div class="qa-modal-header">
+                <h3>Add New Project</h3>
+                <button class="qa-modal-close" onclick="closeModal('addProjectModal')">&times;</button>
+            </div>
+            <div class="qa-modal-body">
+                <div class="qa-form-group">
+                    <label>Project Name</label>
+                    <input type="text" id="proj-name" placeholder="e.g. Science Building Renovation">
+                </div>
+                <div class="qa-form-group">
+                    <label>Campus / Location</label>
+                    <select id="proj-campus">
+                        <option value="">Select campus...</option>
+                        <option>Lucban</option><option>Lucena</option><option>Gumaca</option>
+                        <option>Alabat</option><option>Catanauan</option><option>Polillo</option>
+                        <option>Infanta</option><option>Tagkawayan</option><option>Tiaong</option>
+                    </select>
+                </div>
+                <div class="qa-form-row">
+                    <div class="qa-form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="proj-start">
+                    </div>
+                    <div class="qa-form-group">
+                        <label>End Date</label>
+                        <input type="date" id="proj-end">
+                    </div>
+                </div>
+                <div class="qa-form-group">
+                    <label>Description</label>
+                    <textarea id="proj-desc" rows="3" placeholder="Brief project description..."></textarea>
+                </div>
+            </div>
+            <div class="qa-modal-footer">
+                <button class="qa-btn-secondary" onclick="closeModal('addProjectModal')">Cancel</button>
+                <button class="qa-btn-primary" onclick="submitAddProject()">Add Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Map Modal -->
+    <div id="updateMapModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'updateMapModal')">
+        <div class="qa-modal">
+            <div class="qa-modal-header">
+                <h3>Update Campus Map</h3>
+                <button class="qa-modal-close" onclick="closeModal('updateMapModal')">&times;</button>
+            </div>
+            <div class="qa-modal-body">
+                <div class="qa-form-group">
+                    <label>Campus</label>
+                    <select id="map-campus">
+                        <option value="">Select campus...</option>
+                        <option>Lucban</option><option>Lucena</option><option>Gumaca</option>
+                        <option>Alabat</option><option>Catanauan</option><option>Polillo</option>
+                        <option>Infanta</option><option>Tagkawayan</option><option>Tiaong</option>
+                    </select>
+                </div>
+                <div class="qa-form-group">
+                    <label>Update Type</label>
+                    <select id="map-type">
+                        <option value="">Select type...</option>
+                        <option>New Building Added</option>
+                        <option>Building Removed</option>
+                        <option>Road/Path Change</option>
+                        <option>Accessibility Route Update</option>
+                        <option>Emergency Exit Update</option>
+                        <option>Area Status Change</option>
+                    </select>
+                </div>
+                <div class="qa-form-group">
+                    <label>Upload Map File</label>
+                    <div class="qa-file-drop" onclick="document.getElementById('mapFileInput').click()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        <span id="mapFileLabel">Click to upload or drag and drop</span>
+                        <small>PNG, JPG, SVG, PDF up to 20MB</small>
+                        <input type="file" id="mapFileInput" accept=".png,.jpg,.jpeg,.svg,.pdf" style="display:none" onchange="document.getElementById('mapFileLabel').textContent = this.files[0]?.name || 'Click to upload or drag and drop'">
+                    </div>
+                </div>
+                <div class="qa-form-group">
+                    <label>Notes</label>
+                    <textarea id="map-notes" rows="2" placeholder="Describe what changed..."></textarea>
+                </div>
+            </div>
+            <div class="qa-modal-footer">
+                <button class="qa-btn-secondary" onclick="closeModal('updateMapModal')">Cancel</button>
+                <button class="qa-btn-primary" onclick="submitUpdateMap()">Submit Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Reports Modal -->
+    <div id="viewReportsModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'viewReportsModal')">
+        <div class="qa-modal qa-modal-wide">
+            <div class="qa-modal-header">
+                <h3>Reports</h3>
+                <button class="qa-modal-close" onclick="closeModal('viewReportsModal')">&times;</button>
+            </div>
+            <div class="qa-modal-body">
+                <div class="qa-report-filters">
+                    <select id="report-type">
+                        <option value="all">All Reports</option>
+                        <option value="population">Student Population</option>
+                        <option value="buildings">Buildings</option>
+                        <option value="departments">Departments</option>
+                        <option value="campuses">Campuses</option>
+                    </select>
+                    <select id="report-period">
+                        <option>This Year</option>
+                        <option>Last Year</option>
+                        <option>Last 6 Months</option>
+                        <option>Last Quarter</option>
+                    </select>
+                    <button class="qa-btn-secondary qa-btn-sm" onclick="exportReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Export
+                    </button>
+                </div>
+                <div class="qa-report-list">
+                    <div class="qa-report-item">
+                        <div class="qa-report-icon qa-icon-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <div class="qa-report-info">
+                            <p class="qa-report-title">Student Population Report 2024</p>
+                            <p class="qa-report-meta">Population · Generated Oct 28, 2024</p>
+                        </div>
+                        <button class="qa-btn-outline qa-btn-sm">View</button>
+                    </div>
+                    <div class="qa-report-item">
+                        <div class="qa-report-icon qa-icon-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                        </div>
+                        <div class="qa-report-info">
+                            <p class="qa-report-title">Building Inventory Report Q3</p>
+                            <p class="qa-report-meta">Buildings · Generated Oct 15, 2024</p>
+                        </div>
+                        <button class="qa-btn-outline qa-btn-sm">View</button>
+                    </div>
+                    <div class="qa-report-item">
+                        <div class="qa-report-icon qa-icon-purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div class="qa-report-info">
+                            <p class="qa-report-title">Department Enrollment Summary</p>
+                            <p class="qa-report-meta">Departments · Generated Sep 30, 2024</p>
+                        </div>
+                        <button class="qa-btn-outline qa-btn-sm">View</button>
+                    </div>
+                    <div class="qa-report-item">
+                        <div class="qa-report-icon qa-icon-orange">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div class="qa-report-info">
+                            <p class="qa-report-title">Multi-Campus Overview 2024</p>
+                            <p class="qa-report-meta">Campuses · Generated Sep 10, 2024</p>
+                        </div>
+                        <button class="qa-btn-outline qa-btn-sm">View</button>
+                    </div>
+                </div>
+            </div>
+            <div class="qa-modal-footer">
+                <button class="qa-btn-secondary" onclick="closeModal('viewReportsModal')">Close</button>
+                <button class="qa-btn-primary" onclick="generateReport()">Generate New Report</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Event Modal -->
+    <div id="scheduleEventModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'scheduleEventModal')">
+        <div class="qa-modal">
+            <div class="qa-modal-header">
+                <h3>Schedule Event</h3>
+                <button class="qa-modal-close" onclick="closeModal('scheduleEventModal')">&times;</button>
+            </div>
+            <div class="qa-modal-body">
+                <div class="qa-form-group">
+                    <label>Event Title</label>
+                    <input type="text" id="evt-title" placeholder="e.g. Campus Inspection 2024">
+                </div>
+                <div class="qa-form-group">
+                    <label>Event Type</label>
+                    <select id="evt-type">
+                        <option value="">Select type...</option>
+                        <option>Campus Inspection</option>
+                        <option>Building Survey</option>
+                        <option>Department Meeting</option>
+                        <option>Maintenance Schedule</option>
+                        <option>Academic Event</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="qa-form-row">
+                    <div class="qa-form-group">
+                        <label>Date</label>
+                        <input type="date" id="evt-date">
+                    </div>
+                    <div class="qa-form-group">
+                        <label>Time</label>
+                        <input type="time" id="evt-time">
+                    </div>
+                </div>
+                <div class="qa-form-group">
+                    <label>Location / Campus</label>
+                    <select id="evt-location">
+                        <option value="">Select campus...</option>
+                        <option>Lucban</option><option>Lucena</option><option>Gumaca</option>
+                        <option>Alabat</option><option>Catanauan</option><option>Polillo</option>
+                        <option>Infanta</option><option>Tagkawayan</option><option>Tiaong</option>
+                    </select>
+                </div>
+                <div class="qa-form-group">
+                    <label>Description</label>
+                    <textarea id="evt-desc" rows="2" placeholder="Event details..."></textarea>
+                </div>
+            </div>
+            <div class="qa-modal-footer">
+                <button class="qa-btn-secondary" onclick="closeModal('scheduleEventModal')">Cancel</button>
+                <button class="qa-btn-primary" onclick="submitScheduleEvent()">Schedule Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Photos Success Toast -->
+    <div id="qaToast" class="qa-toast"></div>
+
+    <!-- View All Updates Modal -->
+    <div id="viewAllUpdatesModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'viewAllUpdatesModal')">
+        <div class="qa-modal" style="max-width: 800px;">
+            <div class="qa-modal-header">
+                <h3>All Recent Updates</h3>
+                <button class="qa-modal-close" onclick="closeModal('viewAllUpdatesModal')">&times;</button>
+            </div>
+            <div class="qa-modal-body" style="max-height: 500px; overflow-y: auto;">
+                <div class="space-y-4">
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">New Science Building Opening</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The new Science Building will open next Monday with state-of-the-art laboratories and research facilities.
+                        </p>
+                        <p class="time">Today, 9:30 AM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Library Renovation Notice</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The west wing of the library will be closed for renovations starting next week. Alternative study spaces available.
+                        </p>
+                        <p class="time">Yesterday, 2:15 PM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">New Campus Map Updates</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The latest version of the campus map now includes accessibility routes and emergency exits.
+                        </p>
+                        <p class="time">Oct 15, 11:45 AM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Research Grant Approved</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The university received a $2.5M grant for environmental research projects.
+                        </p>
+                        <p class="time">Oct 12, 4:20 PM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Campus Security Upgrade</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            New security cameras and card access systems installed across all campuses for enhanced safety.
+                        </p>
+                        <p class="time">Oct 10, 3:45 PM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Student Portal Update</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The student portal now features improved course registration and grade viewing functionality.
+                        </p>
+                        <p class="time">Oct 8, 10:15 AM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">WiFi Network Expansion</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            High-speed WiFi coverage expanded to outdoor areas and all dormitory buildings.
+                        </p>
+                        <p class="time">Oct 5, 1:30 PM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Green Campus Initiative</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            New solar panels installed on campus buildings, reducing energy costs by 30%.
+                        </p>
+                        <p class="time">Oct 3, 9:00 AM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">Sports Complex Renovation</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            The sports complex renovation is complete with new gym equipment and indoor courts.
+                        </p>
+                        <p class="time">Sep 28, 4:00 PM</p>
+                    </div>
+
+                    <div class="update-box">
+                        <div class="title-row">
+                            <p class="title">New Parking Structure</p>
+                            <span class="update-arrow">↗</span>
+                        </div>
+                        <p class="desc">
+                            Construction begins on a new 500-space parking structure near the North Campus entrance.
+                        </p>
+                        <p class="time">Sep 25, 11:20 AM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="qa-modal-footer">
+                <button class="qa-btn-secondary" onclick="closeModal('viewAllUpdatesModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
