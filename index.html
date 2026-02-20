@@ -43,11 +43,11 @@
         <!-- ⬇️ Dropdown Content -->
         <div class="tool-dropdown-menu" id="toolDropdownMenu">
             <ul>
-                <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="html/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="#"><i class="fas fa-school"></i> Colleges</a></li>
-                <li><a href="/orgchart"><i class="fas fa-users"></i> People Behind CHERM</a>
+                <li><a href="html/org-chart.html"><i class="fas fa-users"></i> People Behind CHERM</a>
                 </li>
-                <li><a href="/feedback"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+                <li><a href="html/feedback-form.html"><i class="fas fa-comment-alt"></i> Feedback</a></li>
                 <li><a href="javascript:window.print()" onclick="printMap(event)"><i class="fas fa-print"></i> Print
                         Map</a></li>
                 <li><a href="#" onclick="shareMap()"><i class="fas fa-share-alt"></i> Share Map</a></li>
@@ -72,7 +72,7 @@
             </div>
             <ul>
                 <li id="accountSettingsItem"><a href="#" onclick="openAccountSettings(); return false;"><i class="fas fa-cog"></i> Account Settings</a></li>
-                <li id="loginItem"><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li id="loginItem"><a href="html/login-form.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 <li id="logoutItem"><a href="#" onclick="logoutUser(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
@@ -591,7 +591,7 @@
             localStorage.removeItem("email");
             localStorage.removeItem("profilePicture");
             localStorage.removeItem("profilePictureCache");
-            window.location.href = "/login";
+            window.location.href = "html/login-form.html";
         }
 
         function openAccountSettings() {
@@ -602,7 +602,7 @@
                 return;
             }
 
-            window.location.href = "/accountsettings";
+            window.location.href = "html/acc-settings.html";
         }
 
         function showToast(message) {
