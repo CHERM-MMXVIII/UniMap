@@ -143,3 +143,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Hide conditions button when footer is visible
+window.addEventListener('scroll', function () {
+    const conditionBtn = document.getElementById('conditionButton');
+    const footer = document.getElementById('footer');
+
+    if (!conditionBtn || !footer) return;
+
+    const footerRect = footer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (footerRect.top < windowHeight) {
+        conditionBtn.style.display = 'none';
+    } else {
+        conditionBtn.style.display = 'block';
+    }
+});
