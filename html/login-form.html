@@ -80,7 +80,7 @@
         localStorage.setItem("fullname", data.user.fullname);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("email", data.user.email);
-         window.location.href = "/"; // or your homepage route
+         window.location.href = "../index.html";
 }   else {
         alert(data.message || "Login failed");
 }
@@ -95,7 +95,7 @@
   function loginAsGuest() {
     localStorage.setItem("fullname", "Guest");
     localStorage.setItem("username", "guest");
-    window.location.href = "/";
+    window.location.href = "../index.html";
   }
 
 document.addEventListener("DOMContentLoaded", () => {
