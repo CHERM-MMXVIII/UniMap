@@ -400,13 +400,13 @@ function initializeCharts() {
 function logoutUser() {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "/login";
+    window.location.href = "../html/login-form.html";
 }
 
 window.addEventListener('resize', function() {});
 
 function openAccountSettings() {
-    window.location.href = "/accountsettings";
+    window.location.href = "../html/acc-settings.html";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
