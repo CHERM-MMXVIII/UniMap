@@ -24,7 +24,7 @@
 
       <!-- TOP TOGGLE TEXT/LINK -->
       <div class="create-acc">
-        <span id="authTopText">Don’t have an account?</span>
+        <span id="authTopText">Don't have an account?</span>
         <a href="#" id="authToggleLink">Create account</a>
       </div>
 
@@ -99,8 +99,8 @@
     const authTopText = document.getElementById("authTopText");
     const authToggleLink = document.getElementById("authToggleLink");
 
-    // Start mode based on URL: /register => register mode, /login => login mode
-    const startRegister = (window.location.pathname === "/register");
+    // Start mode based on URL hash
+    const startRegister = (window.location.hash === "#register");
     if (startRegister) authWrap.classList.add("is-register");
     updateTopLinkText();
 
@@ -112,10 +112,9 @@
 
     function updateTopLinkText() {
       const isReg = authWrap.classList.contains("is-register");
-      authTopText.textContent = isReg ? "Already have an account?" : "Don’t have an account?";
+      authTopText.textContent = isReg ? "Already have an account?" : "Don't have an account?";
       authToggleLink.textContent = isReg ? "Login" : "Create account";
-      // Optional: update URL without refresh
-      window.history.replaceState({}, "", isReg ? "/register" : "/login");
+      window.history.replaceState({}, "", isReg ? "#register" : "#login");
     }
 
     // Password eye toggle (works for all)
@@ -153,7 +152,7 @@
           localStorage.setItem("fullname", data.user.fullname);
           localStorage.setItem("username", data.user.username);
           localStorage.setItem("email", data.user.email);
-          window.location.href = "/";
+          window.location.href = "../html/dashboard.html";
         } else {
           alert(data.message || "Login failed");
         }
@@ -167,7 +166,7 @@
     document.getElementById("guestBtn").addEventListener("click", () => {
       localStorage.setItem("fullname", "Guest");
       localStorage.setItem("username", "guest");
-      window.location.href = "/";
+      window.location.href = "../html/dashboard.html";
     });
 
     // REGISTER submit
@@ -191,7 +190,6 @@
 
         if (data.success) {
           alert("Account created! Please log in.");
-          // slide back to login
           authWrap.classList.remove("is-register");
           updateTopLinkText();
         } else {
