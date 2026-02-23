@@ -1,337 +1,401 @@
+/* =========================
+   GLOBAL
+========================= */
 * {
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 body {
-    margin: 0;
-    height: 100vh;
-    background: #fafafa;
+  margin: 0;
+  height: 100vh;
+  background: #fafafa;
 }
 
-/* MAIN WRAPPER */
+/* =========================
+   MAIN WRAPPER
+========================= */
 .login-wrapper {
-    display: flex;
-    height: 100vh;
-    width: 100%;
+  display: flex;
+  height: 100vh;
+  width: 100%;
 }
 
-/* LEFT PANEL */
+/* =========================
+   LEFT PANEL
+========================= */
 .login-left {
-    width: 40%;
-    position: relative;
-    background: #085C76;
-    border-right: 2px solid #e0e0e0;
+  width: 55%;
+  position: relative;
+  background: #085C76;
+  border-right: 2px solid rgba(0,0,0,0.06);
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    gap: 1.5rem;
-    padding: 3rem;
-
-    border-right: 2px solid rgba(0,0,0,0.06);
-    overflow: hidden;
+  gap: 1.5rem;
+  padding: 3rem;
+  overflow: hidden;
 }
 
 .login-left::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background: url("../img/login-bg.jpg") center / cover no-repeat;
-    opacity: 0.08;
-
-    z-index: 0;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../img/login-bg.jpg") center / cover no-repeat;
+  opacity: 0.08;
+  z-index: 0;
 }
 
+.login-left * {
+  position: relative;
+  z-index: 1;
+}
 
 .login-left img {
-    width: 180px;
-    margin-bottom: 1rem;
+  width: 180px;
+  margin-bottom: 1rem;
 }
 
 .login-left h2 {
-    margin: 0;
-    font-weight: 500;
-    color: #dfdfdf;
+  margin: 0.1rem 0 0;
+  font-weight: 500;
+  color: #dfdfdf;
+  line-height: 1;
+  letter-spacing: 6px;
 }
 
 .login-left h1 {
-    margin: 0;
-    letter-spacing: 15px;
-    font-weight: 800;
-    color: #dfdfdf;
+  margin: 0 0 0.1rem;
+  letter-spacing: 15px;
+  font-weight: 800;
+  color: #dfdfdf;
+  line-height: 1.2;
 }
 
-.login-left h1 {
-    margin-bottom: 0.1rem;  
-    line-height: 1.2;
-}
-.login-left h2 {
-    margin-top: 0.1rem;           
-    line-height: 1;
-    letter-spacing: 6px;    
-}
-
-
-/* RIGHT PANEL */
+/* =========================
+   RIGHT PANEL
+========================= */
 .login-right {
-    width: 60%;
-    padding: 4rem 6rem;
-    background: #fafafa;
+  width: 45%;
+  background: #fafafa;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* ✅ FIX */
-    margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding-left: 8rem;
+  position: relative;
 }
 
-
-form {
-    width: 100%;
-    max-width: 420px;
-    background: #fff;
-    padding: 2.5rem 3rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-
-form * {
-    position: relative;
-    z-index: 2;
-}
-
-.form-title {
-    margin-top: 0;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-
-
-
-label {
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
-    display: block;
-}
-
-input {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-    border: 1px solid #cfd8dc;
-    background: #f9f9f9;
-    font-size: 0.95rem;
-
-    margin-bottom: 1.4rem;
-    transition: 0.25s;
-}
-
-input:focus {
-    outline: none;
-    background: #ffffff;
-    border-color: #2f8f46;
-    box-shadow: 0 0 0 3px rgba(47,143,70,0.2);
-}
-
-/* CREATE ACCOUNT */
+/* top right create account */
 .create-acc {
-    text-align: right;
-    margin-top: -0.8rem;
-    margin-bottom: 1.8rem;
-    font-size: 0.85rem;
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 0.85rem;
+  color: #666;
 }
 
 .create-acc a {
-    color: #2f8f46;
-    font-weight: 600;
-    text-decoration: none;
+  margin-left: 6px;
+  border: 1px solid #ccc;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #333;
 }
 
-/* BUTTONS */
-.btn-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
+.create-acc a:hover {
+  background: #f5f5f5;
 }
 
-button {
-    padding: 0.7rem 2rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.cancel-btn {
-    background: #8b2d1f;
-    color: #fff;
-    border-radius: 999px;
-    padding: 0.85rem;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.cancel-btn:hover {
-    background: #6f2217;
-}
-
-.login-btn {
-    background: #2f8f46;
-    color: #fff;
-    border-radius: 999px;
-    padding: 0.85rem;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.login-btn:hover {
-    background: #247037;
-}
-.guest-btn {
+form {
+  width: 360px;
   background: transparent;
-  border: 2px dashed #085c76;
-  color: #085c76;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
 }
 
-.guest-btn:hover {
-  background: #085c76;
-  color: #fff;
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem 0;
+  color: #222;
 }
 
-
-.back-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 9999;
-
-    background: rgba(255,255,255,0.95);
-    padding: 8px 14px;
-    border-radius: 8px;
-
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #333;
-
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.login-subtitle {
+  font-size: 0.85rem;
+  color: #777;
+  margin: 0 0 2.4rem 0;
 }
 
-.or-divider {
-    margin: 1.8rem 0 1.2rem;
-    text-align: center;
-    position: relative;
-    font-size: 0.85rem;
-    color: #777;
+.login-wrapper{
+  position: relative;   /* required */
 }
 
-.or-divider::before,
-.or-divider::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: #ccc;
-}
-
-.or-divider::before { left: 0; }
-.or-divider::after { right: 0; }
-
-.social-login {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-}
-
-.social-login a {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #f1f1f1;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #444;
-    font-size: 1rem;
-    transition: 0.25s;
-}
-
-.social-login a:hover {
-    background: #2f8f46;
-    color: #fff;
-}
-
-/* ===== PASSWORD EYE TOGGLE ===== */
-.password-field {
-  position: relative;
-  margin-bottom: 1.4rem; /* moves the wrapper height matches input height only */
-}
-
-.password-field input {
-  width: 100%;
-  padding-right: 52px;
-  box-sizing: border-box;
-  margin-bottom: 0; /* removes default input margin so top:50% is accurate */
-}
-
-/* Hides the browser's built-in password reveal icon (Edge, Chrome) */
-.password-field input::-ms-reveal,
-.password-field input::-ms-clear {
-  display: none;
-}
-.password-field input::-webkit-credentials-auto-fill-button,
-.password-field input::-webkit-strong-password-auto-fill-button {
-  display: none !important;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.toggle-password {
+/* vertical black line - 50% height, centered */
+.login-wrapper::after{
+  content: "";
   position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 55%;                 /* ✅ middle */
+  top: 50%;                  /* ✅ center vertically */
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 50%;               /* ✅ only 50% height */
+  background: #000;
+  border-radius: 2px;        /* optional: softer ends */
+}
+
+
+/* =========================
+   INPUTS WITH ICONS (ALIGNED)
+========================= */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-bottom: 1px solid #ccc;
+
+  height: 46px;            /* fixed height => perfect alignment */
+  margin-bottom: 26px;
+}
+
+.input-wrapper i {
+  width: 20px;
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.input-wrapper input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  height: 46px;
+  line-height: 46px;       /* ✅ typed text centered vertically */
+  padding: 0;
+
+  font-size: 15px;
+  color: #222;
+}
+
+.input-wrapper input::placeholder {
+  color: #888;
+}
+
+.input-wrapper:focus-within {
+  border-bottom: 2px solid #2f8f46;
+}
+
+.input-wrapper:focus-within i {
+  color: #2f8f46;
+}
+
+/* eye toggle button */
+.toggle-password {
+  width: 32px;
+  height: 32px;
   border: none;
   background: transparent;
   cursor: pointer;
   padding: 0;
-  width: 32px;
-  height: 32px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  pointer-events: auto;
 }
 
-.toggle-password .eye {
-  width: 20px;
-  height: 20px;
-  fill: #085c76;
+.toggle-password i {
+  width: auto;
+  color: #888;
+  font-size: 16px;
 }
 
-.toggle-password .eye-closed {
-  display: none;
+.toggle-password:hover i {
+  color: #2f8f46;
 }
 
-.toggle-password.is-shown .eye-open {
-  display: none;
+/* =========================
+   BUTTONS
+========================= */
+.btn-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
 }
 
-.toggle-password.is-shown .eye-closed {
-  display: block;
+.login-btn,
+.guest-btn {
+  flex: 1;
+  border-radius: 6px;
+  padding: 0.65rem;
+  border: 2px solid #333;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
 }
+
+.login-btn:hover {
+  background-color: #2f8f46;
+  color: #ffffff;
+  border-color: #2f8f46;
+}
+
+.guest-btn:hover {
+  background-color: #085c76;
+  color: #ffffff;
+  border-color: #085c76;
+}
+
+/* =========================
+   CREATE ACCOUNT BUTTON
+========================= */
+.create-btn{
+  width: 100%;
+  border-radius: 8px;
+  padding: 0.8rem;
+  border: 2px solid #333;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.create-btn:hover{
+  background: #2f8f46;
+  border-color: #2f8f46;
+  color: #fff;
+}
+
+/* =========================
+   SLIDING AUTH LAYOUT
+========================= */
+.auth-wrap{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* make sure brand is relative */
+.auth-brand{
+  position: absolute;
+  z-index: 2;
+}
+
+/* when register: divider must be on the LEFT edge (between panels) */
+.auth-wrap.is-register .auth-brand::after{
+  right: auto;
+  left: 0;          /* ✅ left edge in register mode */
+}
+
+
+/* Panels are absolutely positioned so they can slide */
+.auth-brand,
+.auth-forms{
+  position:absolute;
+  top:0;
+  height:100%;
+  transition: left 0.55s ease;
+}
+
+/* sizes: left bigger than right */
+.auth-brand{
+  width: 60%;
+  left: 0;
+
+  /* reuse your login-left look */
+  background:#085C76;
+  border-right: 0;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1.5rem;
+  padding:3rem;
+  overflow:hidden;
+}
+
+.auth-brand::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("../img/login-bg.jpg") center/cover no-repeat;
+  opacity:0.10;
+  z-index:0;
+}
+
+.auth-brand *{
+  position:relative;
+  z-index:1;
+}
+
+.auth-brand img{ width:180px; margin-bottom:1rem; }
+.auth-brand h2{
+  margin:0.1rem 0 0;
+  font-weight:500;
+  color:#dfdfdf;
+  line-height:1;
+  letter-spacing:6px;
+  text-align:center;
+}
+.auth-brand h1{
+  margin:0 0 0.1rem;
+  letter-spacing:15px;
+  font-weight:800;
+  color:#dfdfdf;
+  line-height:1.2;
+  text-align:center;
+}
+
+.auth-forms{
+  width: 40%;
+  left: 60%;
+  background:#fafafa;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:absolute;
+}
+
+/* Keep create-acc top-right inside the forms panel */
+.auth-forms .create-acc{
+  position:absolute;
+  top:40px;
+  right:60px;
+}
+
+/* Swap sides when register */
+.auth-wrap.is-register .auth-brand{ left: 40%; }
+.auth-wrap.is-register .auth-forms{ left: 0; }
+
+/* show/hide correct form */
+.auth-form{ width:360px; }
+.form-register{ display:none; }
+.auth-wrap.is-register .form-login{ display:none; }
+.auth-wrap.is-register .form-register{ display:block; }
+
+/* Mobile: stack */
+@media (max-width: 980px){
+  .auth-brand{ display:none; }
+  .auth-wrap::after{ display:none; }
+  .auth-forms{ width:100%; left:0; padding: 2rem; }
+  .auth-forms .create-acc{ right:24px; top:20px; }
+  .auth-form{ width:100%; max-width:420px; }
+}
+
+
+
