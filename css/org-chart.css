@@ -1,10 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@400;600;700&display=swap');
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header {
+    text-align: center;
+    padding: 5rem 1rem 3rem;
+    position: relative;
+}
+
+.page-header .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #4c6d57;
+    margin-bottom: 0.75rem;
+}
+
+.page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.page-header h1 span {
+    color: #7eac43;
+    font-style: italic;
+}
+
+.page-header .subtitle {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.header-divider {
+    width: 60px;
+    height: 4px;
+    background: #085C76;
+    border-radius: 2px;
+    margin: 1.5rem auto 0;
+}
+
 /* =========================
    GLOBAL
 ========================= */
 * { box-sizing: border-box; }
 
 :root{
-  --brown: #b06a2a;      /* screenshot brown */
+  --brown: #b06a2a;      
   --brown2:#9a581f;
   --text:  #0f172a;
   --muted: #6b7280;
@@ -39,13 +92,13 @@ body{
    PAGE CONTAINER
 ========================= */
 .container{
-  max-width: 1100px;      /* matches screenshot width vibe */
+  max-width: 1100px;      
   margin: auto;
   padding: 4.5rem 1rem 3rem;
 }
 
 /* =========================
-   HEADER LIKE SCREENSHOT
+   HEADER 
 ========================= */
 .page-head{
   display: flex;
@@ -89,7 +142,6 @@ body{
 
 /* =========================
    SECTIONS
-   (keeps your groups, but styled cleaner)
 ========================= */
 .team-section{
   margin-top: 28px;
@@ -116,7 +168,7 @@ body{
 }
 
 /* =========================
-   CARD ROW (4 across like screenshot)
+   CARD ROW 
 ========================= */
 .card-row{
   display: grid;
@@ -125,7 +177,7 @@ body{
 }
 
 /* =========================
-   TEAM CARD (tile like screenshot)
+   TEAM CARD 
 ========================= */
 .team-card{
   background: #fff;
@@ -177,8 +229,7 @@ body{
 }
 
 /* =========================
-   SOCIAL STRIP (vertical brown bar)
-   Your existing .social-overlay becomes the strip.
+   SOCIAL STRIP 
 ========================= */
 .social-overlay{
   position: absolute;
@@ -195,9 +246,6 @@ body{
   gap: 12px;
   align-items: center;
   justify-content: center;
-
-  /* In screenshot: visible (at least on the first card).
-     We'll show on hover for all by default. */
   opacity: 0;
   transform: translateY(-6px);
   transition: opacity .18s ease, transform .18s ease;
@@ -249,7 +297,7 @@ body{
   z-index: 2;
 }
 
-/* Hide role text visually (we’ll display it as the brown tag like screenshot) */
+/* Hide role text visually ) */
 .team-card p{
   position: absolute;
   left: 14px;
@@ -293,4 +341,141 @@ body{
 
   /* show social strip on touch devices */
   .social-overlay{ opacity: 1; transform: none; }
+}
+/* =========================
+   LAYOUT ADDITIONS
+========================= */
+
+/* Two leadership groups side by side */
+.leadership-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .leadership-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Vertical stack of cards  */
+.card-col {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* Center the CHERM Team column */
+.card-col--center {
+    align-items: center;
+}
+
+/* card-row stays as-is (used for interns horizontal row) */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+/* Override the grid on card-row so interns wrap naturally */
+.team-section .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    grid-template-columns: unset;
+}
+/* =========================
+   NAME PANEL
+========================= */
+.name-panel {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  padding: 12px 14px 10px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(15,23,42,0.13);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.name-panel .card-name {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.2;
+}
+.name-panel .card-role {
+  display: inline-block;
+  background: var(--brown);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  line-height: 1.4;
+  width: fit-content;
+}
+/* Override old h4/p inside image-wrapper context */
+.image-wrapper ~ h4,
+.image-wrapper ~ p {
+  display: none !important;
+}
+
+/* =========================
+   NAME PANEL OVERRIDES
+========================= */
+.name-panel {
+  text-align: center;
+  align-items: center;
+}
+
+.name-panel .card-role {
+  background: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 0;
+  border-radius: 0;
+  width: auto;
+}
+
+/* Fix CHERM span italic in CSS too */
+.page-header h1 span {
+  font-style: normal;
+}
+
+/* People Behind color override */
+.page-header h1 {
+  color: #0f172a; 
+}
+
+/* Section title bigger */
+.section-title {
+  font-size: 15px;
+  letter-spacing: .08em;
+}
+
+/* Center section titles */
+.section-title {
+  text-align: center;
+}
+.section-title::after {
+  margin: 10px auto 0;
+}
+
+/* Center cards in all sections */
+.card-col {
+  align-items: center;
+}
+.card-row {
+  justify-content: center;
+}
+.leadership-row {
+  justify-content: center;
 }
