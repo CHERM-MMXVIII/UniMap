@@ -47,9 +47,7 @@ const campusLocations = {
 };
 
 function goToCampus(campus) {
-    const coords = campusLocations[campus];
-    const url = `https://www.google.com/maps?q=${coords}&output=embed`;
-    campusMap.src = url;
+    // Handled by Google Maps JS API in index.html
 }
 
 function logoutUser() {
@@ -80,10 +78,10 @@ if (menuToggleBtn && menuCheckbox && slideMenu) {
         if (menuCheckbox.checked) {
             const slideWidth = slideMenu.offsetWidth;
             menuToggleBtn.style.left = slideWidth + 'px';
-            menuToggleBtn.textContent = '✖ Close Menu';
+            menuToggleBtn.textContent = 'Close Menu';
         } else {
             menuToggleBtn.style.left = '0px';
-            menuToggleBtn.textContent = '☰ Open Menu';
+            menuToggleBtn.textContent = 'Open Menu';
         }
     });
 }
@@ -102,26 +100,23 @@ if (btn && panel && mapContainer) {
         toolDropdown.classList.toggle('panel-closed');
 
         if (panel.classList.contains('closed')) {
-            btn.style.right = '10px';
-            btn.textContent = '☰ Open Panel';
+            btn.style.right = '-5px';
+            btn.textContent = 'Open Panel';
             
             mapContainer.style.width = '100%';
             mapContainer.style.right = '0';
         } else {
             const panelWidth = panel.offsetWidth;
             btn.style.right = panelWidth + 'px';
-            btn.textContent = '✖ Close Panel';
+            btn.textContent = 'Close Panel';
             
             mapContainer.style.width = `calc(100% - ${panelWidth}px)`;
             mapContainer.style.right = panelWidth + 'px';
         }
         
         setTimeout(() => {
-            const iframe = campusMap;
-            if (iframe) {
-                iframe.style.display = 'none';
-                iframe.offsetHeight;
-                iframe.style.display = 'block';
+            if (typeof google !== 'undefined' && typeof gMap !== 'undefined') {
+                google.maps.event.trigger(gMap, 'resize');
             }
         }, 300);
     });
@@ -142,21 +137,4 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Layer "' + layer + '" is now ' + (isChecked ? 'ON' : 'OFF'));
         });
     });
-});
-
-// Hide conditions button when footer is visible
-window.addEventListener('scroll', function () {
-    const conditionBtn = document.getElementById('conditionButton');
-    const footer = document.getElementById('footer');
-
-    if (!conditionBtn || !footer) return;
-
-    const footerRect = footer.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (footerRect.top < windowHeight) {
-        conditionBtn.style.display = 'none';
-    } else {
-        conditionBtn.style.display = 'block';
-    }
 });
