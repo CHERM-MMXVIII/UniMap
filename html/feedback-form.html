@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="../css/stylesheets.css">
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html"><img src="../img/slsu-logo.webp" alt="SLSU Logo"></a>
+        <div class="header-text">
+            <h1>Southern Luzon State University</h1>
+            <h1 class="unimap">
+              <span>U</span><span>N</span><span>I</span><span>M</span><span>A</span><span>P</span>
+            </h1>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Feedback Form</h2>
+        <form id="feedbackForm">
+          <label>Name (Optional):</label>
+          <input type="text" name="name">
+    
+          <label>1. How would you rate your overall experience using the website?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="rating" value="excellent"> Excellent</label>
+            <label><input type="radio" name="rating" value="good"> Good</label>
+            <label><input type="radio" name="rating" value="fair"> Fair</label>
+            <label><input type="radio" name="rating" value="poor"> Poor</label>
+            <label><input type="radio" name="rating" value="verypoor"> Very Poor</label>
+          </div>
+    
+          <label>2. What issues or difficulties did you encounter?</label>
+          <input type="text" name="issues" id="issues">
+    
+          <label>3. Suggestions for improvement:</label>
+          <input type="text" name="suggestions" id="suggestions">
+    
+          <div class="form-btn">
+            <button type="button" onclick="history.back()">Back</button>
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    
+      <script>
+        document.getElementById("feedbackForm").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form from submitting
+    
+          const rating = document.querySelector('input[name="rating"]:checked');
+          const issues = document.getElementById("issues").value.trim();
+          const suggestions = document.getElementById("suggestions").value.trim();
+    
+          if (!rating || issues === "" || suggestions === "") {
+            alert("Please complete all required fields before sending your feedback.");
+            return;
+          }
+    
+          alert("Thank you for your feedback!");
+          this.submit(); // Submit the form manually after validation
+        });
+    </script>
+</body>
+</html>
