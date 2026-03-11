@@ -133,9 +133,9 @@ function loadWaterwayLayer() {
     if (waterwayLoaded) return; // Only fetch once
     waterwayLoaded = true;
 
-    fetch('./js/Waterway4326.geojson')
+    fetch('./js/Waterline.geojson')
         .then(response => {
-            if (!response.ok) throw new Error('Failed to load Waterway4326.geojson');
+            if (!response.ok) throw new Error('Failed to load Waterline.geojson');
             return response.json();
         })
         .then(geojsonData => {
