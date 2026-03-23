@@ -5,11 +5,11 @@
 ========================= */
 .page-header {
     text-align: center;
-    padding: 5rem 1rem 3rem;
+    padding: 5rem 1rem 5rem;
     position: relative;
     background: #085C76;
     border-radius: 18px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .page-header .eyebrow {
