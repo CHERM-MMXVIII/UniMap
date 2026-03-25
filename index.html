@@ -476,7 +476,7 @@
                 <div class="conditions-content" id="conditionsContent">
 
                     <div class="condition-item">
-                        <button>Status</button>
+                        <button data-condition="status">Status</button>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> Functional</div>
@@ -487,7 +487,7 @@
                     </div>
 
                     <div class="condition-item">
-                        <button>AghonImp</button>
+                        <button data-condition="aghon_imp">AghonImp</button>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> Not Damaged</div>
@@ -497,7 +497,7 @@
                     </div>
 
                     <div class="condition-item">
-                        <button>AghonRecon</button>
+                        <button data-condition="aghon_recon">AghonRecon</button>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> None</div>
@@ -741,6 +741,27 @@
     let campusPointsLayer = null;
     let campusInfoWindow = null;
     let buildingTooltipEl = null;
+    let activeCondition = null;
+
+    const conditionColors = {
+        status: {
+            'functional':     { fill: '#2ecc71', stroke: '#1a7a44' },
+            'ongoing':        { fill: '#f39c12', stroke: '#9b6a0a' },
+            'not functional': { fill: '#e74c3c', stroke: '#922b21' },
+            'default':        { fill: '#95a5a6', stroke: '#717d7e' }
+        },
+        aghon_imp: {
+            'not damaged': { fill: '#2ecc71', stroke: '#1a7a44' },
+            'damaged':     { fill: '#e74c3c', stroke: '#922b21' },
+            'default':     { fill: '#95a5a6', stroke: '#717d7e' }
+        },
+        aghon_recon: {
+            'none':    { fill: '#2ecc71', stroke: '#1a7a44' },
+            'major':   { fill: '#e74c3c', stroke: '#922b21' },
+            'minor':   { fill: '#f39c12', stroke: '#9b6a0a' },
+            'default': { fill: '#95a5a6', stroke: '#717d7e' }
+        }
+    };
 
     function initMap() {
     gMap = new google.maps.Map(document.getElementById('campusMap'), {
@@ -972,6 +993,20 @@ function hideBuildingTooltip() {
                 return { visible: false };
             }
 
+            if (activeCondition && conditionColors[activeCondition]) {
+                const palette = conditionColors[activeCondition];
+                const rawVal = feature.getProperty(activeCondition);
+                const val = String(rawVal || "").trim().toLowerCase();
+                const color = palette[val] || palette['default'];
+                return {
+                    fillColor: color.fill,
+                    fillOpacity: 0.85,
+                    strokeColor: color.stroke,
+                    strokeWeight: 1,
+                    visible: true
+                };
+            }
+
             return {
                 fillColor: "#d6b37c",
                 fillOpacity: 0.85,
@@ -1056,6 +1091,22 @@ applyBuildingsStyle();
                     updateBuildingsLayer();
                 });
             }
+        });
+
+        // Condition buttons
+        document.querySelectorAll('[data-condition]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const condition = this.getAttribute('data-condition');
+                if (activeCondition === condition) {
+                    activeCondition = null;
+                    this.style.outline = '';
+                } else {
+                    activeCondition = condition;
+                    document.querySelectorAll('[data-condition]').forEach(b => b.style.outline = '');
+                    this.style.outline = '2px solid #fff';
+                }
+                applyBuildingsStyle();
+            });
         });
     });
 
