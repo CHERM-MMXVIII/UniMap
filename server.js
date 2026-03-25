@@ -27,6 +27,7 @@ app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/img", express.static(path.join(__dirname, "img")));
 // Serve uploaded profile pictures
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/data", express.static(path.join(__dirname, "data")));
 
 /* =========================
    MULTER - PROFILE PICTURE

@@ -450,7 +450,7 @@ body {
     right: 0;
     width: 100%;
   }
-
+}
 
 /* Large devices (laptops and desktops) */
 @media (min-width: 1024px) and (max-width: 1279px) {
@@ -2528,4 +2528,39 @@ body::-webkit-scrollbar-track {
 /* Slightly tighter padding inside checklist submenus */
 .checklist-submenu {
     padding: 4px 0;
+}
+
+/*hover main page*/
+.gm-style-iw-d {
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+.gm-style-iw {
+    padding: 0 !important;
+}
+
+.gm-ui-hover-effect {
+    display: none !important;
+}
+
+.building-tooltip {
+    position: absolute;
+    transform: translate(-50%, -120%);
+    background: #ffffff;
+    color: #2b2b2b;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.building-tooltip.hidden {
+    display: none;
 }

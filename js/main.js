@@ -31,7 +31,6 @@ toolDropdown.addEventListener('mouseleave', () => {
     }, 300);
 });
 
-
 const campusMap = document.getElementById("campusMap");
 
 const campusLocations = {
@@ -46,24 +45,104 @@ const campusLocations = {
     tiaong: "13.9470652,121.3695996"
 };
 
-function goToCampus(campus) {
-    // Handled by Google Maps JS API in index.html
-}
+// ===========================
+// CAMPUS POLYGON HELPERS
+// ===========================
+window.campusLayer = null;
 
-function logoutUser() {
-    sessionStorage.clear(); 
-    alert("You have been logged out.");
-    window.location.href = "login-form.html";
+window.CAMPUS_NAME_FIELD = "campus_nam";
+
+window.CAMPUS_KEY_TO_NAME = {
+    main: "SLSU Lucban",
+    lucena: "SLSU Lucena",
+    gumaca: "SLSU Gumaca",
+    alabat: "SLSU Alabat",
+    catanauan: "SLSU Catanauan",
+    polillo: "SLSU Polillo",
+    infanta: "SLSU Infanta",
+    tagkawayan: "SLSU Tagkawayan",
+    tiaong: "SLSU Tiaong"
+};
+
+window.loadCampusLayer = function () {
+    if (typeof google === "undefined" || typeof gMap === "undefined" || !gMap) return;
+    if (window.campusLayer) return;
+
+    window.campusLayer = new google.maps.Data();
+    window.campusLayer.setMap(gMap);
+
+    fetch('/data/geojson/slsu_campus.geojson')
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('slsu_campus.geojson not found');
+            }
+            return res.json();
+        })
+        .then(data => {
+            window.campusLayer.addGeoJson(data);
+
+            window.campusLayer.setStyle({
+                fillColor: '#6b8e23',
+                fillOpacity: 0.20,
+                strokeColor: '#2f4f2f',
+                strokeWeight: 2
+            });
+        })
+        .catch(err => console.error('Campus layer loading error:', err));
+};
+
+window.zoomToCampusPolygon = function (campusKey) {
+    if (!window.campusLayer || typeof google === "undefined" || typeof gMap === "undefined" || !gMap) return;
+
+    const targetName = window.CAMPUS_KEY_TO_NAME[campusKey];
+    if (!targetName) return;
+
+    const bounds = new google.maps.LatLngBounds();
+    let found = false;
+
+    window.campusLayer.forEach(feature => {
+        if (feature.getProperty(window.CAMPUS_NAME_FIELD) === targetName) {
+            found = true;
+
+            feature.getGeometry().forEachLatLng(latlng => {
+                bounds.extend(latlng);
+            });
+        }
+    });
+
+    if (found) {
+        gMap.fitBounds(bounds);
+
+        window.campusLayer.setStyle(feature => {
+            const isSelected = feature.getProperty(window.CAMPUS_NAME_FIELD) === targetName;
+
+            return {
+                fillColor: isSelected ? '#2e8b57' : '#6b8e23',
+                fillOpacity: isSelected ? 0.40 : 0.20,
+                strokeColor: isSelected ? '#145a32' : '#2f4f2f',
+                strokeWeight: isSelected ? 3 : 2
+            };
+        });
+    }
+};
+
+// handled by Google Maps JS API in index.html
+function goToCampus(campus) {
+    if (typeof window.goToCampus === "function") {
+        window.goToCampus(campus);
+    }
 }
 
 const toggleButton = document.getElementById('conditionsToggle');
 const content = document.getElementById('conditionsContent');
 const arrowIcon = document.getElementById('arrowIcon');
 
-toggleButton.addEventListener('click', () => {
-    content.classList.toggle('show');
-    arrowIcon.classList.toggle('rotate');
-});
+if (toggleButton && content && arrowIcon) {
+    toggleButton.addEventListener('click', () => {
+        content.classList.toggle('show');
+        arrowIcon.classList.toggle('rotate');
+    });
+}
 
 // Menu Toggle Button (replaces hamburger)
 const menuToggleBtn = document.getElementById('menuToggleBtn');
@@ -96,11 +175,11 @@ if (btn && panel && mapContainer) {
         panel.classList.toggle('closed');
 
         // Also toggle the 'panel-closed' class on user and tool dropdowns
-        userDropdown.classList.toggle('panel-closed');
-        toolDropdown.classList.toggle('panel-closed');
+        if (userDropdown) userDropdown.classList.toggle('panel-closed');
+        if (toolDropdown) toolDropdown.classList.toggle('panel-closed');
 
         if (panel.classList.contains('closed')) {
-            btn.style.right = '-5px';
+            btn.style.right = '10px';
             btn.textContent = 'Open Panel';
             
             mapContainer.style.width = '100%';
@@ -121,72 +200,10 @@ if (btn && panel && mapContainer) {
         }, 300);
     });
 }
+
 // ===========================
 // CHECKLIST LAYER TOGGLES
 // ===========================
-
-// --- Waterway Layer (Google Maps Data Layer) ---
-let waterwayDataLayer = null;
-let waterwayLoaded = false;
-
-function loadWaterwayLayer() {
-    if (waterwayLoaded) return; // Only fetch once
-    waterwayLoaded = true;
-
-    fetch('./js/Waterline.geojson')
-        .then(response => {
-            if (!response.ok) throw new Error('Failed to load Waterline.geojson');
-            return response.json();
-        })
-        .then(geojsonData => {
-            waterwayDataLayer = new google.maps.Data({ map: gMap });
-
-            waterwayDataLayer.addGeoJson(geojsonData);
-
-            // Style the waterway lines
-            waterwayDataLayer.setStyle({
-                strokeColor: '#1a6faf',
-                strokeWeight: 1.8,
-                strokeOpacity: 0.85
-            });
-
-            // Popup on click
-            waterwayDataLayer.addListener('click', function (event) {
-                const name = event.feature.getProperty('name');
-                const type = event.feature.getProperty('waterway');
-
-                const infoWindow = new google.maps.InfoWindow({
-                    content: `<div style="font-family:sans-serif; padding:4px;">
-                                <b>${name || 'Unnamed Waterway'}</b><br/>
-                                <span style="color:#555;">Type: ${type || 'N/A'}</span>
-                              </div>`,
-                    position: event.latLng
-                });
-                infoWindow.open(gMap);
-            });
-
-            console.log('Waterway layer loaded successfully.');
-        })
-        .catch(err => {
-            console.error('Waterway layer error:', err);
-            waterwayLoaded = false; // Allow retry on error
-        });
-}
-
-function toggleWaterwayLayer(isVisible) {
-    if (isVisible) {
-        if (!waterwayLoaded) {
-            loadWaterwayLayer(); // First time: fetch and display
-        } else if (waterwayDataLayer) {
-            waterwayDataLayer.setMap(gMap); // Re-show
-        }
-    } else {
-        if (waterwayDataLayer) {
-            waterwayDataLayer.setMap(null); // Hide without deleting
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     const layerCheckboxes = document.querySelectorAll('.layer-checkbox');
 
@@ -196,13 +213,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const isChecked = this.checked;
 
             console.log('Layer "' + layer + '" is now ' + (isChecked ? 'ON' : 'OFF'));
-
-            // Route each layer to its toggle function
-            if (layer === 'infra-drainage') {
-    toggleWaterwayLayer(isChecked);
-}   
-            // Add more layers here as needed:
-            // if (layer === 'roads') toggleRoadsLayer(isChecked);
         });
     });
 });

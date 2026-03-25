@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "polillo_buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "name": "Main Academic and Administration Building", "building_type": "academic" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 121.938148488427132, 14.721803794261314 ], [ 121.938224572025291, 14.72180772961984 ], [ 121.938226539704559, 14.721754602279741 ], [ 121.938262613824378, 14.721755914065916 ], [ 121.938271796327612, 14.721649659385719 ], [ 121.938158326823441, 14.721644412241018 ], [ 121.938148488427132, 14.721803794261314 ] ] ] ] } },
+{ "type": "Feature", "properties": { "id": 2, "name": "Unknown Building", "building_type": "academic" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 121.937933601454418, 14.721801744595407 ], [ 121.937942783957638, 14.72161743863778 ], [ 121.938152013852601, 14.721623997568656 ], [ 121.938142175456278, 14.721801088702319 ], [ 121.937933601454418, 14.721801744595407 ] ] ] ] } }
+]
+}
