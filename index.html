@@ -57,6 +57,52 @@
         .gm-style .gm-style-iw-c button.gm-ui-hover-effect {
             display: none !important;
         }
+        .condition-toggle-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            width: 180px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        .condition-toggle-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            margin-right: 12px;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 54px;
+            height: 28px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #bbb;
+            border-radius: 28px;
+            transition: 0.3s;
+        }
+        .toggle-slider:before {
+            content: "";
+            position: absolute;
+            width: 20px; height: 20px;
+            left: 4px; bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .toggle-switch input:checked + .toggle-slider { background: #2ecc71; }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(26px); }
     </style>
 </head>
 
@@ -476,7 +522,13 @@
                 <div class="conditions-content" id="conditionsContent">
 
                     <div class="condition-item">
-                        <button data-condition="status">Status</button>
+                        <div class="condition-toggle-box">
+                            <span class="condition-toggle-label">Status</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-status" onchange="setCondition('status', this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> Functional</div>
@@ -487,7 +539,13 @@
                     </div>
 
                     <div class="condition-item">
-                        <button data-condition="aghon_imp">AghonImp</button>
+                        <div class="condition-toggle-box">
+                            <span class="condition-toggle-label">AghonImp</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-aghon_imp" onchange="setCondition('aghon_imp', this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> Not Damaged</div>
@@ -497,7 +555,13 @@
                     </div>
 
                     <div class="condition-item">
-                        <button data-condition="aghon_recon">AghonRecon</button>
+                        <div class="condition-toggle-box">
+                            <span class="condition-toggle-label">AghonRecon</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-aghon_recon" onchange="setCondition('aghon_recon', this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
                         <div class="condition-modal">
                             <div class="legend">
                                 <div><span class="box none"></span> None</div>
@@ -1109,6 +1173,27 @@ applyBuildingsStyle();
             });
         });
     });
+
+    function setCondition(condition, isChecked) {
+        const activeTypes = getActiveBuildingTypes();
+        const checkbox = document.getElementById('toggle-' + condition);
+
+        if (activeTypes.length === 0) {
+            if (checkbox) checkbox.checked = false;
+            alert("Please select a facility first (e.g. Academic Buildings).");
+            return;
+        }
+
+        ['status', 'aghon_imp', 'aghon_recon'].forEach(c => {
+            if (c !== condition) {
+                const el = document.getElementById('toggle-' + c);
+                if (el) el.checked = false;
+            }
+        });
+
+        activeCondition = isChecked ? condition : null;
+        applyBuildingsStyle();
+    }
 
     const campusCoords = {
         main: { lat: 14.1120879, lng: 121.5614933 },
