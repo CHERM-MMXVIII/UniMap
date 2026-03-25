@@ -1,1 +1,1098 @@
-{"type": "FeatureCollection", "name": "lucena_buildings_v2", "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}}, "features": [{"type": "Feature", "properties": {"fid": 3, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Canteen", "amenity": null, "brand": null, "wheelchair": null, "building_type": "canteen", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.6287975863946, 13.949375195440169], [121.62872947547069, 13.949331026537998], [121.62881327254676, 13.949179944124962], [121.62888757537286, 13.949219572298874], [121.6287975863946, 13.949375195440169]]]]}}, {"type": "Feature", "properties": {"fid": 6, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Canteen", "amenity": null, "brand": null, "wheelchair": null, "building_type": "canteen", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62871461490548, 13.949271171483653], [121.62866425410112, 13.949246816668438], [121.62870759741634, 13.949174165016268], [121.62875548145982, 13.94920140938583], [121.62871461490548, 13.949271171483653]]]]}}, {"type": "Feature", "properties": {"fid": 7, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62818665204678, 13.948408433114134], [121.62821307082939, 13.948368804940223], [121.62823866402503, 13.948361374657615], [121.62824279195982, 13.948327525592399], [121.62823123374243, 13.948319269722834], [121.62823618726416, 13.948290374179358], [121.62817591941634, 13.948195431679363], [121.62805455813374, 13.948200385201101], [121.62804527028045, 13.9482288679511], [121.62802256663916, 13.948254254750012], [121.62802215384568, 13.94827551361414], [121.62799841822068, 13.948318237739139], [121.62801864510114, 13.94834568850544], [121.62800915085114, 13.948352293201093], [121.62803928477504, 13.948399351657613], [121.628049604612, 13.948392334168483], [121.62807024428591, 13.948417101777176], [121.62818665204678, 13.948408433114134]]]]}}, {"type": "Feature", "properties": {"fid": 8, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62768283760664, 13.948699968508137], [121.6278904727262, 13.94881224833422], [121.62796106041097, 13.948689235877703], [121.62775342529142, 13.948577368845102], [121.62768283760664, 13.948699968508137]]]]}}, {"type": "Feature", "properties": {"fid": 9, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62815600213106, 13.948991503902144], [121.6281799441528, 13.948952288521712], [121.62821503159846, 13.94896714908693], [121.62824516552237, 13.948916788282583], [121.62821874673976, 13.948900276543453], [121.62823154333759, 13.94887757290215], [121.6280416583376, 13.948769421010853], [121.62802721056586, 13.9487912990652], [121.62800409413107, 13.948777676880416], [121.62797561138107, 13.948830514445632], [121.62800615809847, 13.94884743897824], [121.62798262887021, 13.948889131119541], [121.62815600213106, 13.948991503902144]]]]}}, {"type": "Feature", "properties": {"fid": 10, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62863618414465, 13.949216889141262], [121.62867209717727, 13.949155382913004], [121.62867292276422, 13.94913515603257], [121.62852390431858, 13.949056312478227], [121.62852555549249, 13.949050533369531], [121.6284211187425, 13.948989027141273], [121.62836539162294, 13.94909759182605], [121.62845868294902, 13.949143411902135], [121.6284553806012, 13.949155382913004], [121.6285028518512, 13.94918180169561], [121.62851523565554, 13.949162400402134], [121.6285288578403, 13.949160542831482], [121.62855104548974, 13.949172101048873], [121.6285484655305, 13.949176641777134], [121.62863618414465, 13.949216889141262]]]]}}, {"type": "Feature", "properties": {"fid": 12, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62905940065819, 13.948525872858694], [121.6290984096419, 13.948542797391301], [121.62914051457668, 13.948457968331525], [121.62916920372346, 13.948403685989135], [121.6291436105278, 13.948392127771744], [121.62914856404954, 13.948369011336961], [121.62910233118, 13.948349197250007], [121.6291097614626, 13.948326906402182], [121.62902967952782, 13.948291406163053], [121.62901894689739, 13.94830626672827], [121.62897188844086, 13.948287278228271], [121.62895950463651, 13.948304615554356], [121.62892730674521, 13.948291406163053], [121.62885960861479, 13.948429279184785], [121.62905940065819, 13.948525872858694]]]]}}, {"type": "Feature", "properties": {"fid": 13, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62885795744087, 13.948428866391305], [121.62892070204956, 13.948288516608704], [121.6289008879626, 13.948278609565227], [121.62890419031044, 13.948255493130446], [121.62885052715826, 13.94823567904349], [121.62885176553868, 13.94821710333697], [121.62878282902781, 13.94817747516306], [121.62877003243, 13.948194399695668], [121.62872710190825, 13.94817252164132], [121.62871347972347, 13.948191922934798], [121.62868623535391, 13.948182428684799], [121.62868086903869, 13.948189446173929], [121.6286788050713, 13.94818903338045], [121.62867715389739, 13.9481729344348], [121.62868747373435, 13.948145277271758], [121.62863546175609, 13.94811679452176], [121.62862142677781, 13.948150230793496], [121.62852153075607, 13.948098631608715], [121.62851492606043, 13.94810688747828], [121.62849346079956, 13.948094503673934], [121.62849552476695, 13.948082945456543], [121.62845011748435, 13.948061892989154], [121.62838365773435, 13.948203893945667], [121.62845796056043, 13.94824063256523], [121.62844846631043, 13.948258382684795], [121.62852565869086, 13.948295121304357], [121.62853928087564, 13.948279847945663], [121.62885795744087, 13.948428866391305]]]]}}, {"type": "Feature", "properties": {"fid": null, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "DOST-Quezon Building", "amenity": null, "brand": null, "wheelchair": null, "building_type": "admin", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": []}}, {"type": "Feature", "properties": {"fid": null, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Parking Lot A", "amenity": null, "brand": null, "wheelchair": null, "building_type": "parking", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": []}}, {"type": "Feature", "properties": {"fid": null, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Parking Lot B", "amenity": null, "brand": null, "wheelchair": null, "building_type": "parking", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62934941306274, 13.948795252116613], [121.62938348995564, 13.948790455931187], [121.62935091532411, 13.948540865238042], [121.62930483350772, 13.94856055822723], [121.62934941306274, 13.948795252116613]]]]}}, {"type": "Feature", "properties": {"fid": null, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Parking Lot C", "amenity": null, "brand": null, "wheelchair": null, "building_type": "parking", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62938066825905, 13.948979989505196], [121.62942496923692, 13.94897358819482], [121.62940342749586, 13.94887370397203], [121.62933867842958, 13.948883315521101], [121.62933512639998, 13.948908236230746], [121.62936918367231, 13.948906765367559], [121.62938066825905, 13.948979989505196]]]]}}, {"type": "Feature", "properties": {"fid": 1225, "full_id": "w854215863", "osm_id": "854215863", "osm_type": "way", "building": "university", "name": null, "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": []}}, {"type": "Feature", "properties": {"fid": null, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Parking Lot A", "amenity": null, "brand": null, "wheelchair": null, "building_type": "parking", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": []}}, {"type": "Feature", "properties": {"fid": 2, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Unknown Department", "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.6290493904161, 13.949110491622237], [121.62919056578566, 13.948869833024425], [121.62906600535355, 13.948798935744534], [121.62893690419324, 13.949018335478218], [121.62895785346225, 13.949030822480934], [121.62896807010087, 13.949068799480932], [121.6290493904161, 13.949110491622237]]]]}}, {"type": "Feature", "properties": {"fid": 1, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "Unknown Department", "amenity": null, "brand": null, "wheelchair": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62904712005205, 13.94879780056248], [121.62892328200857, 13.949016581105944], [121.62895630548682, 13.949034744018988], [121.62897116605205, 13.949086755997245], [121.62895713107379, 13.949122256236373], [121.62924691209554, 13.949288199214626], [121.62920109201949, 13.949360025279844], [121.62871007417714, 13.949095837453772], [121.62873401619888, 13.949052906932035], [121.62875465587278, 13.949062813975512], [121.62891316856847, 13.948783352790748], [121.62889418006849, 13.948775096921183], [121.62892266281848, 13.948729689638578], [121.62904712005205, 13.94879780056248]]]]}}, {"type": "Feature", "properties": {"fid": 4, "full_id": null, "osm_id": null, "osm_type": null, "building": "roof", "name": "Covered Court", "amenity": null, "brand": null, "wheelchair": null, "building_type": "recreation", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62869191126414, 13.948961679573346], [121.6285069797859, 13.948863434725524], [121.62871337652501, 13.948500176464675], [121.6288974824163, 13.948595944551625], [121.62869191126414, 13.948961679573346]]]]}}, {"type": "Feature", "properties": {"fid": 5, "full_id": null, "osm_id": null, "osm_type": null, "building": "university", "name": "DOST-Quezon Building", "amenity": null, "brand": null, "wheelchair": null, "building_type": "admin", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.62918561226412, 13.948735055953792], [121.62922647881847, 13.948659927540753], [121.62921904853586, 13.948657450779884], [121.62924835687281, 13.94859718293206], [121.62923432189454, 13.94859057823641], [121.62926775816629, 13.948523705692935], [121.62920542635108, 13.948495222942936], [121.62921037987282, 13.948481187964676], [121.62915960627501, 13.948455594769023], [121.62908241389457, 13.948614933051621], [121.62909263053315, 13.9486200929701], [121.62906714053591, 13.94867262094021], [121.62918561226412, 13.948735055953792]]]]}}]}
+{
+  "type": "FeatureCollection",
+  "name": "lucena_buildings_v2",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Canteen",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "canteen",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.6287975863946,
+                13.949375195440169
+              ],
+              [
+                121.62872947547069,
+                13.949331026537998
+              ],
+              [
+                121.62881327254676,
+                13.949179944124962
+              ],
+              [
+                121.62888757537286,
+                13.949219572298874
+              ],
+              [
+                121.6287975863946,
+                13.949375195440169
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 6,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Canteen",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "canteen",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62871461490548,
+                13.949271171483653
+              ],
+              [
+                121.62866425410112,
+                13.949246816668438
+              ],
+              [
+                121.62870759741634,
+                13.949174165016268
+              ],
+              [
+                121.62875548145982,
+                13.94920140938583
+              ],
+              [
+                121.62871461490548,
+                13.949271171483653
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 7,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62818665204678,
+                13.948408433114134
+              ],
+              [
+                121.62821307082939,
+                13.948368804940223
+              ],
+              [
+                121.62823866402503,
+                13.948361374657615
+              ],
+              [
+                121.62824279195982,
+                13.948327525592399
+              ],
+              [
+                121.62823123374243,
+                13.948319269722834
+              ],
+              [
+                121.62823618726416,
+                13.948290374179358
+              ],
+              [
+                121.62817591941634,
+                13.948195431679363
+              ],
+              [
+                121.62805455813374,
+                13.948200385201101
+              ],
+              [
+                121.62804527028045,
+                13.9482288679511
+              ],
+              [
+                121.62802256663916,
+                13.948254254750012
+              ],
+              [
+                121.62802215384568,
+                13.94827551361414
+              ],
+              [
+                121.62799841822068,
+                13.948318237739139
+              ],
+              [
+                121.62801864510114,
+                13.94834568850544
+              ],
+              [
+                121.62800915085114,
+                13.948352293201093
+              ],
+              [
+                121.62803928477504,
+                13.948399351657613
+              ],
+              [
+                121.628049604612,
+                13.948392334168483
+              ],
+              [
+                121.62807024428591,
+                13.948417101777176
+              ],
+              [
+                121.62818665204678,
+                13.948408433114134
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 8,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62768283760664,
+                13.948699968508137
+              ],
+              [
+                121.6278904727262,
+                13.94881224833422
+              ],
+              [
+                121.62796106041097,
+                13.948689235877703
+              ],
+              [
+                121.62775342529142,
+                13.948577368845102
+              ],
+              [
+                121.62768283760664,
+                13.948699968508137
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 9,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62815600213106,
+                13.948991503902144
+              ],
+              [
+                121.6281799441528,
+                13.948952288521712
+              ],
+              [
+                121.62821503159846,
+                13.94896714908693
+              ],
+              [
+                121.62824516552237,
+                13.948916788282583
+              ],
+              [
+                121.62821874673976,
+                13.948900276543453
+              ],
+              [
+                121.62823154333759,
+                13.94887757290215
+              ],
+              [
+                121.6280416583376,
+                13.948769421010853
+              ],
+              [
+                121.62802721056586,
+                13.9487912990652
+              ],
+              [
+                121.62800409413107,
+                13.948777676880416
+              ],
+              [
+                121.62797561138107,
+                13.948830514445632
+              ],
+              [
+                121.62800615809847,
+                13.94884743897824
+              ],
+              [
+                121.62798262887021,
+                13.948889131119541
+              ],
+              [
+                121.62815600213106,
+                13.948991503902144
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 10,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62863618414465,
+                13.949216889141262
+              ],
+              [
+                121.62867209717727,
+                13.949155382913004
+              ],
+              [
+                121.62867292276422,
+                13.94913515603257
+              ],
+              [
+                121.62852390431858,
+                13.949056312478227
+              ],
+              [
+                121.62852555549249,
+                13.949050533369531
+              ],
+              [
+                121.6284211187425,
+                13.948989027141273
+              ],
+              [
+                121.62836539162294,
+                13.94909759182605
+              ],
+              [
+                121.62845868294902,
+                13.949143411902135
+              ],
+              [
+                121.6284553806012,
+                13.949155382913004
+              ],
+              [
+                121.6285028518512,
+                13.94918180169561
+              ],
+              [
+                121.62851523565554,
+                13.949162400402134
+              ],
+              [
+                121.6285288578403,
+                13.949160542831482
+              ],
+              [
+                121.62855104548974,
+                13.949172101048873
+              ],
+              [
+                121.6285484655305,
+                13.949176641777134
+              ],
+              [
+                121.62863618414465,
+                13.949216889141262
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 12,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62905940065819,
+                13.948525872858694
+              ],
+              [
+                121.6290984096419,
+                13.948542797391301
+              ],
+              [
+                121.62914051457668,
+                13.948457968331525
+              ],
+              [
+                121.62916920372346,
+                13.948403685989135
+              ],
+              [
+                121.6291436105278,
+                13.948392127771744
+              ],
+              [
+                121.62914856404954,
+                13.948369011336961
+              ],
+              [
+                121.62910233118,
+                13.948349197250007
+              ],
+              [
+                121.6291097614626,
+                13.948326906402182
+              ],
+              [
+                121.62902967952782,
+                13.948291406163053
+              ],
+              [
+                121.62901894689739,
+                13.94830626672827
+              ],
+              [
+                121.62897188844086,
+                13.948287278228271
+              ],
+              [
+                121.62895950463651,
+                13.948304615554356
+              ],
+              [
+                121.62892730674521,
+                13.948291406163053
+              ],
+              [
+                121.62885960861479,
+                13.948429279184785
+              ],
+              [
+                121.62905940065819,
+                13.948525872858694
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 13,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62885795744087,
+                13.948428866391305
+              ],
+              [
+                121.62892070204956,
+                13.948288516608704
+              ],
+              [
+                121.6289008879626,
+                13.948278609565227
+              ],
+              [
+                121.62890419031044,
+                13.948255493130446
+              ],
+              [
+                121.62885052715826,
+                13.94823567904349
+              ],
+              [
+                121.62885176553868,
+                13.94821710333697
+              ],
+              [
+                121.62878282902781,
+                13.94817747516306
+              ],
+              [
+                121.62877003243,
+                13.948194399695668
+              ],
+              [
+                121.62872710190825,
+                13.94817252164132
+              ],
+              [
+                121.62871347972347,
+                13.948191922934798
+              ],
+              [
+                121.62868623535391,
+                13.948182428684799
+              ],
+              [
+                121.62868086903869,
+                13.948189446173929
+              ],
+              [
+                121.6286788050713,
+                13.94818903338045
+              ],
+              [
+                121.62867715389739,
+                13.9481729344348
+              ],
+              [
+                121.62868747373435,
+                13.948145277271758
+              ],
+              [
+                121.62863546175609,
+                13.94811679452176
+              ],
+              [
+                121.62862142677781,
+                13.948150230793496
+              ],
+              [
+                121.62852153075607,
+                13.948098631608715
+              ],
+              [
+                121.62851492606043,
+                13.94810688747828
+              ],
+              [
+                121.62849346079956,
+                13.948094503673934
+              ],
+              [
+                121.62849552476695,
+                13.948082945456543
+              ],
+              [
+                121.62845011748435,
+                13.948061892989154
+              ],
+              [
+                121.62838365773435,
+                13.948203893945667
+              ],
+              [
+                121.62845796056043,
+                13.94824063256523
+              ],
+              [
+                121.62844846631043,
+                13.948258382684795
+              ],
+              [
+                121.62852565869086,
+                13.948295121304357
+              ],
+              [
+                121.62853928087564,
+                13.948279847945663
+              ],
+              [
+                121.62885795744087,
+                13.948428866391305
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": null,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "DOST-Quezon Building",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "admin",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": null,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Parking Lot A",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "parking",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": null,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Parking Lot B",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "parking",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62934941306274,
+                13.948795252116613
+              ],
+              [
+                121.62938348995564,
+                13.948790455931187
+              ],
+              [
+                121.62935091532411,
+                13.948540865238042
+              ],
+              [
+                121.62930483350772,
+                13.94856055822723
+              ],
+              [
+                121.62934941306274,
+                13.948795252116613
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": null,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Parking Lot C",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "parking",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62938066825905,
+                13.948979989505196
+              ],
+              [
+                121.62942496923692,
+                13.94897358819482
+              ],
+              [
+                121.62940342749586,
+                13.94887370397203
+              ],
+              [
+                121.62933867842958,
+                13.948883315521101
+              ],
+              [
+                121.62933512639998,
+                13.948908236230746
+              ],
+              [
+                121.62936918367231,
+                13.948906765367559
+              ],
+              [
+                121.62938066825905,
+                13.948979989505196
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 1225,
+        "full_id": "w854215863",
+        "osm_id": "854215863",
+        "osm_type": "way",
+        "building": "university",
+        "name": null,
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": null,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Parking Lot A",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "parking",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": []
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 2,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Unknown Department",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.6290493904161,
+                13.949110491622237
+              ],
+              [
+                121.62919056578566,
+                13.948869833024425
+              ],
+              [
+                121.62906600535355,
+                13.948798935744534
+              ],
+              [
+                121.62893690419324,
+                13.949018335478218
+              ],
+              [
+                121.62895785346225,
+                13.949030822480934
+              ],
+              [
+                121.62896807010087,
+                13.949068799480932
+              ],
+              [
+                121.6290493904161,
+                13.949110491622237
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 1,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "Unknown Department",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62904712005205,
+                13.94879780056248
+              ],
+              [
+                121.62892328200857,
+                13.949016581105944
+              ],
+              [
+                121.62895630548682,
+                13.949034744018988
+              ],
+              [
+                121.62897116605205,
+                13.949086755997245
+              ],
+              [
+                121.62895713107379,
+                13.949122256236373
+              ],
+              [
+                121.62924691209554,
+                13.949288199214626
+              ],
+              [
+                121.62920109201949,
+                13.949360025279844
+              ],
+              [
+                121.62871007417714,
+                13.949095837453772
+              ],
+              [
+                121.62873401619888,
+                13.949052906932035
+              ],
+              [
+                121.62875465587278,
+                13.949062813975512
+              ],
+              [
+                121.62891316856847,
+                13.948783352790748
+              ],
+              [
+                121.62889418006849,
+                13.948775096921183
+              ],
+              [
+                121.62892266281848,
+                13.948729689638578
+              ],
+              [
+                121.62904712005205,
+                13.94879780056248
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 4,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "roof",
+        "name": "Covered Court",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "recreation",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62869191126414,
+                13.948961679573346
+              ],
+              [
+                121.6285069797859,
+                13.948863434725524
+              ],
+              [
+                121.62871337652501,
+                13.948500176464675
+              ],
+              [
+                121.6288974824163,
+                13.948595944551625
+              ],
+              [
+                121.62869191126414,
+                13.948961679573346
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 5,
+        "full_id": null,
+        "osm_id": null,
+        "osm_type": null,
+        "building": "university",
+        "name": "DOST-Quezon Building",
+        "amenity": null,
+        "brand": null,
+        "wheelchair": null,
+        "building_type": "admin",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.62918561226412,
+                13.948735055953792
+              ],
+              [
+                121.62922647881847,
+                13.948659927540753
+              ],
+              [
+                121.62921904853586,
+                13.948657450779884
+              ],
+              [
+                121.62924835687281,
+                13.94859718293206
+              ],
+              [
+                121.62923432189454,
+                13.94859057823641
+              ],
+              [
+                121.62926775816629,
+                13.948523705692935
+              ],
+              [
+                121.62920542635108,
+                13.948495222942936
+              ],
+              [
+                121.62921037987282,
+                13.948481187964676
+              ],
+              [
+                121.62915960627501,
+                13.948455594769023
+              ],
+              [
+                121.62908241389457,
+                13.948614933051621
+              ],
+              [
+                121.62909263053315,
+                13.9486200929701
+              ],
+              [
+                121.62906714053591,
+                13.94867262094021
+              ],
+              [
+                121.62918561226412,
+                13.948735055953792
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

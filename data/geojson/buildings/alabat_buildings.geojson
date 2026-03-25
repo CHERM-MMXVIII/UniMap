@@ -1,1 +1,607 @@
-{"type": "FeatureCollection", "name": "alabat_buildings", "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}}, "features": [{"type": "Feature", "properties": {"id": "way/779357595", "@id": "way/779357595", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.01314015384578, 14.099616366015635], [122.01307747704737, 14.099579121472907], [122.0130484, 14.0996256], [122.0131096641284, 14.099661599135386], [122.01314015384578, 14.099616366015635]]]]}}, {"type": "Feature", "properties": {"id": "way/779357596", "@id": "way/779357596", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.01310420871292, 14.099669692532375], [122.0130913, 14.0996621], [122.0129692, 14.0998575], [122.01297522444507, 14.099861047290183], [122.01310420871292, 14.099669692532375]]]]}}, {"type": "Feature", "properties": {"id": "way/779357597", "@id": "way/779357597", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.01290820000001, 14.0998143], [122.01302660000002, 14.099625], [122.0130853, 14.0996595], [122.0129669, 14.0998488], [122.01290820000001, 14.0998143]]]]}}, {"type": "Feature", "properties": {"id": "way/779357598", "@id": "way/779357598", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.0128147, 14.099523], [122.012772, 14.0994979], [122.0127936, 14.0994634], [122.01283620000001, 14.0994885], [122.0128147, 14.099523]]]]}}, {"type": "Feature", "properties": {"id": "way/779357599", "@id": "way/779357599", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.01286710712958, 14.0994541127897], [122.0128398, 14.0994979], [122.01303390000001, 14.099612], [122.01306066401604, 14.099569130631417], [122.01286710712958, 14.0994541127897]]]]}}, {"type": "Feature", "properties": {"id": "way/779357600", "@id": "way/779357600", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.0129404, 14.0996296], [122.0128483, 14.0995755], [122.01287870000002, 14.0995269], [122.01297080000002, 14.099581], [122.0129404, 14.0996296]]]]}}, {"type": "Feature", "properties": {"id": "way/779357601", "@id": "way/779357601", "addr:place": null, "addr:village": null, "amenity": null, "boat": null, "bridge": null, "bridge:name": null, "building": "yes", "culvert": null, "designation": null, "embankment": null, "emergency": null, "events_venue": null, "fixme": null, "flood_prone": null, "foot": null, "ford": null, "hazard": null, "healthcare": null, "healthcare:speciality": null, "highway": null, "intermittent": null, "lanes": null, "layer": null, "leisure": null, "maxweight": null, "name": null, "name:etymology": null, "name:etymology:wikidata": null, "name:etymology:wikipedia": null, "nat_name": null, "oneway": null, "operator:type": null, "overtaking": null, "ref": null, "service": null, "sidewalk": null, "source": null, "source:bridge:name": null, "source:nat_name": null, "sport": null, "surface": null, "tidal": null, "tunnel": null, "usage": null, "waterway": null, "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[122.01262690740059, 14.099636731445516], [122.0126668, 14.0996602], [122.0127871, 14.0994678], [122.01274566752637, 14.099443425547404], [122.01262690740059, 14.099636731445516]]]]}}]}
+{
+  "type": "FeatureCollection",
+  "name": "alabat_buildings",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357595",
+        "@id": "way/779357595",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.01314015384578,
+                14.099616366015635
+              ],
+              [
+                122.01307747704737,
+                14.099579121472907
+              ],
+              [
+                122.0130484,
+                14.0996256
+              ],
+              [
+                122.0131096641284,
+                14.099661599135386
+              ],
+              [
+                122.01314015384578,
+                14.099616366015635
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357596",
+        "@id": "way/779357596",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.01310420871292,
+                14.099669692532375
+              ],
+              [
+                122.0130913,
+                14.0996621
+              ],
+              [
+                122.0129692,
+                14.0998575
+              ],
+              [
+                122.01297522444507,
+                14.099861047290183
+              ],
+              [
+                122.01310420871292,
+                14.099669692532375
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357597",
+        "@id": "way/779357597",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.01290820000001,
+                14.0998143
+              ],
+              [
+                122.01302660000002,
+                14.099625
+              ],
+              [
+                122.0130853,
+                14.0996595
+              ],
+              [
+                122.0129669,
+                14.0998488
+              ],
+              [
+                122.01290820000001,
+                14.0998143
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357598",
+        "@id": "way/779357598",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.0128147,
+                14.099523
+              ],
+              [
+                122.012772,
+                14.0994979
+              ],
+              [
+                122.0127936,
+                14.0994634
+              ],
+              [
+                122.01283620000001,
+                14.0994885
+              ],
+              [
+                122.0128147,
+                14.099523
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357599",
+        "@id": "way/779357599",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.01286710712958,
+                14.0994541127897
+              ],
+              [
+                122.0128398,
+                14.0994979
+              ],
+              [
+                122.01303390000001,
+                14.099612
+              ],
+              [
+                122.01306066401604,
+                14.099569130631417
+              ],
+              [
+                122.01286710712958,
+                14.0994541127897
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357600",
+        "@id": "way/779357600",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.0129404,
+                14.0996296
+              ],
+              [
+                122.0128483,
+                14.0995755
+              ],
+              [
+                122.01287870000002,
+                14.0995269
+              ],
+              [
+                122.01297080000002,
+                14.099581
+              ],
+              [
+                122.0129404,
+                14.0996296
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way/779357601",
+        "@id": "way/779357601",
+        "addr:place": null,
+        "addr:village": null,
+        "amenity": null,
+        "boat": null,
+        "bridge": null,
+        "bridge:name": null,
+        "building": "yes",
+        "culvert": null,
+        "designation": null,
+        "embankment": null,
+        "emergency": null,
+        "events_venue": null,
+        "fixme": null,
+        "flood_prone": null,
+        "foot": null,
+        "ford": null,
+        "hazard": null,
+        "healthcare": null,
+        "healthcare:speciality": null,
+        "highway": null,
+        "intermittent": null,
+        "lanes": null,
+        "layer": null,
+        "leisure": null,
+        "maxweight": null,
+        "name": null,
+        "name:etymology": null,
+        "name:etymology:wikidata": null,
+        "name:etymology:wikipedia": null,
+        "nat_name": null,
+        "oneway": null,
+        "operator:type": null,
+        "overtaking": null,
+        "ref": null,
+        "service": null,
+        "sidewalk": null,
+        "source": null,
+        "source:bridge:name": null,
+        "source:nat_name": null,
+        "sport": null,
+        "surface": null,
+        "tidal": null,
+        "tunnel": null,
+        "usage": null,
+        "waterway": null,
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                122.01262690740059,
+                14.099636731445516
+              ],
+              [
+                122.0126668,
+                14.0996602
+              ],
+              [
+                122.0127871,
+                14.0994678
+              ],
+              [
+                122.01274566752637,
+                14.099443425547404
+              ],
+              [
+                122.01262690740059,
+                14.099636731445516
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

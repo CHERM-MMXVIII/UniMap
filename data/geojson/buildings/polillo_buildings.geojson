@@ -1,1 +1,100 @@
-{"type": "FeatureCollection", "name": "polillo_buildings", "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}}, "features": [{"type": "Feature", "properties": {"id": 1, "name": "Main Academic and Administration Building", "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.93814848842713, 14.721803794261314], [121.93822457202529, 14.72180772961984], [121.93822653970456, 14.721754602279741], [121.93826261382438, 14.721755914065916], [121.93827179632761, 14.721649659385719], [121.93815832682344, 14.721644412241018], [121.93814848842713, 14.721803794261314]]]]}}, {"type": "Feature", "properties": {"id": 2, "name": "Unknown Building", "building_type": "academic", "status": "functional", "aghon_imp": "not damaged", "aghon_recon": "none"}, "geometry": {"type": "MultiPolygon", "coordinates": [[[[121.93793360145442, 14.721801744595407], [121.93794278395764, 14.72161743863778], [121.9381520138526, 14.721623997568656], [121.93814217545628, 14.72180108870232], [121.93793360145442, 14.721801744595407]]]]}}]}
+{
+  "type": "FeatureCollection",
+  "name": "polillo_buildings",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Main Academic and Administration Building",
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.93814848842713,
+                14.721803794261314
+              ],
+              [
+                121.93822457202529,
+                14.72180772961984
+              ],
+              [
+                121.93822653970456,
+                14.721754602279741
+              ],
+              [
+                121.93826261382438,
+                14.721755914065916
+              ],
+              [
+                121.93827179632761,
+                14.721649659385719
+              ],
+              [
+                121.93815832682344,
+                14.721644412241018
+              ],
+              [
+                121.93814848842713,
+                14.721803794261314
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Unknown Building",
+        "building_type": "academic",
+        "status": "functional",
+        "aghon_imp": "not damaged",
+        "aghon_recon": "none"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                121.93793360145442,
+                14.721801744595407
+              ],
+              [
+                121.93794278395764,
+                14.72161743863778
+              ],
+              [
+                121.9381520138526,
+                14.721623997568656
+              ],
+              [
+                121.93814217545628,
+                14.72180108870232
+              ],
+              [
+                121.93793360145442,
+                14.721801744595407
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
