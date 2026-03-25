@@ -823,7 +823,7 @@
     campusPointsLayer = new google.maps.Data();
     campusPointsLayer.setMap(gMap);
 
-    fetch('/data/geojson/slsu_campus_points.geojson')
+    fetch('./data/geojson/slsu_campus_points.geojson')
         .then(res => {
             if (!res.ok) throw new Error('slsu_campus_points.geojson not found');
             return res.json();
@@ -911,7 +911,7 @@ function hideBuildingTooltip() {
 
         roadsLayer = new google.maps.Data({ map: gMap });
 
-        fetch(`/data/geojson/roads/${currentCampus}_roads.geojson`)
+        fetch(`./data/geojson/roads/${currentCampus}_roads.geojson`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`File not found: ${currentCampus}_roads.geojson`);
@@ -1001,7 +1001,7 @@ function hideBuildingTooltip() {
             return;
         }
 
-        fetch(`/data/geojson/buildings/${currentCampus}_buildings.geojson`)
+        fetch(`./data/geojson/buildings/${currentCampus}_buildings.geojson`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`File not found: ${currentCampus}_buildings.geojson`);

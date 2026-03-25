@@ -71,7 +71,7 @@ window.loadCampusLayer = function () {
     window.campusLayer = new google.maps.Data();
     window.campusLayer.setMap(gMap);
 
-    fetch('/data/geojson/slsu_campus.geojson')
+    fetch('./data/geojson/slsu_campus.geojson')
         .then(res => {
             if (!res.ok) {
                 throw new Error('slsu_campus.geojson not found');
