@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "alabat_buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.013140153845782, 14.099616366015635 ], [ 122.013077477047375, 14.099579121472907 ], [ 122.0130484, 14.0996256 ], [ 122.013109664128393, 14.099661599135386 ], [ 122.013140153845782, 14.099616366015635 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.013104208712917, 14.099669692532375 ], [ 122.0130913, 14.0996621 ], [ 122.0129692, 14.0998575 ], [ 122.012975224445071, 14.099861047290183 ], [ 122.013104208712917, 14.099669692532375 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.012908200000012, 14.0998143 ], [ 122.013026600000018, 14.099625 ], [ 122.0130853, 14.0996595 ], [ 122.0129669, 14.0998488 ], [ 122.012908200000012, 14.0998143 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.0128147, 14.099523 ], [ 122.012772, 14.0994979 ], [ 122.0127936, 14.0994634 ], [ 122.01283620000001, 14.0994885 ], [ 122.0128147, 14.099523 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.01286710712958, 14.099454112789701 ], [ 122.0128398, 14.0994979 ], [ 122.013033900000011, 14.099612 ], [ 122.013060664016038, 14.099569130631417 ], [ 122.01286710712958, 14.099454112789701 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.0129404, 14.0996296 ], [ 122.0128483, 14.0995755 ], [ 122.012878700000016, 14.0995269 ], [ 122.012970800000019, 14.099581 ], [ 122.0129404, 14.0996296 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 122.012626907400588, 14.099636731445516 ], [ 122.0126668, 14.0996602 ], [ 122.0127871, 14.0994678 ], [ 122.012745667526374, 14.099443425547404 ], [ 122.012626907400588, 14.099636731445516 ] ] ] ] } }
+]
+}
