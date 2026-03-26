@@ -148,19 +148,27 @@ if (toggleButton && content && arrowIcon) {
 const menuToggleBtn = document.getElementById('menuToggleBtn');
 const menuCheckbox = document.getElementById('menuToggle');
 const slideMenu = document.querySelector('.slide');
+const conditionButton = document.getElementById('conditionButton');
 
 if (menuToggleBtn && menuCheckbox && slideMenu) {
     menuToggleBtn.addEventListener('click', () => {
         menuCheckbox.checked = !menuCheckbox.checked;
-        
-        // Update button position and text based on menu state
+
         if (menuCheckbox.checked) {
             const slideWidth = slideMenu.offsetWidth;
             menuToggleBtn.style.left = slideWidth + 'px';
             menuToggleBtn.textContent = 'Close Menu';
+            if (conditionButton) {
+                conditionButton.style.left = (slideWidth + 16) + 'px';
+                conditionButton.style.bottom = '20px';
+            }
         } else {
             menuToggleBtn.style.left = '0px';
             menuToggleBtn.textContent = 'Open Menu';
+            if (conditionButton) {
+                conditionButton.style.left = '1rem';
+                conditionButton.style.bottom = '20px';
+            }
         }
     });
 }
@@ -181,18 +189,18 @@ if (btn && panel && mapContainer) {
         if (panel.classList.contains('closed')) {
             btn.style.right = '10px';
             btn.textContent = 'Open Panel';
-            
+
             mapContainer.style.width = '100%';
             mapContainer.style.right = '0';
         } else {
             const panelWidth = panel.offsetWidth;
             btn.style.right = panelWidth + 'px';
             btn.textContent = 'Close Panel';
-            
+
             mapContainer.style.width = `calc(100% - ${panelWidth}px)`;
             mapContainer.style.right = panelWidth + 'px';
         }
-        
+
         setTimeout(() => {
             if (typeof google !== 'undefined' && typeof gMap !== 'undefined') {
                 google.maps.event.trigger(gMap, 'resize');
@@ -200,6 +208,30 @@ if (btn && panel && mapContainer) {
         }, 300);
     });
 }
+
+// ===========================
+// INITIAL PANEL STATE ON PAGE LOAD
+// ===========================
+window.addEventListener('load', () => {
+    if (panel && mapContainer && !panel.classList.contains('closed')) {
+        // Small delay to ensure DOM is fully rendered and panel has its real width
+        setTimeout(() => {
+            const panelWidth = panel.offsetWidth;
+
+            mapContainer.style.width = `calc(100% - ${panelWidth}px)`;
+            mapContainer.style.right = panelWidth + 'px';
+
+            if (btn) {
+                btn.style.right = panelWidth + 'px';
+                btn.textContent = 'Close Panel';
+            }
+
+            if (typeof google !== 'undefined' && typeof gMap !== 'undefined') {
+                google.maps.event.trigger(gMap, 'resize');
+            }
+        }, 300);
+    }
+});
 
 // ===========================
 // CHECKLIST LAYER TOGGLES

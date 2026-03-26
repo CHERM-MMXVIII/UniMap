@@ -717,6 +717,7 @@ let loadedBuildingsCampus = null;
 let campusPointsLayer = null;
 let campusInfoWindow = null;
 let buildingHoverInfoWindow = null;
+let selectedBuilding = null;
 
 function initMap() {
     gMap = new google.maps.Map(document.getElementById('campusMap'), {
@@ -775,30 +776,134 @@ function initMap() {
     });
 
     buildingsLayer.addListener('mouseout', function(event) {
+    buildingHoverInfoWindow.close();
+    
+    // Only revert style if it's not the selected building
+    if (selectedBuilding !== event.feature) {
         buildingsLayer.revertStyle(event.feature);
         applyBuildingsStyle();
-        buildingHoverInfoWindow.close();
+    }
+});
+
+buildingsLayer.addListener('click', function(event) {
+    const name = event.feature.getProperty('name') || 'Unnamed Building';
+    const type = event.feature.getProperty('building_type') || 'N/A';
+    const status = event.feature.getProperty('status') || 'N/A';
+    const damage = event.feature.getProperty('damage') || 'N/A';
+    const recovery = event.feature.getProperty('recovery') || 'N/A';
+
+    const statusColors = {
+        'Functional': '#5a8a3c',
+        'Ongoing Constructions': '#FF9800',
+        'Not Functional': '#F44336'
+    };
+    const damageColors = {
+        'Not Damaged': '#5a8a3c',
+        'Damaged': '#F44336'
+    };
+    const recoveryColors = {
+        'None': '#5a8a3c',
+        'Major Repairs': '#FF9800',
+        'Minor Repairs': '#F44336'
+    };
+
+    // Deselect previous
+if (selectedBuilding) {
+    buildingsLayer.revertStyle(selectedBuilding);
+    applyBuildingsStyle();
+}
+
+// Highlight selected
+selectedBuilding = event.feature;
+buildingsLayer.overrideStyle(event.feature, {
+    fillColor: '#085C76',
+    fillOpacity: 1,
+    strokeColor: '#ffffff',
+    strokeWeight: 3,
+});
+
+    // ===========================
+    // ADD NEW FIELDS HERE EASILY
+    // { label: 'Label', value: variable, color: optional }
+    // ===========================
+    const fields = [
+        { label: 'Building Type', value: type },
+        { label: 'Status', value: status, color: statusColors[status] },
+        { label: 'Damage Assessment', value: damage, color: damageColors[damage] },
+        { label: 'Recovery', value: recovery, color: recoveryColors[recovery] },
+    ];
+
+    const fieldsHTML = fields.map(f => `
+        <div class="bip-field">
+            <div class="bip-field-label">${f.label}</div>
+            <div class="bip-field-value">
+                ${f.color ? `<span class="bip-dot" style="background:${f.color};"></span>` : ''}
+                ${f.value}
+            </div>
+        </div>
+    `).join('');
+
+    const infoHTML = `
+        <div class="bip-header">
+            <div class="bip-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="7" width="18" height="14" rx="1" stroke="white" stroke-width="1.5"/>
+                    <path d="M8 7V5a4 4 0 018 0v2" stroke="white" stroke-width="1.5"/>
+                    <line x1="3" y1="11" x2="21" y2="11" stroke="white" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="bip-name">${name}</div>
+        </div>
+        <div class="bip-fields">${fieldsHTML}</div>
+        <div class="bip-divider"></div>
+        <button id="backToAboutBtn" class="bip-back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Back to About
+        </button>
+    `;
+
+    const sidePanel = document.querySelector('.side-panel');
+    const aboutContent = document.querySelector('.about');
+    const aboutDetails = document.querySelector('.about-details');
+
+    if (aboutContent) aboutContent.style.display = 'none';
+    if (aboutDetails) aboutDetails.style.display = 'none';
+
+    const existing = document.getElementById('buildingInfoPanel');
+    if (existing) existing.remove();
+
+    const infoDiv = document.createElement('div');
+    infoDiv.id = 'buildingInfoPanel';
+    infoDiv.innerHTML = infoHTML;
+    sidePanel.appendChild(infoDiv);
+
+    document.getElementById('backToAboutBtn').addEventListener('click', function() {
+        showAboutPanel();
     });
 
-    // CAMPUS POINTS
-    campusPointsLayer = new google.maps.Data();
-    campusPointsLayer.setMap(gMap);
+    if (sidePanel.classList.contains('closed')) {
+        document.getElementById('toggleSidePanelBtn').click();
+    }
+});
 
-    fetch('/data/geojson/slsu_campus_points.geojson')
-        .then(res => {
-            if (!res.ok) throw new Error('slsu_campus_points.geojson not found');
-            return res.json();
-        })
-        .then(data => {
-            campusPointsLayer.addGeoJson(data);
-            campusPointsLayer.setStyle({
-                icon: {
-                    url: "./img/slsu-logo.webp",
-                    scaledSize: new google.maps.Size(32, 32)
-                }
-            });
-        })
-        .catch(err => console.error("Campus points loading error:", err));
+function showAboutPanel() {
+    const aboutContent = document.querySelector('.about');
+    const aboutDetails = document.querySelector('.about-details');
+    const existing = document.getElementById('buildingInfoPanel');
+
+    if (aboutContent) aboutContent.style.display = '';
+    if (aboutDetails) aboutDetails.style.display = '';
+    if (existing) existing.remove();
+
+    // Clear highlight
+    if (selectedBuilding) {
+        buildingsLayer.revertStyle(selectedBuilding);
+        applyBuildingsStyle();
+        selectedBuilding = null;
+    }
+}
 
     campusPointsLayer.addListener('click', function (event) {
         const campusName = event.feature.getProperty('campus_nam') || "SLSU Campus";
@@ -895,50 +1000,63 @@ function applyBuildingsStyle() {
     const recoveryOn = document.getElementById('toggle-aghonrecon')?.checked;
 
     const statusColors = {
-        'Functional': '#4CAF50',
+        'Functional': '#7CFC00',
         'Ongoing Constructions': '#FF9800',
         'Not Functional': '#F44336'
     };
 
     const damageColors = {
-        'Not Damaged': '#4CAF50',
+        'Not Damaged': '#7CFC00',
         'Damaged': '#F44336'
     };
 
     const recoveryColors = {
-        'None': '#4CAF50',
+        'None': '#7CFC00',
         'Major Repairs': '#FF9800',
         'Minor Repairs': '#F44336'
+    };
+
+    // Default style — always looks like image 2
+    const defaultStyle = {
+        fillColor: '#d6b37c',
+        fillOpacity: 1,
+        strokeColor: '#5c4630',
+        strokeWeight: 1,
+        visible: true
     };
 
     buildingsLayer.setStyle(function(feature) {
         const type = String(feature.getProperty("building_type") || "").trim().toLowerCase();
 
-        if (activeTypes.length > 0 && !activeTypes.includes(type)) {
+        if (activeTypes.length === 0 || !activeTypes.includes(type)) {
             return { visible: false };
         }
 
-        let fillColor = '#d6b37c'; // default tan color
-        let strokeColor = '#5c4630';
+        // No condition toggle is on — use default look
+        if (!statusOn && !damageOn && !recoveryOn) {
+            return defaultStyle;
+        }
+
+        let color = null;
 
         if (statusOn) {
             const val = String(feature.getProperty("status") || "").trim();
-            fillColor = statusColors[val] || '#d6b37c';
-            strokeColor = fillColor;
+            color = statusColors[val] || null;
         } else if (damageOn) {
             const val = String(feature.getProperty("damage") || "").trim();
-            fillColor = damageColors[val] || '#d6b37c';
-            strokeColor = fillColor;
+            color = damageColors[val] || null;
         } else if (recoveryOn) {
             const val = String(feature.getProperty("recovery") || "").trim();
-            fillColor = recoveryColors[val] || '#d6b37c';
-            strokeColor = fillColor;
+            color = recoveryColors[val] || null;
         }
 
+        // If no valid color found, keep default look unchanged
+        if (!color) return defaultStyle;
+
         return {
-            fillColor: fillColor,
+            fillColor: color,
             fillOpacity: 1,
-            strokeColor: strokeColor,
+            strokeColor: '#5c4630',  // always keep the same dark border
             strokeWeight: 1,
             visible: true
         };

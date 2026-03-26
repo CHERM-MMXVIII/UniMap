@@ -433,9 +433,7 @@ body {
   }
 }
 
-
-
-  /* Auto-close side panel on tablets */
+/* Auto-close side panel on tablets */
   .side-panel {
     transform: translateX(100%);
   }
@@ -450,7 +448,6 @@ body {
     right: 0;
     width: 100%;
   }
-}
 
 /* Large devices (laptops and desktops) */
 @media (min-width: 1024px) and (max-width: 1279px) {
@@ -490,10 +487,6 @@ body {
   }
 }
 
-
-
-
-
   /* Auto-close side panel on smaller laptops */
   .side-panel {
     transform: translateX(100%);
@@ -509,7 +502,6 @@ body {
     right: 0;
     width: 100%;
   }
-}
 
 /* Small screens (mobile) - Auto-close panel */
 @media (max-width: 768px) {
@@ -681,6 +673,7 @@ body {
   width: 100%;
   height: 100vh;
   z-index: 1;
+  transition: width 0.3s ease, right 0.3s ease;
 }
 
 .map-container iframe {
@@ -1663,10 +1656,15 @@ hr {
 
 /* CONDITIONS BUTTON */
 #conditionButton {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   left: 5rem;
-  z-index: 100;
+  z-index: 999;
+  transition: left 0.3s ease;
+}
+
+#conditionButton.menu-open {
+  left: 320px;
 }
 
 .conditions-wrapper {
@@ -1714,7 +1712,7 @@ hr {
   display: none;
   flex-direction: column;
   width: 100%;
-  gap: 0;
+  gap: 6px;
   padding-bottom: 10px;
   z-index: 102;
 }
@@ -1772,10 +1770,6 @@ hr {
   z-index: 1001;
 }
 
-.condition-item:hover .condition-modal {
-  display: block;
-}
-
 .rotate {
   transform: rotate(180deg);
 }
@@ -1812,6 +1806,72 @@ hr {
   background-color: #FFA500;
 }
 
+/* Toggle switch */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  gap: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  min-width: 160px;
+}
+
+.toggle-label {
+  font-size: 13px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  min-width: 80px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-track {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #c8c8c8;
+  border-radius: 22px;
+  transition: background 0.25s;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: left 0.25s;
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background: #4CAF50;
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+  left: 24px;
+}
+
 /* RESPONSIVE STYLES FOR CONDITION BUTTON */
 @media (max-width: 480px) {
   .conditions-wrapper {
@@ -1838,7 +1898,6 @@ hr {
   }
 
   #conditionButton {
-    bottom: 20px;
     left: 1rem;
   }
 
@@ -1872,7 +1931,6 @@ hr {
   }
 
   #conditionButton {
-    bottom: 20px;
     left: 2rem;
   }
 
@@ -1906,7 +1964,6 @@ hr {
   }
 
   #conditionButton {
-    bottom: 20px;
     left: 3rem;
   }
 }
@@ -1935,7 +1992,6 @@ hr {
   }
 
   #conditionButton {
-    bottom: 20px;
     left: 5rem;
   }
 }
@@ -2572,8 +2628,12 @@ body::-webkit-scrollbar-track {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 0;
+    padding: 6px 12px;
     gap: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    min-width: 160px;
 }
 
 .toggle-label {
@@ -2627,4 +2687,103 @@ body::-webkit-scrollbar-track {
 
 .toggle-switch input:checked + .toggle-track::after {
     left: 24px;
+}
+
+/*INFO PANEL*/
+
+/* BUILDING INFO PANEL */
+#buildingInfoPanel {
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+
+.bip-header {
+    background: rgba(8, 92, 118, 0.85);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.bip-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bip-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.bip-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bip-field {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.bip-field-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.bip-field-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.bip-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.bip-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 14px 0;
+}
+
+.bip-back-btn {
+    width: 100%;
+    background: #085C76;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.bip-back-btn:hover {
+    background: #074c61;
 }
