@@ -1,548 +1,400 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@400;600;700&display=swap');
 
 /* =========================
-   PAGE HEADER
+   GLOBAL RESET & BASE
 ========================= */
-.page-header {
-    text-align: center;
-    padding: 5rem 1rem 5rem;
-    position: relative;
-    background: #085C76;
-    border-radius: 18px;
-    margin-bottom: 3rem;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-.page-header .eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #a8d8b0;
-    margin-bottom: 0.75rem;
-}
-
-.page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 900;
-    color: #ffffff;
-    line-height: 1.1;
-    margin: 0;
-}
-
-.page-header h1 span {
-    color: #7eac43;
-    font-style: italic;
-}
-
-.page-header .subtitle {
-    margin-top: 1rem;
-    font-size: 1rem;
-    color: #c8e6d0;
-    max-width: 540px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-.header-divider {
-    width: 60px;
-    height: 4px;
-    background: #ffffff;
-    border-radius: 2px;
-    margin: 1.5rem auto 0;
-}
-
-/* =========================
-   GLOBAL
-========================= */
-* { box-sizing: border-box; }
-
-:root{
-  --brown: #b06a2a;      
-  --brown2:#9a581f;
-  --text:  #0f172a;
+:root {
+  --brown: #b06a2a;
+  --brown2: #9a581f;
+  --text: #0f172a;
   --muted: #6b7280;
-  --bg:    #d1e0d6;
-  --panel: transparent;
-  --shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+  --bg: #d1e0d6;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+  --card-max: 360px;
+  --gap-lg: 28px;
+  --gap-md: 20px;
+  --gap-sm: 14px;
+  --radius-card: 18px;
 }
 
-body{
+body {
   margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #d1e0d6;
+  font-family: "DM Sans", "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* =========================
    BACK BUTTON
 ========================= */
-.back-btn{
+.back-btn {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   text-decoration: none;
   font-weight: 700;
+  font-size: 14px;
   color: #333;
   z-index: 100;
+  background: rgba(255,255,255,0.88);
+  padding: 8px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  transition: background 0.2s;
 }
-
-.back-btn i{ margin-right: 6px; }
+.back-btn:hover { background: #fff; }
+.back-btn i { margin-right: 6px; }
 
 /* =========================
    PAGE CONTAINER
 ========================= */
-.container{
-  max-width: 1300px;      
+.container {
+  max-width: 1300px;
   margin: auto;
-  padding: 4.5rem 2rem 3rem;
+  padding: 4rem 1.5rem 3rem;
 }
 
 /* =========================
-   HEADER 
+   PAGE HEADER
 ========================= */
-.page-head{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 22px;
+.page-header {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #085C76;
+  border-radius: var(--radius-card);
+  margin-bottom: 3rem;
 }
 
-.page-kicker{
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .12em;
-  color: var(--brown);
-  margin-bottom: 6px;
+.page-header .eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
+  color: #a8d8b0;
+  margin-bottom: 0.75rem;
 }
 
-.page-title{
-  margin: 0;
-  font-size: 32px;
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 5rem);
   font-weight: 900;
-  color: var(--text);
-  letter-spacing: 0;
-  text-transform: none;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 0;
 }
 
-.all-members-btn{
-  margin-top: 6px;
-  text-decoration: none;
-  color: #fff;
-  background: var(--brown);
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: .03em;
-  white-space: nowrap;
+.page-header h1 span {
+  color: #7eac43;
+  font-style: normal;
 }
-.all-members-btn:hover{ background: var(--brown2); }
+
+.header-divider {
+  width: 60px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 2px;
+  margin: 1.5rem auto 0;
+}
 
 /* =========================
    SECTIONS
 ========================= */
-.team-section{
-  margin-top: 28px;
-}
+.team-section { margin-top: 36px; }
 
-.section-title{
-  text-align: left;
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+.section-title {
+  text-align: center;
+  font-size: clamp(16px, 3vw, 26px);
+  letter-spacing: 0.04em;
   font-weight: 900;
   color: #94a3b8;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 
-.section-title::after{
+.section-title::after {
   content: "";
   display: block;
   width: 64px;
   height: 3px;
-  background: rgba(176,106,42,0.35);
-  margin: 10px 0 0;
+  background: rgba(176, 106, 42, 0.35);
+  margin: 10px auto 0;
   border-radius: 999px;
 }
 
-.slsu-title::after {
-  background: #8ead84;
-}
+.slsu-title   { color: #7eac43; }
+.slsu-title::after  { background: #8ead84; }
+.dost-title   { color: #085C76; }
+.dost-title::after  { background: #6a99b7; }
+.cherm-title  { color: #7eac43; }
+.cherm-title::after { background: #8ead84; }
+.intern-title { color: #085C76; }
+.intern-title::after { background: #6a99b7; }
 
-.dost-title::after {
-  background: #6a99b7;
+/* =========================
+   LEADERSHIP ROW 
+========================= */
+.leadership-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-lg);
+  align-items: start;
 }
 
 /* =========================
-   CARD ROW 
+   CARD COLUMNS
 ========================= */
+.card-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  align-items: center;
+}
+
+.card-col .team-card,
+.card-col--center .team-card {
+  width: 100%;
+  max-width: var(--card-max);
+}
 
 /* =========================
-   TEAM CARD 
+   INTERNS GRID 
 ========================= */
-.team-card{
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, var(--card-max)));
+  gap: var(--gap-md);
+  justify-content: center;
+}
+
+/* =========================
+   TEAM CARD
+========================= */
+.team-card {
   background: #fff;
-  border-radius: 18px;
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow);
   overflow: hidden;
   position: relative;
   width: 100%;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
 }
 
 /* =========================
-   IMAGE AREA
+   IMAGE AREA — aspect ratio box
 ========================= */
-.image-wrapper{
+.image-wrapper {
   position: relative;
   width: 100%;
-  height: 420px; 
+  padding-top: 118%; /* portrait ratio */
   overflow: hidden;
-  border-radius: 18px; 
+  border-radius: var(--radius-card);
 }
 
-.image-wrapper img{
+.image-wrapper img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: top;
+  object-fit: cover;
+  object-position: top center;
   display: block;
+  transition: transform 0.38s ease;
+}
+
+.team-card:hover .image-wrapper img {
+  transform: scale(1.05);
 }
 
 /* =========================
-   SHARE BUTTON (top-right square)
+   SOCIAL OVERLAY
 ========================= */
-.share-btn{
+.social-overlay {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--brown);
-  color: #fff;
-  text-decoration: none;
-  display: grid;
-  place-items: center;
-  z-index: 3;
-}
-
-.share-btn:hover{
-  background: var(--brown2);
-}
-
-/* =========================
-   SOCIAL STRIP 
-========================= */
-.social-overlay{
-  position: absolute;
-  top: 22px;
-  right: 14px;
-
-  width: 44px;
+  width: 40px;
   padding: 10px 0;
   border-radius: 999px;
   background: var(--brown);
-
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
   opacity: 0;
   transform: translateY(-6px);
-  transition: opacity .18s ease, transform .18s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 2;
 }
 
-.image-wrapper:hover .social-overlay{
+.image-wrapper:hover .social-overlay {
   opacity: 1;
   transform: translateY(0);
 }
 
-.social-overlay a{
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
+.social-overlay a {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
   color: #fff;
   text-decoration: none;
-  font-size: 13px;
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.18);
-}
-
-.social-overlay a:hover{
-  background: rgba(255,255,255,0.20);
-}
-
-/* =========================
-   NAME PANEL + ROLE TAG
-========================= */
-.team-card h4{
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 26px;
-
-  margin: 0;
-  padding: 12px 14px;
-  background: #fff;
-  border-radius: 14px;
-
-  font-size: 15px;
-  font-weight: 900;
-  color: var(--text);
-
-  box-shadow: 0 -10px 22px rgba(15, 23, 42, 0.10);
-  z-index: 2;
-}
-
-/* Hide role text visually ) */
-.team-card p{
-  position: absolute;
-  left: 14px;
-  bottom: 10px;
-  margin: 0;
-  color: transparent;  
-  font-size: 0;
-}
-
-.team-card p::after{
-  content: attr(data-role);
-  display: inline-block;
-  background: var(--brown);
-  color: #fff;
-  font-weight: 800;
   font-size: 12px;
-  padding: 7px 12px;
-  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.15s;
 }
 
-/* If you forget to add data-role, show nothing instead of blank tag */
-.team-card p:not([data-role])::after{
-  content: "";
-  display: none;
-}
+.social-overlay a:hover { background: rgba(255,255,255,0.28); }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1000px){
-  /* handled in layout additions */
-}
+.slsu-section  .social-overlay { background: #8ead84; }
+.dost-section  .social-overlay { background: #6a99b7; }
+.cherm-section .social-overlay { background: #8ead84; }
+.intern-section .social-overlay { background: #6a99b7; }
 
-@media (max-width: 520px){
-  .page-head{ flex-direction: column; align-items: flex-start; }
-  .page-title{ font-size: 26px; }
-  .card-row{ grid-template-columns: 1fr; }
-  .image-wrapper{ height: 280px; }
-
-  /* show social strip on touch devices */
-  .social-overlay{ opacity: 1; transform: none; }
-}
-/* =========================
-   LAYOUT ADDITIONS
-========================= */
-
-/* Two leadership groups side by side */
-.leadership-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: start;
-}
-
-@media (max-width: 900px) {
-    .leadership-row {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Vertical stack of cards inside each leadership column */
-.card-col {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    width: 100%;
-    align-items: center;
-}
-
-/* Leadership cards: fixed comfortable width */
-.card-col .team-card {
-    width: 100%;
-    max-width: 360px;
-}
-
-/* CHERM team: vertical, wider cards centered */
-.card-col--center {
-    align-items: center;
-}
-
-.card-col--center .team-card {
-    width: 100%;
-    max-width: 360px;
-}
-
-/* Interns: 3-column grid */
-.card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 360px);
-    gap: 22px;
-    justify-content: center;
-}
-
-.card-row .team-card {
-    width: 100%;
-    max-width: 360px;
-}
-
-@media (max-width: 900px) {
-    .card-row {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 560px) {
-    .card-row {
-        grid-template-columns: 1fr;
-    }
-}
 /* =========================
    NAME PANEL
 ========================= */
 .name-panel {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  padding: 12px 14px 10px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 10px 12px;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 4px 18px rgba(15,23,42,0.13);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
 }
+
 .name-panel .card-name {
-  font-size: 15px;
-  font-weight: 900;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text);
-  margin: 0;
   line-height: 1.2;
 }
+
 .name-panel .card-role {
-  display: inline-block;
-  background: var(--brown);
-  color: #fff;
-  font-weight: 700;
   font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  line-height: 1.4;
-  width: fit-content;
-}
-/* Override old h4/p inside image-wrapper context */
-.image-wrapper ~ h4,
-.image-wrapper ~ p {
-  display: none !important;
-}
-
-/* =========================
-   NAME PANEL OVERRIDES
-========================= */
-.name-panel {
-  text-align: center;
-  align-items: center;
-}
-
-.name-panel .card-role {
-  background: none;
-  color: var(--muted);
   font-weight: 600;
-  font-size: 12px;
-  padding: 0;
-  border-radius: 0;
-  width: auto;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
-/* Fix CHERM span italic in CSS too */
-.page-header h1 span {
-  font-style: normal;
+/* ====================================================
+   RESPONSIVE BREAKPOINTS — progressive
+   ==================================================== */
+
+/* ── Tablet landscape ≤ 1080px: 2-col interns ── */
+@media (max-width: 1080px) {
+  .card-row {
+    grid-template-columns: repeat(2, minmax(0, var(--card-max)));
+  }
 }
 
-/* People Behind color override */
-.page-header h1 {
-  color: #ffffff;
+/* ── Tablet portrait ≤ 860px: stack leadership sections,
+       show cards side-by-side within each ── */
+@media (max-width: 860px) {
+  .leadership-row {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
+  }
+
+  /* Leadership cards: two per row inside their section */
+  .card-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card-col .team-card,
+  .card-col--center .team-card {
+    width: calc(50% - 10px);
+    max-width: 100%;
+  }
 }
 
-/* Section title bigger */
-.section-title {
-  font-size: 26px;
-  letter-spacing: .05em;
+/* ── Phablet ≤ 640px: 2-col interns, tighter padding ── */
+@media (max-width: 640px) {
+  .container {
+    padding: 3.5rem 1rem 2.5rem;
+  }
+
+  .page-header {
+    padding: 2.5rem 1.25rem;
+    border-radius: 14px;
+    margin-bottom: 1.75rem;
+  }
+
+  .card-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  .card-col {
+    gap: var(--gap-sm);
+  }
+
+  /* Always show social strip on touch */
+  .social-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Center section titles */
-.section-title {
-  text-align: center;
-}
-.section-title::after {
-  margin: 10px auto 0;
+/* ── Mobile ≤ 460px: single column everything ── */
+@media (max-width: 460px) {
+  .card-col,
+  .card-col--center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-col .team-card,
+  .card-col--center .team-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .card-row {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .card-row .team-card {
+    max-width: 320px;
+  }
+
+  .name-panel .card-name { font-size: 13px; }
+  .name-panel .card-role { font-size: 10px; }
+
+  .back-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 
-/* Section title color overrides */
-.slsu-title {
-  color: #7eac43;
-}
-.dost-title {
-  color: #085C76;
-}
-.cherm-title {
-  color: #7eac43;
-}
-.cherm-title::after {
-  background: #8ead84;
-}
-.intern-title {
-  color: #085C76;
-}
-.intern-title::after {
-  background: #6a99b7;
-}
+/* ── Tiny screens ≤ 360px ── */
+@media (max-width: 360px) {
+  .container { padding: 3rem 0.75rem 2rem; }
 
-/* SLSU section - green social overlay */
-.slsu-section .social-overlay {
-  background: #8ead84;
-}
-
-/* DOST section - blue social overlay */
-.dost-section .social-overlay {
-  background: #6a99b7;
-}
-
-/* CHERM section - green social overlay */
-.cherm-section .social-overlay {
-  background: #8ead84;
-}
-
-/* Interns section - blue social overlay */
-.intern-section .social-overlay {
-  background: #6a99b7;
-}
-
-/* Center cards in all sections */
-.card-col {
-  align-items: center;
-}
-.card-row {
-  justify-content: center;
-}
-.leadership-row {
-  justify-content: center;
+  .card-col .team-card,
+  .card-col--center .team-card,
+  .card-row .team-card {
+    max-width: 100%;
+  }
 }
