@@ -1585,7 +1585,7 @@ input:checked ~ .slide {
 .submenu {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.4s ease;
   background: transparent;
   margin: 0 !important;
   padding: 0 !important;
@@ -1600,7 +1600,7 @@ ul .submenu {
 }
 
 .dropdown input:checked ~ .submenu {
-  max-height: 600px;
+  max-height: 3000px;
   padding-top: 4px;
   padding-bottom: 4px;
 }
@@ -2563,4 +2563,505 @@ body::-webkit-scrollbar-track {
 
 .building-tooltip.hidden {
     display: none;
+}
+
+/* ===========================
+   BUILDING INFO SIDE PANEL
+=========================== */
+#buildingInfoPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 300px;
+  max-width: 88%;
+  height: 100%;
+  background: #fff;
+  z-index: 50;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  overflow: hidden;
+}
+
+#buildingInfoPanel.open {
+  transform: translateX(0);
+}
+
+#buildingInfoHeader {
+  background: linear-gradient(135deg, #2f6b2f 0%, #4a9c4a 100%);
+  color: #fff;
+  padding: 16px 16px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+#buildingInfoIcon {
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+#buildingInfoTitle {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  flex: 1;
+  opacity: 0.92;
+}
+
+#buildingInfoClose {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+#buildingInfoClose:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+#buildingInfoName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a3d1a;
+  padding: 16px 18px 12px;
+  border-bottom: 2px solid #e8f5e8;
+  background: #f9fff9;
+  line-height: 1.35;
+  flex-shrink: 0;
+}
+
+#buildingInfoBody {
+  padding: 14px 18px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#buildingInfoBody::-webkit-scrollbar {
+  width: 5px;
+}
+
+#buildingInfoBody::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 10px;
+}
+
+.bip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 12px;
+}
+
+.bip-row:last-child {
+  border-bottom: none;
+}
+
+.bip-label {
+  font-size: 11.5px;
+  color: #999;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.bip-value {
+  font-size: 13px;
+  color: #2b2b2b;
+  font-weight: 600;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.bip-value.status-functional  { color: #2ecc71; }
+.bip-value.status-ongoing     { color: #f39c12; }
+.bip-value.status-damaged     { color: #e74c3c; }
+
+/* Empty state */
+.bip-empty {
+  color: #bbb;
+  font-size: 13px;
+  text-align: center;
+  padding: 28px 0 10px;
+}
+
+/* Responsive: narrower panel on small screens */
+@media (max-width: 480px) {
+  #buildingInfoPanel {
+    width: 88%;
+  }
+}
+/* ===========================
+   ICONS SHIFT LEFT WHEN BUILDING INFO PANEL IS OPEN
+=========================== */
+.user-dropdown.bip-open {
+  right: calc(300px + 1rem) !important;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-dropdown.bip-open {
+  right: calc(300px + 1rem) !important;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* ===========================
+   FLOOD PANEL (NOAH-style)
+=========================== */
+
+/* Outer wrapper — sits inside the checklist-submenu */
+.flood-panel-wrapper {
+    padding: 0;
+    list-style: none;
+}
+
+/* ── Top "FLOOD-PRONE AREAS" header row ── */
+.flood-panel-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a3a5c;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+/* The row containing the title + its chevron */
+.flood-panel-wrapper > .flood-period-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px 8px 14px;
+    background: #eef4fb;
+    border-top: 1px solid #c8daf0;
+    border-bottom: 1px solid #c8daf0;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+/* Each period block */
+.flood-period-block {
+    border-bottom: 1px solid #e4eee4;
+    background: #fff;
+}
+
+.flood-period-block:last-child {
+    border-bottom: none;
+}
+
+/* Row: checkbox label + expand chevron (for individual year rows) */
+.flood-period-block > .flood-period-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px 6px 4px;
+    background: #fff;
+}
+
+/* Period label inherits checklist-item but slim right padding */
+.flood-period-label {
+    flex: 1;
+    padding-right: 4px;
+    font-size: 12.5px;
+}
+
+/* Expand/collapse chevron button */
+.flood-expand-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5a7a5a;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.flood-expand-btn:hover {
+    color: #2e7d32;
+    background: #e8f5e9;
+}
+
+/* Rotate chevron when open */
+.flood-expand-btn i {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.flood-expand-btn.open i {
+    transform: rotate(180deg);
+}
+
+/* Settings panel — hidden by default */
+.flood-settings {
+    display: none;
+    padding: 6px 12px 10px 14px;
+    background: #f9fdf9;
+    border-top: 1px solid #dce8d4;
+    animation: floodFadeIn 0.2s ease;
+}
+
+.flood-settings.open {
+    display: block;
+}
+
+@keyframes floodFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* The group container (flood-group) that wraps all year blocks */
+#flood-group,
+#landslide-group {
+    padding: 0;
+    border: 1px solid #d4e6d4;
+    border-radius: 0 0 4px 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Section label (Opacity / Legend / CHOOSE COLOR) */
+.flood-setting-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #607d6e;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin: 8px 0 3px 0;
+}
+
+.flood-setting-label:first-child {
+    margin-top: 2px;
+}
+
+/* ── Opacity ── */
+.flood-opacity-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flood-opacity-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #4caf50 0%, #4caf50 85%, #d0d0d0 85%);
+    outline: none;
+    cursor: pointer;
+}
+
+.flood-opacity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #4caf50;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.flood-opacity-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #4caf50;
+    cursor: pointer;
+}
+
+.flood-opacity-val {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #444;
+    min-width: 26px;
+    text-align: right;
+}
+
+.flood-tick-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5px;
+    color: #aaa;
+    margin-top: 1px;
+}
+
+/* ── Legend swatches ── */
+.flood-legend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.flood-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #333;
+}
+
+.flood-swatch {
+    width: 22px;
+    height: 15px;
+    border-radius: 3px;
+    display: inline-block;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(0,0,0,0.18);
+}
+
+/* ── Color palette ── */
+.flood-color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+.flood-color-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+}
+
+.flood-color-btn:hover {
+    transform: scale(1.15);
+    border-color: rgba(0,0,0,0.3);
+}
+
+.flood-color-btn.active {
+    border-color: #1b5e20;
+    box-shadow: 0 0 0 2px #a5d6a7;
+    transform: scale(1.1);
+}
+/* ===========================
+   GOOGLE MAPS INFOWINDOW OVERRIDES
+=========================== */
+
+/* Remove default InfoWindow tail, padding, and background */
+.gm-style .gm-style-iw-c {
+    padding: 0 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25) !important;
+    overflow: hidden !important;
+}
+.gm-style .gm-style-iw-d {
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+/* Hide the tail arrow */
+.gm-style .gm-style-iw-t::after {
+    display: none !important;
+}
+/* Hide the close button */
+.gm-style .gm-style-iw-chr {
+    display: none !important;
+}
+/* Hide the default close button (we handle close via click) */
+.gm-style .gm-style-iw-c button.gm-ui-hover-effect {
+    display: none !important;
+}
+
+/* ===========================
+   CONDITION TOGGLE BOX
+=========================== */
+.condition-toggle-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    width: 180px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.condition-toggle-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    margin-right: 12px;
+}
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 28px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #bbb;
+    border-radius: 28px;
+    transition: 0.3s;
+}
+.toggle-slider:before {
+    content: "";
+    position: absolute;
+    width: 20px; height: 20px;
+    left: 4px; bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.toggle-switch input:checked + .toggle-slider { background: #2ecc71; }
+.toggle-switch input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+/* ===========================
+   FLOOD SUB-LAYER LABELS
+=========================== */
+.flood-group-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a5276;
+    padding: 6px 4px 2px 4px;
+    letter-spacing: 0.3px;
+}
+.flood-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: 5px;
+    vertical-align: middle;
 }

@@ -15,95 +15,9 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/style.css">
-    <style>
-        /* Remove default InfoWindow tail, padding, and background */
-        .gm-style .gm-style-iw-c {
-            padding: 0 !important;
-            border-radius: 6px !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25) !important;
-            overflow: hidden !important;
-        }
-        .gm-style .gm-style-iw-d {
-            overflow: hidden !important;
-            padding: 0 !important;
-        }
-        /* Hide the tail arrow */
-        .gm-style .gm-style-iw-t::after {
-            display: none !important;
-        }
-        /* Hide the close button */
-        .gm-style .gm-style-iw-chr {
-            display: none !important;
-        }
-    </style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        /* Remove Google InfoWindow default white box, padding, shadow, and arrow tail */
-        .gm-style .gm-style-iw-c {
-            padding: 0 !important;
-            border-radius: 6px !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25) !important;
-            overflow: hidden !important;
-        }
-        .gm-style .gm-style-iw-d {
-            overflow: hidden !important;
-            padding: 0 !important;
-        }
-        /* Hide the arrow/tail */
-        .gm-style .gm-style-iw-t::after {
-            display: none !important;
-        }
-        /* Hide the default close button (we handle close via click) */
-        .gm-style .gm-style-iw-c button.gm-ui-hover-effect {
-            display: none !important;
-        }
-        .condition-toggle-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f0f0f0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            margin-bottom: 6px;
-            width: 180px;
-            box-sizing: border-box;
-            cursor: pointer;
-        }
-        .condition-toggle-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            white-space: nowrap;
-            margin-right: 12px;
-        }
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 54px;
-            height: 28px;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #bbb;
-            border-radius: 28px;
-            transition: 0.3s;
-        }
-        .toggle-slider:before {
-            content: "";
-            position: absolute;
-            width: 20px; height: 20px;
-            left: 4px; bottom: 4px;
-            background: white;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-        .toggle-switch input:checked + .toggle-slider { background: #2ecc71; }
-        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(26px); }
-    </style>
+
 </head>
 
 <body>
@@ -404,12 +318,241 @@
                             <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox"
                                         data-layer="haz-faults"><span class="custom-checkbox"></span>Fault
                                     Lines</label></li>
-                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox"
-                                        data-layer="haz-flood"><span class="custom-checkbox"></span>Flood-Prone
-                                    Areas</label></li>
-                            <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox"
-                                        data-layer="haz-landslide"><span class="custom-checkbox"></span>Landslide Risk
-                                    Zones</label></li>
+
+                            <!-- ===== FLOOD-PRONE AREAS (NOAH-style) ===== -->
+                            <li class="flood-panel-wrapper">
+                                <div class="flood-period-row">
+                                    <span class="flood-panel-title" style="flex:1; margin:0;">Flood-Prone Areas</span>
+                                    <button class="flood-expand-btn" data-target="flood-group" title="Toggle Flood-Prone Areas">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flood-settings" id="flood-group">
+
+                                <!-- 5-Year -->
+                                <div class="flood-period-block">
+                                    <div class="flood-period-row">
+                                        <label class="checklist-item flood-period-label">
+                                            <input type="checkbox" class="layer-checkbox" data-layer="haz-flood-5yr">
+                                            <span class="custom-checkbox"></span>
+                                            5-Year Return Period
+                                        </label>
+                                        <button class="flood-expand-btn" data-target="flood-settings-5yr" title="Settings">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    <div class="flood-settings" id="flood-settings-5yr">
+                                        <div class="flood-setting-group">
+                                            <div class="flood-setting-label">Opacity</div>
+                                            <div class="flood-opacity-row">
+                                                <input type="range" min="0" max="100" value="85"
+                                                    class="flood-opacity-slider" data-period="5yr" id="opacity-5yr">
+                                                <span class="flood-opacity-val" id="opval-5yr">85</span>
+                                            </div>
+                                            <div class="flood-tick-labels"><span>0</span><span>100</span></div>
+                                        </div>
+                                        <div class="flood-setting-label">Legend</div>
+                                        <div class="flood-legend-list" id="flood-legend-5yr">
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-5yr-3"></span>High</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-5yr-2"></span>Medium</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-5yr-1"></span>Low</div>
+                                        </div>
+                                        <div class="flood-setting-label">CHOOSE COLOR</div>
+                                        <div class="flood-color-palette" data-period="5yr">
+                                            <span class="flood-color-btn active" data-theme="red"    style="background:#ef5350;" title="Red"></span>
+                                            <span class="flood-color-btn"        data-theme="purple" style="background:#7b1fa2;" title="Purple"></span>
+                                            <span class="flood-color-btn"        data-theme="blue"   style="background:#0d47a1;" title="Blue"></span>
+                                            <span class="flood-color-btn"        data-theme="green"  style="background:#2e7d32;" title="Green"></span>
+                                            <span class="flood-color-btn"        data-theme="teal"   style="background:#00695c;" title="Teal"></span>
+                                            <span class="flood-color-btn"        data-theme="orange" style="background:#e65100;" title="Orange"></span>
+                                            <span class="flood-color-btn"        data-theme="dark"   style="background:#424242;" title="Dark"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 25-Year -->
+                                <div class="flood-period-block">
+                                    <div class="flood-period-row">
+                                        <label class="checklist-item flood-period-label">
+                                            <input type="checkbox" class="layer-checkbox" data-layer="haz-flood-25yr">
+                                            <span class="custom-checkbox"></span>
+                                            25-Year Return Period
+                                        </label>
+                                        <button class="flood-expand-btn" data-target="flood-settings-25yr" title="Settings">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    <div class="flood-settings" id="flood-settings-25yr">
+                                        <div class="flood-setting-group">
+                                            <div class="flood-setting-label">Opacity</div>
+                                            <div class="flood-opacity-row">
+                                                <input type="range" min="0" max="100" value="85"
+                                                    class="flood-opacity-slider" data-period="25yr" id="opacity-25yr">
+                                                <span class="flood-opacity-val" id="opval-25yr">85</span>
+                                            </div>
+                                            <div class="flood-tick-labels"><span>0</span><span>100</span></div>
+                                        </div>
+                                        <div class="flood-setting-label">Legend</div>
+                                        <div class="flood-legend-list" id="flood-legend-25yr">
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-25yr-3"></span>High</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-25yr-2"></span>Medium</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-25yr-1"></span>Low</div>
+                                        </div>
+                                        <div class="flood-setting-label">CHOOSE COLOR</div>
+                                        <div class="flood-color-palette" data-period="25yr">
+                                            <span class="flood-color-btn"        data-theme="red"    style="background:#ef5350;" title="Red"></span>
+                                            <span class="flood-color-btn active" data-theme="purple" style="background:#7b1fa2;" title="Purple"></span>
+                                            <span class="flood-color-btn"        data-theme="blue"   style="background:#0d47a1;" title="Blue"></span>
+                                            <span class="flood-color-btn"        data-theme="green"  style="background:#2e7d32;" title="Green"></span>
+                                            <span class="flood-color-btn"        data-theme="teal"   style="background:#00695c;" title="Teal"></span>
+                                            <span class="flood-color-btn"        data-theme="orange" style="background:#e65100;" title="Orange"></span>
+                                            <span class="flood-color-btn"        data-theme="dark"   style="background:#424242;" title="Dark"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 100-Year -->
+                                <div class="flood-period-block">
+                                    <div class="flood-period-row">
+                                        <label class="checklist-item flood-period-label">
+                                            <input type="checkbox" class="layer-checkbox" data-layer="haz-flood-100yr">
+                                            <span class="custom-checkbox"></span>
+                                            100-Year Return Period
+                                        </label>
+                                        <button class="flood-expand-btn" data-target="flood-settings-100yr" title="Settings">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    <div class="flood-settings" id="flood-settings-100yr">
+                                        <div class="flood-setting-group">
+                                            <div class="flood-setting-label">Opacity</div>
+                                            <div class="flood-opacity-row">
+                                                <input type="range" min="0" max="100" value="85"
+                                                    class="flood-opacity-slider" data-period="100yr" id="opacity-100yr">
+                                                <span class="flood-opacity-val" id="opval-100yr">85</span>
+                                            </div>
+                                            <div class="flood-tick-labels"><span>0</span><span>100</span></div>
+                                        </div>
+                                        <div class="flood-setting-label">Legend</div>
+                                        <div class="flood-legend-list" id="flood-legend-100yr">
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-100yr-3"></span>High</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-100yr-2"></span>Medium</div>
+                                            <div class="flood-legend-row"><span class="flood-swatch" id="swatch-100yr-1"></span>Low</div>
+                                        </div>
+                                        <div class="flood-setting-label">CHOOSE COLOR</div>
+                                        <div class="flood-color-palette" data-period="100yr">
+                                            <span class="flood-color-btn"        data-theme="red"    style="background:#ef5350;" title="Red"></span>
+                                            <span class="flood-color-btn"        data-theme="purple" style="background:#7b1fa2;" title="Purple"></span>
+                                            <span class="flood-color-btn active" data-theme="blue"   style="background:#0d47a1;" title="Blue"></span>
+                                            <span class="flood-color-btn"        data-theme="green"  style="background:#2e7d32;" title="Green"></span>
+                                            <span class="flood-color-btn"        data-theme="teal"   style="background:#00695c;" title="Teal"></span>
+                                            <span class="flood-color-btn"        data-theme="orange" style="background:#e65100;" title="Orange"></span>
+                                            <span class="flood-color-btn"        data-theme="dark"   style="background:#424242;" title="Dark"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div><!-- end #flood-group -->
+                            </li>
+                            <!-- ===== END FLOOD ===== -->
+
+                            <!-- ===== LANDSLIDE HAZARD (NOAH-style) ===== -->
+                            <li class="flood-panel-wrapper">
+                                <div class="flood-period-row">
+                                    <span class="flood-panel-title" style="flex:1; margin:0;">Landslide Hazard</span>
+                                    <button class="flood-expand-btn" data-target="landslide-group" title="Toggle Landslide Hazard">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flood-settings" id="landslide-group">
+
+                                    <!-- Landslides sub-layer -->
+                                    <div class="flood-period-block">
+                                        <div class="flood-period-row">
+                                            <label class="checklist-item flood-period-label">
+                                                <input type="checkbox" class="layer-checkbox" data-layer="haz-landslide">
+                                                <span class="custom-checkbox"></span>
+                                                Landslides
+                                            </label>
+                                            <button class="flood-expand-btn" data-target="landslide-settings" title="Settings">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flood-settings" id="landslide-settings">
+                                            <div class="flood-setting-group">
+                                                <div class="flood-setting-label">Opacity</div>
+                                                <div class="flood-opacity-row">
+                                                    <input type="range" min="0" max="100" value="85"
+                                                        class="flood-opacity-slider" id="opacity-landslide">
+                                                    <span class="flood-opacity-val" id="opval-landslide">85</span>
+                                                </div>
+                                                <div class="flood-tick-labels"><span>0</span><span>100</span></div>
+                                            </div>
+                                            <div class="flood-setting-label">Legend</div>
+                                            <div class="flood-legend-list" id="landslide-legend">
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-landslide-3"></span>High</div>
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-landslide-2"></span>Medium</div>
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-landslide-1"></span>Low</div>
+                                            </div>
+                                            <div class="flood-setting-label">CHOOSE COLOR</div>
+                                            <div class="landslide-color-palette">
+                                                <span class="flood-color-btn"        data-theme="red"    style="background:#ef5350;" title="Red"></span>
+                                                <span class="flood-color-btn"        data-theme="purple" style="background:#7b1fa2;" title="Purple"></span>
+                                                <span class="flood-color-btn"        data-theme="blue"   style="background:#0d47a1;" title="Blue"></span>
+                                                <span class="flood-color-btn active" data-theme="green"  style="background:#2e7d32;" title="Green"></span>
+                                                <span class="flood-color-btn"        data-theme="teal"   style="background:#00695c;" title="Teal"></span>
+                                                <span class="flood-color-btn"        data-theme="orange" style="background:#e65100;" title="Orange"></span>
+                                                <span class="flood-color-btn"        data-theme="dark"   style="background:#424242;" title="Dark"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Debris Flow and Alluvial Fan sub-layer -->
+                                    <div class="flood-period-block">
+                                        <div class="flood-period-row">
+                                            <label class="checklist-item flood-period-label">
+                                                <input type="checkbox" class="layer-checkbox" data-layer="haz-debrisflow">
+                                                <span class="custom-checkbox"></span>
+                                                Debris Flow and Alluvial Fan
+                                            </label>
+                                            <button class="flood-expand-btn" data-target="debrisflow-settings" title="Settings">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flood-settings" id="debrisflow-settings">
+                                            <div class="flood-setting-group">
+                                                <div class="flood-setting-label">Opacity</div>
+                                                <div class="flood-opacity-row">
+                                                    <input type="range" min="0" max="100" value="85"
+                                                        class="flood-opacity-slider" id="opacity-debrisflow">
+                                                    <span class="flood-opacity-val" id="opval-debrisflow">85</span>
+                                                </div>
+                                                <div class="flood-tick-labels"><span>0</span><span>100</span></div>
+                                            </div>
+                                            <div class="flood-setting-label">Legend</div>
+                                            <div class="flood-legend-list" id="debrisflow-legend">
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-debrisflow-3"></span>High</div>
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-debrisflow-2"></span>Medium</div>
+                                                <div class="flood-legend-row"><span class="flood-swatch" id="swatch-debrisflow-1"></span>Low</div>
+                                            </div>
+                                            <div class="flood-setting-label">CHOOSE COLOR</div>
+                                            <div class="debrisflow-color-palette">
+                                                <span class="flood-color-btn"        data-theme="red"    style="background:#ef5350;" title="Red"></span>
+                                                <span class="flood-color-btn active" data-theme="purple" style="background:#7b1fa2;" title="Purple"></span>
+                                                <span class="flood-color-btn"        data-theme="blue"   style="background:#0d47a1;" title="Blue"></span>
+                                                <span class="flood-color-btn"        data-theme="green"  style="background:#2e7d32;" title="Green"></span>
+                                                <span class="flood-color-btn"        data-theme="teal"   style="background:#00695c;" title="Teal"></span>
+                                                <span class="flood-color-btn"        data-theme="orange" style="background:#e65100;" title="Orange"></span>
+                                                <span class="flood-color-btn"        data-theme="dark"   style="background:#424242;" title="Dark"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <!-- ===== END LANDSLIDE ===== -->
                             <li><label class="checklist-item"><input type="checkbox" class="layer-checkbox"
                                         data-layer="haz-heatmaps"><span class="custom-checkbox"></span>Hazard
                                     Heatmaps</label></li>
@@ -512,6 +655,17 @@
 
     <div class="map-container">
         <div id="campusMap" style="width:100%;height:100%;"></div>
+
+        <!-- Building Info Side Panel -->
+        <div id="buildingInfoPanel">
+            <div id="buildingInfoHeader">
+                <div id="buildingInfoIcon"><i class="fas fa-building"></i></div>
+                <div id="buildingInfoTitle">Building Info</div>
+                <button id="buildingInfoClose" title="Close">&times;</button>
+            </div>
+            <div id="buildingInfoName"></div>
+            <div id="buildingInfoBody"></div>
+        </div>
 
         <div class="condition-button" id="conditionButton">
             <div class="conditions-wrapper">
@@ -863,45 +1017,143 @@
         hideBuildingTooltip();
     });
 
-    // Click: show building name popup (click same building again to close)
-    const buildingInfoWindow = new google.maps.InfoWindow();
+    // Click: show building info in the left side panel
     let lastClickedFeature = null;
+
+    const buildingPanel      = document.getElementById('buildingInfoPanel');
+    const buildingPanelName  = document.getElementById('buildingInfoName');
+    const buildingPanelBody  = document.getElementById('buildingInfoBody');
+    const buildingPanelClose = document.getElementById('buildingInfoClose');
+
+    const aboutSidePanel  = document.querySelector('.side-panel');
+    const aboutToggleBtn  = document.getElementById('toggleSidePanelBtn');
+    const iconUserDropdown = document.getElementById('userDropdown');
+    const iconToolDropdown = document.getElementById('toolDropdown');
+
+    function closeBuildingPanel() {
+        buildingPanel.classList.remove('open');
+        buildingsLayer.revertStyle();
+        applyBuildingsStyle();
+        lastClickedFeature = null;
+
+        // Restore icon positions
+        if (iconUserDropdown) iconUserDropdown.classList.remove('bip-open');
+        if (iconToolDropdown) iconToolDropdown.classList.remove('bip-open');
+
+        // Restore About panel only if it was visible before building panel opened
+        if (aboutSidePanel && aboutSidePanel.dataset.hiddenByBip === 'true') {
+            aboutSidePanel.classList.remove('closed');
+            if (aboutToggleBtn) {
+                aboutToggleBtn.style.display = '';
+                aboutToggleBtn.textContent = 'Close Panel';
+                const panelWidth = aboutSidePanel.offsetWidth;
+                aboutToggleBtn.style.right = panelWidth + 'px';
+            }
+        } else if (aboutToggleBtn) {
+            aboutToggleBtn.style.display = '';
+        }
+        if (aboutSidePanel) aboutSidePanel.dataset.hiddenByBip = '';
+    }
+
+    if (buildingPanelClose) {
+        buildingPanelClose.addEventListener('click', closeBuildingPanel);
+    }
+
+    // Labels to show for known GeoJSON property keys (skip internal ones)
+    const propLabels = {
+        building_type: 'Type',
+        amenity:       'Amenity',
+        status:        'Status',
+        aghon_imp:     'Aghon Impact',
+        aghon_recon:   'Aghon Reconstruction',
+        floors:        'Floors',
+        year_built:    'Year Built',
+        area:          'Area (m²)',
+        description:   'Description',
+        campus:        'Campus',
+        college:       'College',
+        office:        'Office'
+    };
 
     buildingsLayer.addListener('click', function(event) {
         const clickedFeature = event.feature;
 
-        if (lastClickedFeature === clickedFeature && buildingInfoWindow.getMap()) {
-            buildingInfoWindow.close();
-            lastClickedFeature = null;
+        // Toggle closed if same building clicked again
+        if (lastClickedFeature === clickedFeature && buildingPanel.classList.contains('open')) {
+            closeBuildingPanel();
             return;
         }
 
         lastClickedFeature = clickedFeature;
 
-        const name    = clickedFeature.getProperty('name')    || 'Unknown Building';
-        const amenity = clickedFeature.getProperty('amenity') || null;
+        // Highlight selected building
+        buildingsLayer.revertStyle();
+        buildingsLayer.overrideStyle(clickedFeature, {
+            fillOpacity: 1,
+            strokeWeight: 3,
+            strokeColor: '#145a32'
+        });
 
-        buildingInfoWindow.setContent(`
-            <div style="font-family:'Segoe UI',Arial,sans-serif;min-width:160px;max-width:260px;">
-                <div style="
-                    background:#2f6b2f;
-                    color:#fff;
-                    font-size:14px;
-                    font-weight:700;
-                    padding:10px 14px;
-                    letter-spacing:0.3px;
-                ">${name}</div>
-                ${amenity ? `<div style="padding:8px 14px 10px;font-size:12px;color:#444;background:#fff;">
-                    <span style="font-weight:600;">Amenity:</span> ${amenity}
-                </div>` : ''}
-            </div>`);
+        const name = clickedFeature.getProperty('name') || 'Unknown Building';
 
-        buildingInfoWindow.setPosition(event.latLng);
-        buildingInfoWindow.open(gMap);
-    });
+        // Build property rows from all available feature properties
+        let rowsHtml = '';
+        const statusColorMap = {
+            'functional':     'status-functional',
+            'ongoing':        'status-ongoing',
+            'not functional': 'status-damaged',
+            'damaged':        'status-damaged',
+            'major':          'status-damaged',
+            'minor':          'status-ongoing',
+            'not damaged':    'status-functional',
+            'none':           'status-functional'
+        };
 
-    buildingInfoWindow.addListener('closeclick', function() {
-        lastClickedFeature = null;
+        clickedFeature.forEachProperty(function(value, key) {
+            if (key === 'name' || value === null || value === undefined || value === '') return;
+            const label = propLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            const rawVal   = String(value).trim();
+            const displayVal = rawVal.replace(/\b\w/g, c => c.toUpperCase());
+            const colorClass = statusColorMap[rawVal.toLowerCase()] || '';
+            rowsHtml += `
+                <div class="bip-row">
+                    <span class="bip-label">${label}</span>
+                    <span class="bip-value ${colorClass}">${displayVal}</span>
+                </div>`;
+        });
+
+        buildingPanelName.textContent = name;
+        buildingPanelBody.innerHTML = rowsHtml ||
+            '<div class="bip-empty"><i class="fas fa-info-circle" style="font-size:22px;margin-bottom:8px;display:block;"></i>No additional details available.</div>';
+
+        // Push icons left to clear the building info panel
+        if (iconUserDropdown) iconUserDropdown.classList.add('bip-open');
+        if (iconToolDropdown) iconToolDropdown.classList.add('bip-open');
+
+        // Always hide the About side panel and its toggle button when building info opens.
+        // Record whether it was already closed so we know whether to restore it.
+        if (aboutSidePanel) {
+            const wasAlreadyClosed = aboutSidePanel.classList.contains('closed');
+            aboutSidePanel.dataset.hiddenByBip = wasAlreadyClosed ? 'already-closed' : 'true';
+            aboutSidePanel.classList.add('closed');
+            if (aboutToggleBtn) {
+                aboutToggleBtn.textContent = 'Open Panel';
+                aboutToggleBtn.style.right = '10px';
+                aboutToggleBtn.style.display = 'none';
+            }
+        }
+
+        // Freeze map zoom/center so opening the panel doesn't trigger a resize-zoom
+        const savedZoom   = gMap.getZoom();
+        const savedCenter = gMap.getCenter();
+
+        buildingPanel.classList.add('open');
+
+        // After panel transition, restore exact zoom+center to prevent any drift
+        setTimeout(function () {
+            gMap.setZoom(savedZoom);
+            gMap.setCenter(savedCenter);
+        }, 380);
     });
 
     // Campus point markers
@@ -1119,9 +1371,7 @@ function hideBuildingTooltip() {
                 loadedBuildingsCampus = currentCampus;
 
                 buildingsLayer.addGeoJson(data);
-applyBuildingsStyle();
-
-
+                applyBuildingsStyle();
             })
             .catch(err => {
                 console.error("Buildings loading error:", err);
@@ -1230,6 +1480,7 @@ applyBuildingsStyle();
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq79uNCqyX2EZyf6fUfHRUtTDTYL0pykc&callback=initMap">
     </script>
 
+
 </body>
 
-</html> 
+</html>
