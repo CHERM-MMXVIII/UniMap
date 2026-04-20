@@ -432,7 +432,7 @@ window.toggleLandslideLayer = function(show) {
         return;
     }
     window.landslideLayer = new google.maps.Data();
-    fetch('./data/geojson/Landslide.geojson')
+    fetch('./data/geojson/landslide.geojson')
         .then(res => { if (!res.ok) throw new Error('not found'); return res.json(); })
         .then(data => {
             window.landslideLayer.addGeoJson(data);
@@ -443,7 +443,7 @@ window.toggleLandslideLayer = function(show) {
         })
         .catch(err => {
             console.error('Landslide layer error:', err);
-            alert('Landslide GeoJSON not found.\nExpected: ./data/geojson/Landslide.geojson');
+            alert('Landslide GeoJSON not found.\nExpected: ./data/geojson/landslide.geojson');
         });
 };
 
