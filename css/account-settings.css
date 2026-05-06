@@ -1,0 +1,295 @@
+/* =========================
+   RESET / GLOBAL
+========================= */
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #dde3ea;
+    color: #222;
+}
+.header {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem 2rem;
+    background: #0b4f6c;
+
+    position: relative; /* IMPORTANT */
+}
+
+.header img {
+    width: 70px;
+    height: auto;
+}
+
+.header-text h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.header-text .unimap {
+    letter-spacing: 6px;
+    font-weight: 800;
+}
+
+
+.profile-container {
+    margin-top: 2.5rem;
+}
+
+
+
+/* =========================
+   PROFILE CONTAINER
+========================= */
+.profile-container {
+    max-width: 900px;
+    margin: 4rem auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+    border: 1px solid #d0d5dd;
+}
+
+.profile-container h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+.account-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+/* =========================
+   LEFT SIDE (INFO)
+========================= */
+.account-info {
+    flex: 1;
+}
+
+.field {
+    margin-bottom: 1.6rem;
+}
+
+.field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.field p {
+    font-size: 1rem;
+    margin: 0;
+    color: #222;
+}
+
+.field a {
+    font-size: 0.85rem;
+    color: #6c63ff;
+    text-decoration: none;
+    margin-top: 0.25rem;
+    display: inline-block;
+}
+
+.field a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   DANGER ZONE
+========================= */
+.danger-zone {
+    margin-top: 2.5rem;
+}
+
+.danger-zone a {
+    color: #c0392b;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+.danger-zone a:hover {
+    text-decoration: underline;
+}
+
+.danger-zone p {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0.6rem;
+    line-height: 1.4;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.action-buttons {
+    margin-top: 2.8rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-cancel {
+    background: #e6e6e6;
+    border: none;
+    padding: 0.65rem 2.2rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn-save {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 0.65rem 2.2rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background: #000;
+}
+
+/* =========================
+   RIGHT SIDE (AVATAR)
+========================= */
+.account-avatar {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-avatar img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.btn-upload {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.btn-upload:hover {
+    background: #000;
+}
+
+/* =========================
+   MODAL (CHANGE PASSWORD)
+========================= */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    width: 420px;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modalheader {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalheader h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modalbody {
+    padding: 1.5rem;
+}
+
+.modalbody label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.modalbody input {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.edit-form-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-close-modal {
+    background: #e6e6e6;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .account-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .account-avatar {
+        margin-top: 2rem;
+    }
+}
