@@ -1,3 +1,42 @@
+<!--
+  ============================================================
+  dashboard.html — SLSU UniMap Admin Dashboard
+  ============================================================
+  Description:
+    Main administrative dashboard for the SLSU UniMap system.
+    Provides an overview of campus data including departments,
+    campuses, building counts, and university-wide statistics.
+
+  Pages (rendered as hidden/shown <div> sections):
+    - #dashboard   : Main overview with stat cards, map preview,
+                     recent updates, and yearly population chart.
+    - #departments : Department chart + student/faculty data table.
+    - #campuses    : Campus bar chart + campus population table.
+    - #buildings   : Building count chart + building summary table.
+
+  Waits for (external dependencies):
+    - Tailwind CSS (CDN)          : Utility-first CSS framework for layout/styling.
+    - Google Fonts – Inter (CDN)  : Primary UI typeface.
+    - Chart.js (CDN)              : Renders all bar, line, and pie charts.
+    - ../css/dashboard.css        : Custom component styles (sidebar, cards, modals, etc.).
+    - ../js/dashboard.js          : Core JS logic (charts, search, sidebar, auth state, etc.).
+
+  Forwards / Navigates to:
+    - ../index.html               : Main public-facing map page (Back to Main Page link).
+    - ../html/login-form.html     : Login page (called by logoutUser() on logout).
+    - ../html/acc-settings.html   : Account settings page (user dropdown menu).
+
+  Quick Access Modals (opened from dashboard):
+    - #addProjectModal            : Form to submit a new campus project.
+    - #updateMapModal             : Form to upload a campus map update.
+    - #viewReportsModal           : Report list with filter and export controls.
+    - #scheduleEventModal         : Form to schedule a campus event.
+    - #viewAllUpdatesModal        : Expanded view of all recent updates feed.
+
+  Inline Script (bottom of file):
+    - logoutUser()                : Clears localStorage and redirects to login.
+  ============================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +44,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- Custom dashboard styles: sidebar, cards, modals, table rows, quick-access buttons -->
     <link rel="stylesheet" href="../css/dashboard.css">
+
+    <!-- Tailwind CSS: utility-first CSS framework loaded from CDN for layout and spacing -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Inter font: primary UI typeface, weights 300–700 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js: used to render bar charts (departments, campuses, buildings) and line chart (yearly population) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="flex h-screen bg-#d1e0d6">
+        <!-- =====================================================
+             SIDEBAR
+             Collapsible left-panel navigation. Contains:
+               - Brand/logo header
+               - Navigation menu: links to dashboard pages via showPage()
+               - Action links: back to main site, logout
+               - Hamburger toggle button (desktop only, bottom-pinned)
+             The sidebar element (#sidebar) is toggled open/closed
+             by dashboard.js via the close button (.close-btn) and
+             the hamburger button (#avatarBtn / #mobileMenuBtn).
+        ====================================================== -->
         <!-- Sidebar -->
         <div class="sidebar w-64 shadow-sm" id="sidebar">
             <!-- Close Button (visible when expanded) -->
@@ -27,7 +85,10 @@
                 <h1 class="text-xl font-semibold text-white brand-title">SLSU UniMap</h1>
             </div>
 
-            <!-- Navigation Menu -->
+            <!-- Navigation Menu
+                 Each button calls showPage('<pageId>') defined in dashboard.js.
+                 showPage() hides all .page elements and shows only the target one,
+                 and toggles the .active class on the clicked nav item. -->
             <div class="sidebar-nav">
                 <ul class="space-y-1">
                     <li>
@@ -86,9 +147,12 @@
                 </ul>
             </div>
 
-            <!-- Back to Main Page and Logout Buttons -->
+            <!-- Back to Main Page and Logout Buttons
+                 "Back to Main Page" navigates to ../index.html (public map page).
+                 "Logout" calls logoutUser() defined inline at the bottom of this file,
+                 which clears localStorage and redirects to ../html/login-form.html. -->
             <div class="sidebar-actions">
-                <a href="/" class="action-link">
+                <a href="../index.html" class="action-link">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -106,7 +170,10 @@
                 </button>
             </div>
 
-            <!-- Hamburger Menu at Very Bottom -->
+            <!-- Hamburger Menu (Desktop Only)
+                 Pinned at the bottom of the sidebar. Visible on md+ screens.
+                 Button #avatarBtn is wired in dashboard.js to toggle the
+                 sidebar's collapsed/expanded state on desktop. -->
             <div class="sidebar-footer hidden md:flex">
                 <button class="menu-toggle-btn" id="avatarBtn" aria-label="Toggle sidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
@@ -116,9 +183,23 @@
             </div>
         </div>
 
+        <!-- =====================================================
+             MAIN CONTENT AREA
+             Flex column layout containing the top header bar
+             and the scrollable main content below it.
+        ====================================================== -->
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Top Navigation -->
+            <!-- Top Navigation Bar
+                 Contains:
+                   - Mobile hamburger button (#mobileMenuBtn): toggles sidebar on small screens.
+                   - Search bar (#searchInput): live search for buildings, departments, campuses.
+                     Results display in #searchResults dropdown; logic handled in dashboard.js.
+                   - Notification bell: static badge showing 3 unread notifications (UI only).
+                   - User display: shows logged-in user name (#headerUserName) and avatar (#headerAvatar).
+                   - User dropdown (#userDropdown): toggled by clicking the avatar (#userToggle).
+                     Contains links to Account Settings (../html/acc-settings.html) and Logout.
+                 User name and avatar are populated by dashboard.js from localStorage on page load. -->
             <header class="bg-white shadow-sm">
                 <div class="px-4 py-3 flex justify-between items-center">
                     <!-- Mobile Menu Button -->
@@ -130,7 +211,11 @@
                         </svg>
                     </button>
 
-                    <!-- Search Bar -->
+                    <!-- Search Bar
+                         Input #searchInput listens for keyup events in dashboard.js.
+                         Matches query against buildings, departments, and campuses data.
+                         Results are rendered as clickable items in #searchResults dropdown,
+                         which navigates to the relevant page via showPage(). -->
                     <div class="hidden md:flex items-center bg-gray-100 rounded-lg px-3 py-2 w-96" style="position:relative;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -162,7 +247,13 @@
                                 <span class="text-sm font-medium text-gray-800" id="headerUserName">Guest</span>
                             </div>
 
-                            <!-- User Profile Dropdown -->   
+                            <!-- User Profile Dropdown
+                                 Clicking the avatar (#userToggle) toggles visibility
+                                 of #userDropdownMenu via dashboard.js.
+                                 Displays the logged-in user's name (#userFullname) and avatar (#dropdownAvatar).
+                                 Menu items:
+                                   - Account Settings → navigates to ../html/acc-settings.html
+                                   - Logout → calls logoutUser() to clear session and redirect to login -->   
                             <div class="user-dropdown" id="userDropdown">
                                 <div class="user-profile" id="userToggle">
                                     <div id="headerAvatar" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #085C76;">
@@ -183,7 +274,7 @@
                                         </div>
                                     </div>
                                     <ul class="user-dropdown-list">
-                                        <li><a href="/accountsettings" onclick="openAccountSettings(); return false;">
+                                        <li><a href="../html/acc-settings.html">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
                                             Account Settings
                                         </a></li>
@@ -202,6 +293,20 @@
 
             <!-- Content Area -->
             <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
+            <!-- =====================================================
+                 PAGE: MAIN DASHBOARD (#dashboard)
+                 Default active page on load.
+                 Sections:
+                   - Welcome greeting: user name injected from localStorage via dashboard.js.
+                   - Refresh button: calls refreshDashboard('dashboard') to update timestamp.
+                   - Stat Cards: Hazard Mapping Coverage (75%), Research Projects (42),
+                     Total Land Area (145.3 ha) — all static display values.
+                   - Quick Access: buttons to open modals for Add Project, Update Map,
+                     View Reports, Schedule Event, and Upload Photos.
+                   - Campus Map: placeholder map container with a traffic/status legend.
+                   - Recent Updates: 4 latest items; "View All" opens #viewAllUpdatesModal.
+                   - Yearly Student Population: Chart.js line chart rendered on #yearlyPopulationChart.
+            ====================================================== -->
                 <!-- Main Dashboard Page -->
                 <div id="dashboard" class="page active space-y-6">
                     <div class="mb-8">
@@ -293,7 +398,16 @@
                         </div>
                     </div>
 
-                    <!-- Quick Access Buttons -->
+                    <!-- Quick Access Buttons
+                         Each button triggers a specific modal via openModal('<modalId>'),
+                         or programmatically clicks a hidden file input for uploads.
+                         Modals and their purposes:
+                           - addProjectModal     : Form to register a new research/campus project.
+                           - updateMapModal      : Form to submit a map file update for a campus.
+                           - viewReportsModal    : List of generated reports with filter/export.
+                           - scheduleEventModal  : Form to schedule a campus-related event.
+                           - photoUploadInput    : Hidden <input type="file"> for multi-image upload;
+                                                  handled by handlePhotoUpload(event) in dashboard.js. -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Access</h2>
@@ -350,9 +464,15 @@
                         </div>
                     </div>
 
-                    <!-- Map and Recent Updates -->
+                    <!-- Map and Recent Updates: 2/3 + 1/3 responsive grid -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Map Preview -->
+                        <!-- Campus Map Preview
+                             Placeholder container (.map-container) for an embedded map.
+                             "View Full Map" button is present but not yet wired to a URL.
+                             Legend below the map indicates area status:
+                               - Green  = Low/medium traffic
+                               - Blue   = Construction zone
+                               - Red    = Closed area -->
                         <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
                             <div class="flex justify-between items-center mb-4">
@@ -388,7 +508,10 @@
                             </div>
                         </div>
 
-                        <!-- Recent Updates -->
+                        <!-- Recent Updates Feed
+                             Shows the 4 latest campus updates as static content.
+                             "View All" button calls openModal('viewAllUpdatesModal')
+                             to display the full 10-item update list in a modal. -->
                         <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
                             <div class="flex justify-between items-center mb-4">
@@ -446,7 +569,10 @@
 
                 </div>
 
-                <!-- Yearly Student Population Line Chart -->
+                <!-- Yearly Student Population Line Chart
+                     Chart.js line chart rendered onto <canvas id="yearlyPopulationChart">.
+                     Data and configuration are defined in dashboard.js.
+                     Displays enrollment trends across multiple years. -->
                 <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Yearly Student Population</h2>
                         <div class="h-80">
@@ -455,6 +581,16 @@
                     </div>
                 </div>
 
+                <!-- =====================================================
+                     PAGE: DEPARTMENTS (#departments)
+                     Hidden by default; shown when showPage('departments') is called.
+                     Sections:
+                       - Refresh button: calls refreshDashboard('departments') to update timestamp.
+                       - Department Chart: Chart.js bar chart on #departmentChart showing
+                         student population per department at Main Campus.
+                       - Department Data Table: static table with 7 departments (CABHA, CIT, CEN,
+                         CAM, GAG, CAS, CTE) showing student count, faculty count, and building location.
+                ====================================================== -->
                 <!-- Departments Page -->
                 <div id="departments" class="page space-y-6">
                     <div class="flex items-center justify-between mb-6">
@@ -471,7 +607,10 @@
                         </div>
                     </div>
 
-                    <!-- Department Chart -->
+                    <!-- Department Chart
+                         Chart.js bar chart. Canvas target: #departmentChart.
+                         Populated and configured in dashboard.js with
+                         per-department student population data. -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Population of Students per Department (Main
@@ -481,7 +620,9 @@
                         </div>
                     </div>
 
-                    
+                    <!-- Department Data Table
+                         Static table listing 7 departments (CABHA, CIT, CEN, CAM, GAG, CAS, CTE).
+                         Columns: Department code, Student Population, Faculty Count, Building Location. -->
                     <!-- Department Data Table -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
@@ -563,6 +704,16 @@
                 </div>
 
 
+                <!-- =====================================================
+                     PAGE: CAMPUSES (#campuses)
+                     Hidden by default; shown when showPage('campuses') is called.
+                     Sections:
+                       - Refresh button: calls refreshDashboard('campuses') to update timestamp.
+                       - Campus Chart: Chart.js bar chart on #campusChart showing
+                         student population per campus location.
+                       - Campus Data Table: 9 campuses (Lucban highlighted as main campus)
+                         with student population, land area (hectares), and building count.
+                ====================================================== -->
                 <!-- Campuses Page -->
                 <div id="campuses" class="page space-y-6">
                     <div class="flex items-center justify-between mb-6">
@@ -579,6 +730,10 @@
                         </div>
                     </div>
 
+                    <!-- Campus Chart
+                         Chart.js bar chart. Canvas target: #campusChart.
+                         Populated and configured in dashboard.js with
+                         student population data per campus. -->
                     <!-- Campus Chart -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
@@ -589,6 +744,9 @@
                     </div>
 
 
+                    <!-- Campus Data Table
+                         Lists 9 SLSU campuses. Lucban (main campus) is highlighted in green.
+                         Columns: Campus name, Student Population, Land Area (ha), Building Count. -->
                     <!-- Campus Data Table -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
@@ -683,6 +841,17 @@
                 </div>
 
 
+                <!-- =====================================================
+                     PAGE: BUILDING COUNT (#buildings)
+                     Hidden by default; shown when showPage('buildings') is called.
+                     Sections:
+                       - Refresh button: calls refreshDashboard('buildings') to update timestamp.
+                       - Building Chart: Chart.js chart on #buildingChart showing building
+                         distribution by type at Main Campus.
+                       - Building Data Table: 4 building types (Academic, Laboratories,
+                         Admin/Services, Dormitories) with count, percentage, and total floor area.
+                         Summary row shows totals: 55 buildings / 78,750 sq.m.
+                ====================================================== -->
                 <!-- Building Count Page -->
                 <div id="buildings" class="page space-y-6">
                     <div class="flex items-center justify-between mb-6">
@@ -699,6 +868,10 @@
                         </div>
                     </div>
 
+                    <!-- Building Chart
+                         Chart.js chart. Canvas target: #buildingChart.
+                         Populated and configured in dashboard.js with
+                         building type distribution data for Main Campus. -->
                     <!-- Building Chart -->
                     <div class="bg-white rounded-xl shadow-sm p-6 card dashboard-panel">
 
@@ -778,10 +951,37 @@
         </div>
     </div>
 
+    <!-- dashboard.js — Core application logic. Handles:
+           - showPage(pageId)            : SPA-style page switching between #dashboard, #departments, #campuses, #buildings.
+           - refreshDashboard(pageId)    : Updates the "Last updated" timestamp for the given page.
+           - Sidebar toggle              : Collapse/expand sidebar on desktop (#avatarBtn) and mobile (#mobileMenuBtn).
+           - User session state          : Reads name and avatar from localStorage; populates #headerUserName,
+                                          #welcomeUserName, #userFullname, #headerAvatar, #dropdownAvatar.
+           - Search (#searchInput)       : Filters data and renders results into #searchResults dropdown.
+           - Chart.js initialization     : Renders #departmentChart, #campusChart, #buildingChart, #yearlyPopulationChart.
+           - Modal helpers               : openModal(id), closeModal(id), closeModalOnOverlay(event, id).
+           - Form submission handlers    : submitAddProject(), submitUpdateMap(), submitScheduleEvent(), generateReport(), exportReport().
+           - handlePhotoUpload(event)    : Processes selected image files and shows #qaToast success notification.
+           - User dropdown toggle        : Shows/hides #userDropdownMenu on avatar click; closes on outside click. -->
     <script src="../js/dashboard.js"></script>
+
+    <!-- =====================================================
+         QUICK ACCESS MODALS
+         All modals share the same pattern:
+           - Overlay div with class "qa-modal-overlay" and an onclick handler
+             that calls closeModalOnOverlay(event, '<modalId>') — clicking outside
+             the modal box closes it.
+           - Inner .qa-modal div containing header, body (form fields), and footer (action buttons).
+           - openModal('<id>') / closeModal('<id>') defined in dashboard.js toggle
+             the "active" class to show or hide each overlay.
+    ====================================================== -->
 
     <!-- ===== QUICK ACCESS MODALS ===== -->
 
+    <!-- Add Project Modal
+         Collects: Project Name, Campus (select), Start Date, End Date, Description.
+         "Add Project" button calls submitAddProject() in dashboard.js.
+         "Cancel" button calls closeModal('addProjectModal'). -->
     <!-- Add Project Modal -->
     <div id="addProjectModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'addProjectModal')">
         <div class="qa-modal">
@@ -825,6 +1025,11 @@
         </div>
     </div>
 
+    <!-- Update Campus Map Modal
+         Collects: Campus (select), Update Type (select), Map File upload (PNG/JPG/SVG/PDF up to 20MB), Notes.
+         File input #mapFileInput: on change, updates the label (#mapFileLabel) with the selected filename.
+         "Submit Update" button calls submitUpdateMap() in dashboard.js.
+         "Cancel" button calls closeModal('updateMapModal'). -->
     <!-- Update Map Modal -->
     <div id="updateMapModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'updateMapModal')">
         <div class="qa-modal">
@@ -875,6 +1080,13 @@
         </div>
     </div>
 
+    <!-- View Reports Modal
+         Displays a list of previously generated reports.
+         Filter controls: Report Type (select) and Time Period (select).
+         "Export" button calls exportReport() in dashboard.js.
+         Each report item has a "View" button (currently non-functional placeholders).
+         "Generate New Report" button calls generateReport() in dashboard.js.
+         "Close" button calls closeModal('viewReportsModal'). -->
     <!-- View Reports Modal -->
     <div id="viewReportsModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'viewReportsModal')">
         <div class="qa-modal qa-modal-wide">
@@ -952,6 +1164,10 @@
         </div>
     </div>
 
+    <!-- Schedule Event Modal
+         Collects: Event Title, Event Type (select), Date, Time, Location/Campus (select), Description.
+         "Schedule Event" button calls submitScheduleEvent() in dashboard.js.
+         "Cancel" button calls closeModal('scheduleEventModal'). -->
     <!-- Schedule Event Modal -->
     <div id="scheduleEventModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'scheduleEventModal')">
         <div class="qa-modal">
@@ -1007,9 +1223,17 @@
         </div>
     </div>
 
+    <!-- Upload Photos Success Toast
+         Hidden by default. dashboard.js populates #qaToast with a message
+         and temporarily shows it (adds "visible" class) after a photo upload completes. -->
     <!-- Upload Photos Success Toast -->
     <div id="qaToast" class="qa-toast"></div>
 
+    <!-- View All Recent Updates Modal
+         Expanded feed showing all 10 recent campus updates in a scrollable list.
+         Opened by the "View All" button in the Recent Updates section on the main dashboard.
+         "Close" button calls closeModal('viewAllUpdatesModal').
+         Each update-box displays a title, description, and timestamp. -->
     <!-- View All Updates Modal -->
     <div id="viewAllUpdatesModal" class="qa-modal-overlay" onclick="closeModalOnOverlay(event, 'viewAllUpdatesModal')">
         <div class="qa-modal" style="max-width: 800px;">
@@ -1136,6 +1360,24 @@
         </div>
     </div>
 
+<script>
+/**
+ * logoutUser()
+ * Clears all data stored in localStorage (user session, preferences, etc.)
+ * and redirects the browser to the login page.
+ *
+ * Waits for: nothing (synchronous).
+ * Forwards to: ../html/login-form.html
+ *
+ * Called by:
+ *   - The "Logout" button in the sidebar action links.
+ *   - The "Logout" link inside the user profile dropdown menu.
+ */
+function logoutUser() {
+  localStorage.clear();
+  window.location.href = "../html/login-form.html";
+}
+</script>
 </body>
 
 </html>
