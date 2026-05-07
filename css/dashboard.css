@@ -1,6 +1,26 @@
+/*
+ * dashboard.css
+ * 
+ * Main stylesheet for the dashboard layout.
+ * Covers: base layout, sidebar (desktop + mobile), cards, panels,
+ * user profile dropdown, quick-access modals, toast notifications,
+ * responsive overrides, and utility resets.
+ *
+ * Color tokens used throughout:
+ *   --green-dark   : #4c6d57  (sidebar background, primary buttons)
+ *   --green-light  : #90EE90  (active indicators, accents)
+ *   --teal         : #4a7c8c  (avatar / dropdown header)
+ */
+
+
+/* =====================================================================
+   BASE
+   Sets the global font, background color, and removes default spacing.
+   ===================================================================== */
+
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #d1e0d6 !important;
+    background-color: #d1e0d6 !important; /* Sage-green page background */
     margin: 0;
     padding: 0;
 }
@@ -10,11 +30,18 @@ body.sidebar-open {
     overflow: hidden;
 }
 
-/* Main content area rounded corners */
+
+/* =====================================================================
+   MAIN CONTENT AREA
+   The flex column that holds the header + main content.
+   Rounded corners and a shadow give it a "floating card" appearance.
+   On mobile these are removed (see responsive section below).
+   ===================================================================== */
+
 .flex-1.flex.flex-col.overflow-hidden {
     border-radius: 24px;
     overflow: hidden;
-    margin: 1.5rem 1.5rem 1.5rem 0;
+    margin: 1.5rem 1.5rem 1.5rem 0; /* Leaves room for the sidebar on the left */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -28,14 +55,20 @@ main {
     border-radius: 0 0 24px 24px;
 }
 
-/* Sidebar */
+
+/* =====================================================================
+   SIDEBAR — BASE (Desktop)
+   Fixed-width panel on the left. Uses a dark green background.
+   Animates all property changes over 0.3 s for smooth collapse/expand.
+   ===================================================================== */
+
 .sidebar {
     transition: all 0.3s ease;
     background: #4c6d57 !important;
     width: 16rem !important;
     border-radius: 24px !important;
-    margin: 1.5rem !important;
-    height: calc(100vh - 3rem) !important;
+    margin: 1.5rem !important;           /* Detached from screen edges */
+    height: calc(100vh - 3rem) !important; /* Full viewport minus top+bottom margin */
     overflow: hidden;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15) !important;
     position: relative;
@@ -44,26 +77,40 @@ main {
     z-index: 1000;
 }
 
-/* Mobile Sidebar Styles */
+
+/* =====================================================================
+   SIDEBAR — MOBILE  (max-width: 768px)
+   On small screens the sidebar becomes a fixed off-canvas drawer.
+   It starts fully off-screen to the left (left: -100%) and slides in
+   when the `.active` class is added by JavaScript.
+   ===================================================================== */
+
 @media (max-width: 768px) {
     .sidebar {
         position: fixed !important;
         top: 0 !important;
-        left: -100% !important;
+        left: -100% !important;          /* Hidden off-screen by default */
         width: 280px !important;
-        max-width: 85vw !important;
+        max-width: 85vw !important;      /* Never wider than 85% of viewport */
         height: 100vh !important;
         margin: 0 !important;
-        border-radius: 0 24px 24px 0 !important;
+        border-radius: 0 24px 24px 0 !important; /* Only right side rounded */
         z-index: 1100;
-        transition: left 0.3s ease;
+        transition: left 0.3s ease;     /* Slides in/out on left axis only */
     }
 
+    /* Sidebar is visible — JavaScript adds .active to trigger this */
     .sidebar.active {
         left: 0 !important;
     }
 
-    /* Sidebar Overlay */
+    /* ----------------------------------------------------------------
+       SIDEBAR OVERLAY
+       Semi-transparent backdrop rendered behind the open sidebar.
+       Clicking it should close the sidebar (handled in JS).
+       Starts invisible (opacity: 0, pointer-events: none) and fades
+       in when .active is added.
+    ---------------------------------------------------------------- */
     .sidebar-overlay {
         position: fixed;
         top: 0;
@@ -73,18 +120,18 @@ main {
         background: rgba(0, 0, 0, 0.5);
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
+        pointer-events: none;            /* Not clickable while hidden */
         transition: opacity 0.3s ease, visibility 0.3s ease;
-        z-index: 1050;
+        z-index: 1050;                   /* Above main content, below sidebar */
     }
 
     .sidebar-overlay.active {
         opacity: 1;
         visibility: visible;
-        
+        /* pointer-events inherits — JS should also set pointer-events: auto */
     }
 
-    /* Adjust main content on mobile */
+    /* Remove rounded corners from main content area on mobile */
     .flex-1.flex.flex-col.overflow-hidden {
         margin: 0;
         border-radius: 0;
@@ -98,16 +145,20 @@ main {
         border-radius: 0;
     }
 
-    /* Hide desktop hamburger on mobile */
+    /* Hide the desktop hamburger toggle button in the sidebar footer on mobile */
     .sidebar-footer {
         display: none !important;
     }
 
-    /* Mobile Hamburger Button Styling */
+    /* ----------------------------------------------------------------
+       MOBILE HAMBURGER BUTTON
+       The circular green button shown in the header on mobile screens.
+       Targets the button using its Tailwind class escape `md\:hidden`.
+    ---------------------------------------------------------------- */
     header button.md\:hidden {
         width: 2.75rem !important;
         height: 2.75rem !important;
-        background: #4c6d57 !important;
+        background: #4c6d57 !important;  /* Matches sidebar color */
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
@@ -118,15 +169,18 @@ main {
         transition: all 0.3s ease !important;
     }
 
+    /* Slight scale-up on hover for visual feedback */
     header button.md\:hidden:hover {
         background: #5a7d65 !important;
         transform: scale(1.05);
     }
 
+    /* Scale-down on click for press feedback */
     header button.md\:hidden:active {
         transform: scale(0.95);
     }
 
+    /* Hamburger icon inside the button */
     header button.md\:hidden svg {
         stroke: white !important;
         width: 1.25rem !important;
@@ -134,12 +188,22 @@ main {
     }
 }
 
-/* Collapsed state - Desktop only */
+
+/* =====================================================================
+   SIDEBAR — COLLAPSED STATE  (Desktop only, min-width: 769px)
+   When the user clicks the toggle, JS adds `.collapsed` to .sidebar.
+   The sidebar narrows to an icon-only rail (5.5 rem wide).
+   Text labels, subtitles, and user info are hidden; icons remain centered.
+   ===================================================================== */
+
 @media (min-width: 769px) {
+
+    /* Narrow icon rail */
     .sidebar.collapsed {
         width: 5.5rem !important;
     }
 
+    /* Hide all text-only elements when collapsed */
     .sidebar.collapsed .sidebar-text,
     .sidebar.collapsed .brand-info,
     .sidebar.collapsed .item-subtitle,
@@ -149,6 +213,7 @@ main {
         display: none;
     }
 
+    /* Center nav items horizontally when no label is visible */
     .sidebar.collapsed .sidebar-item {
         justify-content: center !important;
         align-items: center !important;
@@ -159,10 +224,12 @@ main {
         justify-content: center;
     }
 
+    /* Remove icon right-margin since there is no adjacent text */
     .sidebar.collapsed .sidebar-item svg {
         margin: 0 !important;
     }
 
+    /* Center the logo circle in the header */
     .sidebar.collapsed .logo-circle {
         margin: 0 auto;
     }
@@ -171,15 +238,17 @@ main {
         justify-content: center;
     }
 
+    /* Brand title stays visible but at a smaller size to fit the rail */
     .sidebar.collapsed .brand-title {
-        display: block !important; /* Show the title even when collapsed */
-        font-size: 0.65rem; /* Smaller font to fit */
+        display: block !important;
+        font-size: 0.65rem;
         text-align: center;
         line-height: 1.1;
         word-break: break-word;
         padding: 0 0.25rem;
     }
 
+    /* Footer collapses to a centered vertical stack */
     .sidebar.collapsed .sidebar-footer {
         flex-direction: column;
         align-items: center;
@@ -192,12 +261,14 @@ main {
         margin: 0;
     }
 
+    /* Active indicator bar becomes narrower to match the slim rail */
     .sidebar.collapsed .sidebar-item.active::before {
         right: 0;
         width: 3px;
         height: 50%;
     }
 
+    /* Back button icon stays centered */
     .sidebar.collapsed .sidebar-back-btn .back-link {
         justify-content: center;
         padding: 1rem;
@@ -207,6 +278,7 @@ main {
         margin: 0;
     }
 
+    /* Action section — hide label text, center icon */
     .sidebar.collapsed .action-text {
         display: none;
     }
@@ -225,7 +297,14 @@ main {
     }
 }
 
-/* Close button - Only visible on mobile, completely hidden on desktop */
+
+/* =====================================================================
+   SIDEBAR CLOSE BUTTON
+   Small X button positioned top-right inside the sidebar.
+   Hidden by default on all screen sizes; shown only when the sidebar
+   is open (.active) on mobile. Completely suppressed on desktop.
+   ===================================================================== */
+
 .close-btn {
     position: absolute;
     top: 1.25rem;
@@ -240,7 +319,7 @@ main {
     z-index: 10;
     width: 2rem;
     height: 2rem;
-    display: none; /* Hidden by default */
+    display: none; /* Hidden by default on all viewports */
     align-items: center;
     justify-content: center;
 }
@@ -264,11 +343,16 @@ main {
 /* On desktop, ALWAYS hide the close button (whether collapsed or expanded) */
 @media (min-width: 769px) {
     .close-btn {
-        display: none !important; /* Force hide on desktop */
+        display: none !important;
     }
 }
 
-/* Sidebar Header */
+
+/* =====================================================================
+   SIDEBAR HEADER
+   Contains the logo circle and brand name/subtitle.
+   ===================================================================== */
+
 .sidebar-header {
     padding: 2rem 1.5rem 1.5rem;
     display: flex;
@@ -276,6 +360,7 @@ main {
     gap: 1rem;
 }
 
+/* Circular logo container with a translucent green tint */
 .logo-circle {
     width: 3.5rem;
     height: 3.5rem;
@@ -284,18 +369,20 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    flex-shrink: 0;             /* Never shrinks in flex row */
 }
 
 .logo-circle svg {
     color: #90EE90;
 }
 
+/* Text block beside the logo; min-width:0 allows text truncation */
 .brand-info {
     flex: 1;
     min-width: 0;
 }
 
+/* Primary brand name — truncated with ellipsis if too long */
 .brand-title {
     font-size: 1.125rem;
     font-weight: 600;
@@ -303,23 +390,35 @@ main {
     line-height: 1.2;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: block; /* Ensure it's visible by default */
+    display: block;
 }
 
+/* Secondary tagline below the brand name */
 .brand-subtitle {
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.7);
     margin-top: 0.25rem;
 }
 
-/* Sidebar Navigation */
+
+/* =====================================================================
+   SIDEBAR NAVIGATION
+   Scrollable list of navigation items that fills remaining sidebar height.
+   ===================================================================== */
+
 .sidebar-nav {
-    flex: 1;
+    flex: 1;                /* Takes all available vertical space */
     padding: 0 1rem;
-    overflow-y: auto;
+    overflow-y: auto;       /* Scrolls if items exceed the visible area */
 }
 
-/* Sidebar Items */
+
+/* =====================================================================
+   SIDEBAR ITEMS
+   Individual nav buttons. Each is a full-width flex column with an icon
+   and label on the first row and an optional subtitle below.
+   ===================================================================== */
+
 .sidebar-item {
     transition: all 0.3s ease;
     border-radius: 12px !important;
@@ -335,12 +434,14 @@ main {
     text-align: left;
 }
 
+/* Icon + label row — stretched full width */
 .sidebar-item > div {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
+/* Icons are fixed size and never shrink */
 .sidebar-item svg {
     width: 1.25rem !important;
     height: 1.25rem !important;
@@ -348,6 +449,7 @@ main {
     margin-right: 0.75rem !important;
 }
 
+/* Primary label text — truncated if too long */
 .sidebar-item .sidebar-text {
     font-size: 0.9375rem;
     font-weight: 500;
@@ -356,26 +458,30 @@ main {
     white-space: nowrap;
 }
 
+/* Optional subtitle shown below the label (indented to align under text) */
 .sidebar-item .item-subtitle {
     display: block;
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.6);
     margin-top: 0.25rem;
-    margin-left: 2rem;
+    margin-left: 2rem;      /* Aligns with label, past the icon */
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+/* Hover — light green tint */
 .sidebar-item:hover {
     background: rgba(144, 238, 144, 0.15) !important;
 }
 
+/* Active state — slightly stronger green tint */
 .sidebar-item.active {
     background: rgba(144, 238, 144, 0.25) !important;
 }
 
+/* Active indicator — a small vertical bar on the right edge */
 .sidebar-item.active::before {
     content: '';
     position: absolute;
@@ -385,10 +491,16 @@ main {
     width: 4px;
     height: 60%;
     background: #90EE90;
-    border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;  /* Rounded on the left side only */
 }
 
-/* Sidebar Action Buttons */
+
+/* =====================================================================
+   SIDEBAR ACTION BUTTONS
+   Secondary actions (e.g. Settings, Help) grouped below the nav items,
+   separated by a subtle top border.
+   ===================================================================== */
+
 .sidebar-actions {
     padding: 1rem 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -397,6 +509,7 @@ main {
     gap: 0.5rem;
 }
 
+/* Each action link / button row */
 .action-link {
     display: flex;
     align-items: center;
@@ -415,6 +528,7 @@ main {
     overflow: hidden;
 }
 
+/* Hover — icon and text turn light green */
 .action-link:hover {
     color: #90EE90;
     background: rgba(144, 238, 144, 0.1);
@@ -426,13 +540,20 @@ main {
     flex-shrink: 0;
 }
 
+/* Label text — truncated when sidebar is in narrow/collapsed mode */
 .action-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* Sidebar Footer - Hamburger Menu (Desktop) */
+
+/* =====================================================================
+   SIDEBAR FOOTER — HAMBURGER TOGGLE  (Desktop only)
+   Houses the expand/collapse toggle button at the bottom of the sidebar.
+   Hidden on mobile (see mobile media query above).
+   ===================================================================== */
+
 .sidebar-footer {
     padding: 1rem 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -443,6 +564,7 @@ main {
     transition: all 0.3s ease;
 }
 
+/* Circular toggle button — clicking it collapses/expands the sidebar */
 .menu-toggle-btn {
     width: 2.75rem;
     height: 2.75rem;
@@ -473,7 +595,13 @@ main {
     stroke: white;
 }
 
-/* Card styling */
+
+/* =====================================================================
+   CARDS
+   Generic card component used throughout the dashboard.
+   Lifts slightly on hover to indicate interactivity.
+   ===================================================================== */
+
 .card {
     transition: all 0.3s ease;
     border-radius: 12px;
@@ -484,6 +612,11 @@ main {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+/* ----------------------------------------------------------------
+   STAT CARDS
+   Key-metric tiles with a solid dark-green background and white text.
+   The larger shadow on hover reinforces the lift effect.
+---------------------------------------------------------------- */
 .stat-card {
     background: #4c6d57 !important;
     color: #ffffff !important;
@@ -498,23 +631,34 @@ main {
     box-shadow: 0 16px 28px rgba(0,0,0,0.38);
 }
 
+/* Force all paragraph/span text inside stat cards to be readable on dark bg */
 .stat-card p,
 .stat-card span {
     color: rgba(255,255,255,0.85) !important;
 }
 
+/* Stat value heading — fluid size between 1.5 and 2 rem */
 .stat-card h3 {
     color: #ffffff !important;
     font-size: clamp(1.5rem, 4vw, 2rem);
 }
 
+/* Icon container inside the card */
 .stat-card .w-12.h-12 {
     background: rgba(255,255,255,0.18) !important;
 }
 
+/* Progress bar background inside the card */
 .stat-card .bg-gray-200 {
     background: rgba(255,255,255,0.25) !important;
 }
+
+
+/* =====================================================================
+   QUICK ACCESS BUTTONS
+   Short-cut action buttons rendered in the header or dashboard panels.
+   Font size is fluid; buttons lift slightly on hover.
+   ===================================================================== */
 
 .quick-btn {
     transition: all 0.2s ease;
@@ -527,11 +671,24 @@ main {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+
+/* =====================================================================
+   MAP CONTAINER
+   Inline SVG campus map used as a background image.
+   The SVG data URI encodes building outlines, roads, and labels.
+   ===================================================================== */
+
 .map-container {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23e9f5e9'/%3E%3Cpath d='M100,100 L300,120 L320,200 L200,250 L100,200 Z' fill='%23ffffff' stroke='%2348a748' stroke-width='2'/%3E%3Cpath d='M350,150 L500,130 L550,220 L400,280 L350,150 Z' fill='%23ffffff' stroke='%2348a748' stroke-width='2'/%3E%3Cpath d='M150,300 L250,280 L300,350 L200,380 L150,300 Z' fill='%23ffffff' stroke='%2348a748' stroke-width='2'/%3E%3Cpath d='M100,100 L150,50 M300,120 L350,70 M320,200 L370,180 M200,250 L220,300 M100,200 L50,220' stroke='%23c0d6c0' stroke-width='1'/%3E%3Cpath d='M350,150 L380,100 M500,130 L550,80 M550,220 L600,200 M400,280 L420,330' stroke='%23c0d6c0' stroke-width='1'/%3E%3Cpath d='M150,300 L120,350 M250,280 L270,240 M300,350 L350,370 M200,380 L180,420' stroke='%23c0d6c0' stroke-width='1'/%3E%3Ccircle cx='200' cy='150' r='5' fill='%23116611'/%3E%3Ccircle cx='420' cy='200' r='5' fill='%23116611'/%3E%3Ccircle cx='220' cy='320' r='5' fill='%23116611'/%3E%3Ctext x='210' y='155' font-size='10' fill='%23116611'%3ELibrary%3C/text%3E%3Ctext x='440' y='205' font-size='10' fill='%23116611'%3EScience Hall%3C/text%3E%3Ctext x='240' y='325' font-size='10' fill='%23116611'%3EDorms%3C/text%3E%3C/svg%3E");
     background-size: cover;
     background-position: center;
 }
+
+
+/* =====================================================================
+   NOTIFICATION BADGE
+   Small red circle that overlays an icon to show an unread count.
+   ===================================================================== */
 
 .notification-badge {
     position: absolute;
@@ -548,6 +705,13 @@ main {
     justify-content: center;
 }
 
+
+/* =====================================================================
+   PAGE VISIBILITY
+   Sections of the dashboard are toggled by adding/removing .active.
+   Only the active page is rendered; others are hidden with display:none.
+   ===================================================================== */
+
 .page {
     display: none;
 }
@@ -555,6 +719,12 @@ main {
 .page.active {
     display: block;
 }
+
+
+/* =====================================================================
+   TABLE ROWS
+   Subtle green tint on row hover for scannability.
+   ===================================================================== */
 
 .table-row {
     transition: all 0.2s ease;
@@ -564,6 +734,12 @@ main {
     background-color: rgba(22, 163, 74, 0.05);
 }
 
+
+/* =====================================================================
+   BACK BUTTON
+   Shifts left on hover to give a directional "go back" affordance.
+   ===================================================================== */
+
 .back-btn {
     transition: all 0.2s ease;
 }
@@ -572,25 +748,37 @@ main {
     transform: translateX(-3px);
 }
 
-/* Dashboard Panels */
+
+/* =====================================================================
+   DASHBOARD PANELS
+   White content panels with a green border and layered box-shadow.
+   Border and shadow intensify on hover for depth.
+   ===================================================================== */
+
 .dashboard-panel {
     border: 1.5px solid #90EE90 !important;
     border-radius: 16px;
     background: #ffffff;
     box-shadow:
-        0 0 0 1px rgba(144, 238, 144, 0.25),
-        0 6px 18px rgba(0, 0, 0, 0.06);
+        0 0 0 1px rgba(144, 238, 144, 0.25),  /* Outer glow ring */
+        0 6px 18px rgba(0, 0, 0, 0.06);        /* Drop shadow */
     transition: all 0.25s ease;
 }
 
 .dashboard-panel:hover {
     border-color: #4ade80;
     box-shadow:
-        0 0 0 2px rgba(74, 222, 128, 0.25),
-        0 12px 24px rgba(0, 0, 0, 0.12);
+        0 0 0 2px rgba(74, 222, 128, 0.25),    /* Wider glow ring */
+        0 12px 24px rgba(0, 0, 0, 0.12);        /* Deeper shadow */
 }
 
-/* Recent Updates */
+
+/* =====================================================================
+   RECENT UPDATES / ACTIVITY FEED
+   Each update is a small box with a title, description, timestamp,
+   and a right-pointing arrow that animates on hover.
+   ===================================================================== */
+
 .update-box {
     background: #e3efe8;
     border-radius: 4px;
@@ -599,11 +787,13 @@ main {
     transition: all 0.25s ease;
 }
 
+/* Lifts and deepens shadow on hover */
 .update-box:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
+/* Update title — fluid size, dark green, truncated */
 .update-box .title {
     font-size: clamp(0.85rem, 2vw, 0.95rem);
     font-weight: 600;
@@ -612,6 +802,7 @@ main {
     text-overflow: ellipsis;
 }
 
+/* Row that holds the title and the arrow side-by-side */
 .title-row {
     display: flex;
     align-items: center;
@@ -619,6 +810,7 @@ main {
     gap: 0.5rem;
 }
 
+/* Description text — clamped to 2 lines with ellipsis */
 .update-box .desc {
     font-size: clamp(0.7rem, 1.8vw, 0.8rem);
     color: #374151;
@@ -629,12 +821,14 @@ main {
     -webkit-box-orient: vertical;
 }
 
+/* Timestamp shown beneath the description */
 .update-box .time {
     font-size: clamp(0.65rem, 1.5vw, 0.7rem);
     color: #9ca3af;
     margin-top: 0.4rem;
 }
 
+/* Right-arrow icon in the title row */
 .update-arrow {
     color: #16a34a;
     font-size: 0.9rem;
@@ -642,38 +836,48 @@ main {
     transition: transform 0.2s ease;
 }
 
+/* Arrow slides right when the update box is hovered */
 .update-box:hover .update-arrow {
     transform: translateX(3px);
 }
 
-/* Logout hover */
+
+/* =====================================================================
+   LOGOUT LINK
+   Overrides the default action-link hover with a red danger color.
+   ===================================================================== */
+
 .action-link.logout:hover {
     color: #fecaca;
     background: rgba(239, 68, 68, 0.18);
 }
 
-/* Responsive Typography */
-h1 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-}
 
-h2 {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-}
+/* =====================================================================
+   RESPONSIVE TYPOGRAPHY
+   Headings use clamp() to scale fluidly between a minimum and maximum
+   size as the viewport grows, without needing breakpoint overrides.
+   ===================================================================== */
 
-h3 {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-}
+h1 { font-size: clamp(1.5rem, 4vw, 2rem); }
+h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+h3 { font-size: clamp(1rem, 2.5vw, 1.25rem); }
 
-/* Responsive Tables */
+
+/* =====================================================================
+   RESPONSIVE TABLES  (max-width: 768px)
+   On mobile, tables scroll horizontally instead of collapsing.
+   Cell text and padding are reduced for readability.
+   ===================================================================== */
+
 @media (max-width: 768px) {
     .overflow-x-auto {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch; /* Smooth momentum scroll on iOS */
     }
 
     table {
-        min-width: 600px;
+        min-width: 600px; /* Forces horizontal scroll rather than wrapping */
     }
 
     th, td {
@@ -682,7 +886,14 @@ h3 {
     }
 }
 
-/* Responsive Grid Layouts */
+
+/* =====================================================================
+   RESPONSIVE GRID LAYOUTS
+   Tailwind utility classes are overridden at breakpoints to re-stack
+   multi-column grids into fewer or single columns on smaller screens.
+   ===================================================================== */
+
+/* Tablet — 3-column stat grid becomes 2 columns */
 @media (max-width: 1024px) {
     .grid.grid-cols-1.md\:grid-cols-3 {
         grid-template-columns: repeat(2, 1fr) !important;
@@ -690,12 +901,12 @@ h3 {
 }
 
 @media (max-width: 768px) {
-    /* Stack stat cards on mobile */
+    /* Stat cards stack to a single column on mobile */
     .grid.grid-cols-1.md\:grid-cols-3 {
         grid-template-columns: 1fr !important;
     }
 
-    /* Stack map and updates on mobile */
+    /* Map + updates sidebar stack to a single column on mobile */
     .grid.grid-cols-1.lg\:grid-cols-3 {
         grid-template-columns: 1fr !important;
     }
@@ -710,17 +921,17 @@ h3 {
         padding: 1rem !important;
     }
 
-    /* Chart containers for mobile */
+    /* Reduce chart height on mobile */
     .h-80 {
         height: 300px;
     }
 
-    /* Update boxes grid on mobile */
+    /* Update boxes collapse to single column on mobile */
     .grid.grid-cols-1.sm\:grid-cols-2 {
         grid-template-columns: 1fr !important;
     }
 
-    /* Quick access buttons wrap better */
+    /* Quick access buttons wrap with tighter gap on mobile */
     .flex.flex-wrap.gap-3 {
         gap: 0.5rem !important;
     }
@@ -735,12 +946,12 @@ h3 {
         height: 1rem !important;
     }
 
-    /* Header search bar - hide on small mobile */
+    /* Hide the header search bar on small mobile */
     .hidden.md\:flex.items-center.bg-gray-100 {
         display: none !important;
     }
 
-    /* Stat card icon sizes */
+    /* Smaller icon containers inside stat cards */
     .stat-card .w-12.h-12 {
         width: 2.5rem !important;
         height: 2.5rem !important;
@@ -752,8 +963,9 @@ h3 {
     }
 }
 
-/* Very small screens */
+/* Very small screens (e.g. narrow phones) */
 @media (max-width: 480px) {
+    /* Sidebar drawer is narrower to not fully cover the screen */
     .sidebar.active {
         width: 85vw !important;
         max-width: 280px !important;
@@ -767,7 +979,7 @@ h3 {
         padding: 0.75rem !important;
     }
 
-    /* Smaller gap for cards */
+    /* Tighter vertical spacing between stacked sections */
     .space-y-6 > * + * {
         margin-top: 1rem !important;
     }
@@ -776,13 +988,19 @@ h3 {
         gap: 1rem !important;
     }
 
-    /* Legend positioning for charts */
+    /* Further reduce chart height on very small screens */
     .h-80 {
         height: 250px;
     }
 }
 
-/* Prevent horizontal overflow */
+
+/* =====================================================================
+   GLOBAL BOX-SIZING & OVERFLOW RESET
+   Ensures padding and borders are included in element dimensions,
+   and media elements never overflow their containers.
+   ===================================================================== */
+
 * {
     box-sizing: border-box;
 }
@@ -791,20 +1009,27 @@ h3 {
     overflow: hidden;
 }
 
-/* Ensure no elements overflow their containers */
+/* Prevent images, SVGs, and embeds from breaking the layout */
 img, svg, video, canvas, audio, iframe, embed, object {
     max-width: 100%;
     height: auto;
 }
 
-/* ===== USER PROFILE DROPDOWN ===== */
 
+/* =====================================================================
+   USER PROFILE DROPDOWN
+   The circular avatar button in the header that opens a dropdown menu
+   with the user's name, role, and navigation links (settings, logout).
+   ===================================================================== */
+
+/* Wrapper — positions the dropdown relative to the avatar button */
 .user-dropdown {
     position: relative;
     display: inline-flex;
     align-items: center;
 }
 
+/* Circular avatar button */
 .user-profile {
     width: 60px;
     height: 60px;
@@ -826,7 +1051,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     transform: scale(1.05);
 }
 
-/* Avatar container styling */
+/* Avatar container — circular crop for photo or icon */
 .avatar-container {
     width: 100%;
     height: 100%;
@@ -845,7 +1070,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
 }
 
-/* Avatar icon styling - larger and white */
+/* Default avatar icon (shown when no photo is uploaded) */
 .avatar-icon {
     width: 28px;
     height: 28px;
@@ -853,6 +1078,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     flex-shrink: 0;
 }
 
+/* Photo fallback inside the profile button */
 .user-profile img {
     width: 100%;
     height: 100%;
@@ -860,18 +1086,23 @@ img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
 }
 
+/* SVG icon fallback inside the profile button */
 .user-profile svg {
     width: 40px;
     height: 40px;
     fill: white;
 }
 
-/* Dropdown menu */
+/* ----------------------------------------------------------------
+   DROPDOWN MENU
+   Appears below the avatar on click (.show added by JS).
+   Slides in via dropFade animation.
+---------------------------------------------------------------- */
 .user-dropdown-menu {
-    display: none;
+    display: none;                       /* Hidden until JS adds .show */
     position: absolute;
-    top: calc(100% + 12px);
-    right: 0;
+    top: calc(100% + 12px);             /* 12 px gap below the avatar */
+    right: 0;                           /* Aligns to the right edge */
     min-width: 220px;
     background: #ffffff;
     border-radius: 12px;
@@ -886,20 +1117,22 @@ img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
 }
 
+/* Slide-down entrance animation */
 @keyframes dropFade {
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Header section */
+/* Colored header bar at the top of the dropdown */
 .user-dropdown-header {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 14px 16px;
-    background: #4a7c8c;
+    background: #4a7c8c;               /* Teal header matches avatar background */
 }
 
+/* Small avatar circle inside the dropdown header */
 .user-dropdown-avatar {
     width: 40px;
     height: 40px;
@@ -933,6 +1166,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     fill: white;
 }
 
+/* User display name in the dropdown header */
 .user-dropdown-name {
     margin: 0;
     font-size: 0.9rem;
@@ -941,6 +1175,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     line-height: 1.3;
 }
 
+/* User role/subtitle in the dropdown header */
 .user-dropdown-role {
     margin: 0;
     font-size: 0.75rem;
@@ -948,7 +1183,11 @@ img, svg, video, canvas, audio, iframe, embed, object {
     line-height: 1.3;
 }
 
-/* Menu list */
+/* ----------------------------------------------------------------
+   DROPDOWN MENU LIST
+   Navigation links (Settings, Profile, Logout, etc.).
+   Hover tints vary by action type: default = blue, logout = red.
+---------------------------------------------------------------- */
 .user-dropdown-list {
     list-style: none;
     margin: 0;
@@ -974,6 +1213,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     transition: stroke 0.15s;
 }
 
+/* Default menu item hover — blue tint */
 .user-dropdown-list li a:hover {
     background: #eaf3f7;
     color: #085c76;
@@ -983,6 +1223,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     stroke: #085c76;
 }
 
+/* Logout link hover — red danger tint */
 .user-dropdown-list li a.logout-link:hover {
     background: #fef2f2;
     color: #b91c1c;
@@ -992,40 +1233,52 @@ img, svg, video, canvas, audio, iframe, embed, object {
     stroke: #b91c1c;
 }
 
+/* Thin divider line between groups of menu items */
 .user-dropdown-divider {
     height: 1px;
     background: #e5e7eb;
     margin: 4px 0;
 }
 
-/* Responsive adjustments */
+/* Shrink avatar button on small screens */
 @media (max-width: 768px) {
     .user-profile {
         width: 40px;
         height: 40px;
     }
-    
+
     .avatar-icon {
         width: 24px;
         height: 24px;
     }
 }
-/* ===== QUICK ACCESS MODALS ===== */
 
+
+/* =====================================================================
+   QUICK ACCESS MODALS
+   Lightweight modal dialogs triggered by the quick-access action buttons.
+   Each modal has: overlay backdrop → modal card → header → body → footer.
+   ===================================================================== */
+
+/* Overlay — covers the entire viewport with a dark tint.
+   Hidden (display:none) by default; shown (display:flex) when .active
+   is added by JavaScript. */
 .qa-modal-overlay {
     display: none;
     position: fixed;
-    inset: 0;
+    inset: 0;                           /* Shorthand for top/right/bottom/left: 0 */
     background: rgba(0, 0, 0, 0.45);
     z-index: 9999;
     align-items: center;
     justify-content: center;
     padding: 1rem;
 }
+
 .qa-modal-overlay.active {
     display: flex;
 }
 
+/* Modal card */
 .qa-modal {
     background: #fff;
     border-radius: 16px;
@@ -1033,16 +1286,20 @@ img, svg, video, canvas, audio, iframe, embed, object {
     width: 100%;
     max-width: 480px;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow-y: auto;                   /* Scrolls if content is taller than 90vh */
     animation: qaModalIn 0.2s ease;
 }
+
+/* Wide variant for modals that need more horizontal space */
 .qa-modal-wide { max-width: 580px; }
 
+/* Slide-down + scale entrance animation */
 @keyframes qaModalIn {
     from { opacity: 0; transform: translateY(-16px) scale(0.97); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* Modal header — title on the left, close button on the right */
 .qa-modal-header {
     display: flex;
     align-items: center;
@@ -1050,12 +1307,15 @@ img, svg, video, canvas, audio, iframe, embed, object {
     padding: 1.25rem 1.5rem 1rem;
     border-bottom: 1px solid #f0f0f0;
 }
+
 .qa-modal-header h3 {
     font-size: 1.1rem;
     font-weight: 700;
     color: #1f2937;
     margin: 0;
 }
+
+/* X close button inside the modal header */
 .qa-modal-close {
     background: none;
     border: none;
@@ -1067,8 +1327,10 @@ img, svg, video, canvas, audio, iframe, embed, object {
     border-radius: 6px;
     transition: color 0.15s, background 0.15s;
 }
+
 .qa-modal-close:hover { color: #374151; background: #f3f4f6; }
 
+/* Modal body — vertical flex with gap between form groups */
 .qa-modal-body {
     padding: 1.25rem 1.5rem;
     display: flex;
@@ -1076,11 +1338,18 @@ img, svg, video, canvas, audio, iframe, embed, object {
     gap: 1rem;
 }
 
+/* ----------------------------------------------------------------
+   FORM GROUPS
+   Label + input/select/textarea stacked vertically.
+   All inputs share the same base style (border, radius, transition).
+---------------------------------------------------------------- */
 .qa-form-group {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
 }
+
+/* UPPERCASE label above the field */
 .qa-form-group label {
     font-size: 0.8rem;
     font-weight: 600;
@@ -1088,6 +1357,8 @@ img, svg, video, canvas, audio, iframe, embed, object {
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
+
+/* Base style shared by all form controls */
 .qa-form-group input,
 .qa-form-group select,
 .qa-form-group textarea {
@@ -1102,6 +1373,8 @@ img, svg, video, canvas, audio, iframe, embed, object {
     width: 100%;
     box-sizing: border-box;
 }
+
+/* Focus ring — green to match the dashboard theme */
 .qa-form-group input:focus,
 .qa-form-group select:focus,
 .qa-form-group textarea:focus {
@@ -1110,14 +1383,22 @@ img, svg, video, canvas, audio, iframe, embed, object {
     box-shadow: 0 0 0 3px rgba(76, 109, 87, 0.12);
     background: #fff;
 }
+
+/* Textarea — resizable vertically only, with a minimum height */
 .qa-form-group textarea { resize: vertical; min-height: 70px; }
 
+/* Two-column form row (e.g. date + time side by side) */
 .qa-form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
 }
 
+/* ----------------------------------------------------------------
+   FILE DROP ZONE
+   Dashed border area for drag-and-drop or click-to-upload.
+   Turns green on hover to indicate it is interactive.
+---------------------------------------------------------------- */
 .qa-file-drop {
     border: 2px dashed #d1d5db;
     border-radius: 10px;
@@ -1131,11 +1412,13 @@ img, svg, video, canvas, audio, iframe, embed, object {
     gap: 0.4rem;
     color: #6b7280;
 }
+
 .qa-file-drop:hover { border-color: #4c6d57; background: #f0f5f2; }
 .qa-file-drop svg { color: #9ca3af; }
 .qa-file-drop span { font-size: 0.9rem; font-weight: 500; }
 .qa-file-drop small { font-size: 0.75rem; color: #9ca3af; }
 
+/* Modal footer — action buttons right-aligned */
 .qa-modal-footer {
     display: flex;
     justify-content: flex-end;
@@ -1144,6 +1427,13 @@ img, svg, video, canvas, audio, iframe, embed, object {
     border-top: 1px solid #f0f0f0;
 }
 
+/* ----------------------------------------------------------------
+   MODAL BUTTONS
+   Three variants: primary (green fill), secondary (grey fill),
+   outline (green border, transparent fill).
+---------------------------------------------------------------- */
+
+/* Primary — solid green, used for the main confirm action */
 .qa-btn-primary {
     background: #4c6d57;
     color: #fff;
@@ -1159,6 +1449,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
 .qa-btn-primary:hover { background: #3a5444; }
 .qa-btn-primary:active { transform: scale(0.97); }
 
+/* Secondary — grey fill, used for Cancel */
 .qa-btn-secondary {
     background: #f3f4f6;
     color: #374151;
@@ -1173,6 +1464,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
 }
 .qa-btn-secondary:hover { background: #e5e7eb; }
 
+/* Outline — transparent with green border; fills on hover */
 .qa-btn-outline {
     background: transparent;
     color: #4c6d57;
@@ -1188,9 +1480,15 @@ img, svg, video, canvas, audio, iframe, embed, object {
 }
 .qa-btn-outline:hover { background: #4c6d57; color: #fff; }
 
+/* Small button modifier — compact padding with icon support */
 .qa-btn-sm { padding: 0.4rem 0.9rem; font-size: 0.82rem; display: flex; align-items: center; gap: 0.35rem; }
 
-/* Reports list */
+/* ----------------------------------------------------------------
+   REPORTS LIST (inside a modal)
+   Filter dropdowns above a vertical list of report items.
+---------------------------------------------------------------- */
+
+/* Filter bar — wraps on small screens */
 .qa-report-filters {
     display: flex;
     gap: 0.6rem;
@@ -1198,6 +1496,7 @@ img, svg, video, canvas, audio, iframe, embed, object {
     margin-bottom: 1rem;
     flex-wrap: wrap;
 }
+
 .qa-report-filters select {
     padding: 0.4rem 0.65rem;
     border: 1.5px solid #e5e7eb;
@@ -1208,10 +1507,13 @@ img, svg, video, canvas, audio, iframe, embed, object {
     font-family: inherit;
     cursor: pointer;
 }
+
 .qa-report-filters select:focus { outline: none; border-color: #4c6d57; }
 
+/* Vertical list of report rows */
 .qa-report-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
+/* Individual report row — icon + info + action button */
 .qa-report-item {
     display: flex;
     align-items: center;
@@ -1224,28 +1526,39 @@ img, svg, video, canvas, audio, iframe, embed, object {
 }
 .qa-report-item:hover { border-color: #d1d5db; background: #fff; }
 
+/* Colored icon badge — square with rounded corners */
 .qa-report-icon {
     width: 38px; height: 38px;
     border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
 }
+
+/* Icon color variants */
 .qa-icon-green  { background: #dcfce7; color: #16a34a; }
 .qa-icon-blue   { background: #dbeafe; color: #2563eb; }
 .qa-icon-purple { background: #ede9fe; color: #7c3aed; }
 .qa-icon-orange { background: #ffedd5; color: #ea580c; }
 
+/* Report text block — truncated if too long */
 .qa-report-info { flex: 1; min-width: 0; }
 .qa-report-title { font-size: 0.88rem; font-weight: 600; color: #1f2937; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .qa-report-meta  { font-size: 0.75rem; color: #9ca3af; margin: 0; }
 
-/* Toast notification */
+
+/* =====================================================================
+   TOAST NOTIFICATION
+   A small pop-up banner that appears at the bottom center of the screen
+   to confirm an action (success) or flag a problem (error).
+   Starts hidden (opacity:0, shifted down); slides up when .active is added.
+   ===================================================================== */
+
 .qa-toast {
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1f2937;
+    transform: translateX(-50%) translateY(20px); /* Centered, shifted down */
+    background: #1f2937;                          /* Default: dark grey */
     color: #fff;
     padding: 0.7rem 1.4rem;
     border-radius: 10px;
@@ -1253,17 +1566,31 @@ img, svg, video, canvas, audio, iframe, embed, object {
     font-weight: 500;
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     opacity: 0;
-    pointer-events: none;
+    pointer-events: none;                         /* Not clickable while hidden */
     transition: opacity 0.25s, transform 0.25s;
     z-index: 10000;
     white-space: nowrap;
 }
+
+/* Visible state — slides up into place */
 .qa-toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
-.qa-toast.qa-toast-error { background: #dc2626; }
-.qa-toast.qa-toast-success { background: #16a34a; }
+
+/* Color variants */
+.qa-toast.qa-toast-error   { background: #dc2626; } /* Red for errors */
+.qa-toast.qa-toast-success { background: #16a34a; } /* Green for success */
+
+
+/* =====================================================================
+   QUICK ACCESS MODAL — VERY SMALL SCREEN OVERRIDES  (max-width: 520px)
+   ===================================================================== */
 
 @media (max-width: 520px) {
+    /* Stack two-column form rows into a single column */
     .qa-form-row { grid-template-columns: 1fr; }
+
+    /* Slightly smaller modal corner radius */
     .qa-modal { border-radius: 12px; }
+
+    /* Stack filter dropdowns vertically and stretch to full width */
     .qa-report-filters { flex-direction: column; align-items: stretch; }
 }
