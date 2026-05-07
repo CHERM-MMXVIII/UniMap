@@ -3,8 +3,29 @@
 /* =========================
    GLOBAL RESET & BASE
 ========================= */
+
+/*
+ * Universal box-sizing reset.
+ * Applies border-box to every element and its pseudo-elements so that
+ * padding and borders are included within declared widths/heights —
+ * preventing layout overflow caused by the default content-box model.
+ */
 *, *::before, *::after { box-sizing: border-box; }
 
+/*
+ * Design tokens — single source of truth for the entire color palette,
+ * spacing scale, shadow, and card dimensions.
+ *
+ * Consumers:
+ *   --brown / --brown2  → social overlay background colors
+ *   --text              → primary body text color
+ *   --muted             → secondary / caption text color
+ *   --bg                → page background (sage green tint)
+ *   --shadow            → default card drop-shadow
+ *   --card-max          → maximum card width used in all layout grids
+ *   --gap-lg/md/sm      → spacing scale for grid and flex gaps
+ *   --radius-card       → shared border-radius for cards and containers
+ */
 :root {
   --brown: #b06a2a;
   --brown2: #9a581f;
@@ -19,6 +40,12 @@
   --radius-card: 18px;
 }
 
+/*
+ * Base body styles.
+ * Sets the global font stack, applies the sage-green page background
+ * from the design token, and enables sub-pixel font antialiasing for
+ * crisper text rendering on macOS / WebKit browsers.
+ */
 body {
   margin: 0;
   font-family: "DM Sans", "Segoe UI", Arial, sans-serif;
@@ -30,6 +57,20 @@ body {
 /* =========================
    BACK BUTTON
 ========================= */
+
+/*
+ * Fixed back-navigation pill anchored to the top-left corner of the viewport.
+ *
+ * Behaviour:
+ *   • position: fixed — stays visible while the user scrolls the org chart
+ *   • z-index: 100   — floats above all card content and overlays
+ *   • backdrop-filter: blur — frosted-glass effect over any content scrolled beneath it
+ *   • hover → fully opaque white background
+ *
+ * Forwards: navigation to the previous / parent page via an <a> element.
+ *
+ * Expected HTML: <a class="back-btn" href="…"><i …></i> Back</a>
+ */
 .back-btn {
   position: fixed;
   top: 16px;
@@ -47,11 +88,20 @@ body {
   transition: background 0.2s;
 }
 .back-btn:hover { background: #fff; }
+
+/* Icon inside the back button — adds right-side spacing so it doesn't crowd the label */
 .back-btn i { margin-right: 6px; }
 
 /* =========================
    PAGE CONTAINER
 ========================= */
+
+/*
+ * Centered content wrapper.
+ * Constrains the layout to 1300 px on wide screens, adds horizontal
+ * breathing room on smaller viewports, and leaves top padding to clear
+ * the fixed back button.
+ */
 .container {
   max-width: 1300px;
   margin: auto;
@@ -61,6 +111,17 @@ body {
 /* =========================
    PAGE HEADER
 ========================= */
+
+/*
+ * Full-width decorative banner at the top of the org-chart page.
+ *
+ * Contains:
+ *   .eyebrow  — small uppercase category label
+ *   h1        — large Playfair Display headline with a highlighted <span>
+ *   .header-divider — decorative horizontal rule beneath the title
+ *
+ * Uses a deep teal (#085C76) background to contrast with the sage page bg.
+ */
 .page-header {
   text-align: center;
   padding: 4rem 2rem;
@@ -69,6 +130,11 @@ body {
   margin-bottom: 3rem;
 }
 
+/*
+ * Small uppercase label above the main title.
+ * Uses tracked (letter-spaced) DM Sans in mint green to provide
+ * category context without competing visually with the h1.
+ */
 .page-header .eyebrow {
   font-family: 'DM Sans', sans-serif;
   font-size: 1rem;
@@ -79,6 +145,12 @@ body {
   margin-bottom: 0.75rem;
 }
 
+/*
+ * Main page title.
+ * Uses Playfair Display (serif) at a fluid size clamped between 2 rem
+ * and 5 rem so it scales gracefully from mobile to desktop.
+ * Tight line-height (1.1) keeps multi-line headings compact.
+ */
 .page-header h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 6vw, 5rem);
@@ -88,11 +160,22 @@ body {
   margin: 0;
 }
 
+/*
+ * Highlighted word(s) inside the h1.
+ * Rendered in olive/lime green (#7eac43) to create a brand-accent
+ * contrast against the white heading text.
+ * font-style: normal overrides any inherited italic from Playfair Display.
+ */
 .page-header h1 span {
   color: #7eac43;
   font-style: normal;
 }
 
+/*
+ * Decorative horizontal rule beneath the h1.
+ * A short white pill-shaped bar that visually anchors the heading
+ * and separates it from the cards below.
+ */
 .header-divider {
   width: 60px;
   height: 4px;
@@ -104,8 +187,18 @@ body {
 /* =========================
    SECTIONS
 ========================= */
+
+/* Top margin for each team section block */
 .team-section { margin-top: 36px; }
 
+/*
+ * Section heading shared base style.
+ * Renders as a fluid uppercase label in a muted slate color.
+ *
+ * The ::after pseudo-element draws a short colored underline bar
+ * beneath each section title. Its color is overridden per section
+ * via the modifier classes below (e.g. .slsu-title::after).
+ */
 .section-title {
   text-align: center;
   font-size: clamp(16px, 3vw, 26px);
@@ -125,6 +218,14 @@ body {
   border-radius: 999px;
 }
 
+/*
+ * Section-title color modifiers.
+ * Each team group gets its own accent color for both the label text
+ * and the ::after underline bar, creating visual grouping at a glance.
+ *
+ *   .slsu-title  / .cherm-title → olive green  (#7eac43 text, #8ead84 bar)
+ *   .dost-title  / .intern-title → deep teal   (#085C76 text, #6a99b7 bar)
+ */
 .slsu-title   { color: #7eac43; }
 .slsu-title::after  { background: #8ead84; }
 .dost-title   { color: #085C76; }
@@ -137,6 +238,16 @@ body {
 /* =========================
    LEADERSHIP ROW 
 ========================= */
+
+/*
+ * Two-column grid used to display the two leadership groups
+ * (e.g. SLSU leads on the left, DOST leads on the right) side by side.
+ *
+ * align-items: start prevents the shorter column from stretching to
+ * match the taller one.
+ *
+ * Collapses to a single column below 860 px (see responsive section).
+ */
 .leadership-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -147,6 +258,15 @@ body {
 /* =========================
    CARD COLUMNS
 ========================= */
+
+/*
+ * Vertical stack of cards within a leadership group column.
+ * flex-direction: column + align-items: center keeps each card
+ * horizontally centered regardless of its max-width.
+ *
+ * Cards inside a column are capped at --card-max (360 px) so they
+ * don't stretch excessively on wide screens.
+ */
 .card-col {
   display: flex;
   flex-direction: column;
@@ -154,6 +274,8 @@ body {
   align-items: center;
 }
 
+/* Cards within both .card-col and .card-col--center fill available
+   width up to the card-max token */
 .card-col .team-card,
 .card-col--center .team-card {
   width: 100%;
@@ -163,6 +285,16 @@ body {
 /* =========================
    INTERNS GRID 
 ========================= */
+
+/*
+ * Three-column CSS Grid used for the interns section.
+ * Each column is bounded by --card-max so cards never grow too wide,
+ * and justify-content: center keeps the grid centered when there are
+ * fewer than three items in the last row.
+ *
+ * Reduces to 2 columns at 1080 px and 1 column at 460 px
+ * (see responsive section).
+ */
 .card-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, var(--card-max)));
@@ -173,6 +305,19 @@ body {
 /* =========================
    TEAM CARD
 ========================= */
+
+/*
+ * Core card component — white rounded rectangle with a drop shadow.
+ *
+ * position: relative is required so that absolutely-positioned children
+ * (.social-overlay, .name-panel) are positioned relative to the card.
+ *
+ * overflow: hidden clips the image during the hover scale animation
+ * and rounds the corners of the image wrapper.
+ *
+ * Hover state: card lifts 4 px and deepens its shadow to signal interactivity.
+ * transition applies to both transform and box-shadow simultaneously.
+ */
 .team-card {
   background: #fff;
   border-radius: var(--radius-card);
@@ -191,6 +336,20 @@ body {
 /* =========================
    IMAGE AREA — aspect ratio box
 ========================= */
+
+/*
+ * Padding-top aspect-ratio trick for portrait photos.
+ * padding-top: 118% creates a fixed 1:1.18 (portrait) aspect ratio
+ * independent of the container's width.
+ *
+ * The img child is then stretched to fill the created space via
+ * position: absolute + inset: 0, and object-fit: cover ensures the
+ * photo crops neatly without distortion.
+ * object-position: top center keeps faces/heads visible when cropped.
+ *
+ * Hover: the image scales to 105% for a subtle zoom-in effect.
+ * overflow: hidden on the wrapper clips the scaled image to the card bounds.
+ */
 .image-wrapper {
   position: relative;
   width: 100%;
@@ -210,6 +369,7 @@ body {
   transition: transform 0.38s ease;
 }
 
+/* Scale the photo when the parent card is hovered */
 .team-card:hover .image-wrapper img {
   transform: scale(1.05);
 }
@@ -217,6 +377,25 @@ body {
 /* =========================
    SOCIAL OVERLAY
 ========================= */
+
+/*
+ * Vertical pill of social-media icon links that appears in the top-right
+ * corner of the image on hover.
+ *
+ * Default state: invisible (opacity: 0) and shifted slightly upward
+ *   (translateY(-6px)) so it slides in from above when triggered.
+ *
+ * Trigger: .image-wrapper:hover — the overlay becomes visible when the
+ *   user hovers the photo area specifically (not the whole card).
+ *
+ * z-index: 2 keeps the overlay above the image but beneath any modal layers.
+ *
+ * The background color is overridden per section via the modifier rules below
+ * (.slsu-section, .dost-section, etc.) so each group has its own accent color.
+ *
+ * Forwards: each <a> inside the overlay is expected to navigate to the
+ *   team member's social-media profile (LinkedIn, email, etc.).
+ */
 .social-overlay {
   position: absolute;
   top: 14px;
@@ -235,11 +414,18 @@ body {
   z-index: 2;
 }
 
+/* Reveal the social overlay when the image area is hovered */
 .image-wrapper:hover .social-overlay {
   opacity: 1;
   transform: translateY(0);
 }
 
+/*
+ * Individual social icon links inside the overlay.
+ * Each renders as a circular ghost button (semi-transparent white border
+ * on a slightly transparent background).
+ * Hover state brightens the background to provide click feedback.
+ */
 .social-overlay a {
   width: 26px;
   height: 26px;
@@ -256,6 +442,14 @@ body {
 
 .social-overlay a:hover { background: rgba(255,255,255,0.28); }
 
+/*
+ * Section-level social overlay color overrides.
+ * Each team group gets its own brand accent so the overlay color
+ * matches the section title color defined earlier.
+ *
+ *   SLSU / CHERM sections → sage green   (#8ead84)
+ *   DOST / Intern sections → steel blue  (#6a99b7)
+ */
 .slsu-section  .social-overlay { background: #8ead84; }
 .dost-section  .social-overlay { background: #6a99b7; }
 .cherm-section .social-overlay { background: #8ead84; }
@@ -264,6 +458,19 @@ body {
 /* =========================
    NAME PANEL
 ========================= */
+
+/*
+ * White floating label at the bottom of the image area.
+ * Uses position: absolute with left/right/bottom offsets and a small
+ * inset margin so it sits inside the card rather than touching the edges.
+ *
+ * z-index: 2 ensures it renders above the photo and the social overlay.
+ * box-shadow gives it a subtle lift so it reads as a separate surface.
+ *
+ * Contains:
+ *   .card-name  — member's full name (bold, 14 px)
+ *   .card-role  — position / role label (semibold muted, 11 px)
+ */
 .name-panel {
   position: absolute;
   left: 12px;
@@ -281,6 +488,7 @@ body {
   text-align: center;
 }
 
+/* Primary name label — heavier weight to establish hierarchy */
 .name-panel .card-name {
   font-size: 14px;
   font-weight: 700;
@@ -288,6 +496,7 @@ body {
   line-height: 1.2;
 }
 
+/* Secondary role/title label — smaller and muted to subordinate to the name */
 .name-panel .card-role {
   font-size: 11px;
   font-weight: 600;
@@ -299,15 +508,30 @@ body {
    RESPONSIVE BREAKPOINTS — progressive
    ==================================================== */
 
-/* ── Tablet landscape ≤ 1080px: 2-col interns ── */
+/*
+ * Breakpoint 1 — Tablet landscape (≤ 1080 px)
+ * ─────────────────────────────────────────────
+ * Reduces the interns grid from 3 columns to 2 columns.
+ * The leadership two-column row is wide enough to remain unchanged.
+ */
 @media (max-width: 1080px) {
   .card-row {
     grid-template-columns: repeat(2, minmax(0, var(--card-max)));
   }
 }
 
-/* ── Tablet portrait ≤ 860px: stack leadership sections,
-       show cards side-by-side within each ── */
+/*
+ * Breakpoint 2 — Tablet portrait (≤ 860 px)
+ * ──────────────────────────────────────────
+ * Stacks the two leadership columns vertically (1fr grid → 1fr grid).
+ *
+ * Within each stacked section the cards switch from a vertical column
+ * to a horizontal wrap so two cards appear side by side — preventing
+ * a single very tall column of cards on medium-width screens.
+ *
+ * Card width inside the row is set to calc(50% - 10px) to account for
+ * the gap between the two side-by-side cards.
+ */
 @media (max-width: 860px) {
   .leadership-row {
     grid-template-columns: 1fr;
@@ -328,7 +552,18 @@ body {
   }
 }
 
-/* ── Phablet ≤ 640px: 2-col interns, tighter padding ── */
+/*
+ * Breakpoint 3 — Phablet (≤ 640 px)
+ * ────────────────────────────────────
+ * Tightens container and header padding to reclaim horizontal space.
+ * Interns grid drops to a 2-column layout using fractional units
+ * so cards fill the viewport edge-to-edge within the container.
+ * Gaps tighten to --gap-sm (14 px).
+ *
+ * Social overlay is permanently visible (opacity: 1, no translateY offset)
+ * because touch devices have no hover state — the overlay would otherwise
+ * never appear for touch users.
+ */
 @media (max-width: 640px) {
   .container {
     padding: 3.5rem 1rem 2.5rem;
@@ -356,7 +591,21 @@ body {
   }
 }
 
-/* ── Mobile ≤ 460px: single column everything ── */
+/*
+ * Breakpoint 4 — Mobile (≤ 460 px)
+ * ────────────────────────────────────
+ * Forces everything into a single-column layout.
+ *
+ * .card-col / .card-col--center revert to flex-direction: column so
+ * leadership cards stack vertically again (they were side-by-side at 860 px).
+ *
+ * .card-row collapses to a single 1fr column with a centered 320 px max-width.
+ *
+ * Name panel text sizes are reduced by ~1 px to keep labels legible
+ * without overflowing narrower card widths.
+ *
+ * The back button is made more compact (smaller font + padding).
+ */
 @media (max-width: 460px) {
   .card-col,
   .card-col--center {
@@ -388,7 +637,14 @@ body {
   }
 }
 
-/* ── Tiny screens ≤ 360px ── */
+/*
+ * Breakpoint 5 — Tiny screens (≤ 360 px)
+ * ─────────────────────────────────────────
+ * Final compaction pass for very small devices (older budget phones).
+ * Container padding is reduced to its minimum.
+ * All card max-width constraints are removed so cards stretch to fill
+ * the full available viewport width, maximising readability on small screens.
+ */
 @media (max-width: 360px) {
   .container { padding: 3rem 0.75rem 2rem; }
 
