@@ -1,0 +1,7 @@
+/login           /html/login-form.html       200
+/register        /html/login-form.html       200
+/dashboard       /html/dashboard.html        200
+/orgchart        /html/org-chart.html        200
+/accountsettings /html/acc-settings.html     200
+/feedback        /html/feedback-form.html    200
+/index           /index.html                 200
