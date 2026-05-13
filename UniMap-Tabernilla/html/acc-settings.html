@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings</title>
+  <link rel="stylesheet" href="/css/account-settings.css">
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <a href="/">
+    <img src="/img/slsu-logo.webp" alt="SLSU Logo">
+  </a>
+  <div class="header-text">
+    <h1>Southern Luzon State University</h1>
+    <h1 class="unimap">
+      <span>U</span><span>N</span><span>I</span><span>M</span><span>A</span><span>P</span>
+    </h1>
+  </div>
+</div>
+
+<!-- ===== ACCOUNT SETTINGS CARD ===== -->
+<div class="profile-container">
+
+  <h2>Account Settings</h2>
+
+  <!-- ✅ Toast notification -->
+  <div id="toast" style="
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #2e7d32;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+  ">✔ Changes saved successfully.</div>
+
+  <div class="account-layout">
+
+    <!-- LEFT CONTENT -->
+    <div class="account-info">
+
+      <div class="field">
+        <label>Your Name</label>
+        <p id="accFullname">Juan Dela Cruz</p>
+      </div>
+
+      <div class="field">
+        <label>Username</label>
+        <p id="accUsername">admin</p>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <p>••••••••••</p>
+        <a href="#" onclick="changePassModal(); return false;">Change</a>
+      </div>
+
+      <div class="field">
+        <label>Email Address</label>
+        <p id="accEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214b54404f61404545534452520f424e4c">[email&#160;protected]</a></p>
+        <a href="#" onclick="return false;">Change</a>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-cancel" type="button" onclick="goBack()">Cancel</button>
+        <button class="btn-save" type="button" onclick="saveSettings()">Save</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="account-avatar" style="align-items:center;">
+
+      <!-- Avatar + dropdown -->
+      <div id="avatarWrapper" style="position:relative; display:inline-block;">
+
+        <canvas id="avatarCanvas" width="120" height="120" style="
+          border-radius:50% !important;
+          border:3px solid #ccc !important;
+          cursor:pointer !important;
+          display:block !important;
+        " onclick="toggleAvatarMenu()"></canvas>
+
+        <!-- Hover overlay (pencil icon) -->
+        <div id="avatarOverlay" style="
+          position:absolute; top:0; left:0;
+          width:120px; height:120px;
+          background:rgba(0,0,0,0.45);
+          border-radius:50%;
+          display:flex; align-items:center; justify-content:center;
+          opacity:0; transition:opacity 0.2s ease;
+          pointer-events:none;
+        ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+            fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </div>
+
+        <!-- Dropdown menu -->
+        <div id="avatarMenu" style="
+          display:none;
+          position:absolute;
+          top:128px; left:50%; transform:translateX(-50%);
+          background:#fff;
+          border-radius:10px;
+          box-shadow:0 8px 28px rgba(0,0,0,0.18);
+          min-width:175px;
+          z-index:500;
+          overflow:hidden;
+          border:1px solid #eee;
+        ">
+          <!-- Upload -->
+          <button onclick="triggerFileInput();" style="
+            display:flex; align-items:center; gap:0.65rem;
+            width:100%; padding:0.72rem 1rem;
+            background:none; border:none; cursor:pointer;
+            font-size:0.875rem; color:#222;
+            border-bottom:1px solid #f0f0f0;
+            text-align:left;
+          " onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload new photo
+          </button>
+
+          <!-- Edit (hidden until photo set) -->
+          <button id="editPicBtn" onclick="openEditModal();" style="
+            display:none; align-items:center; gap:0.65rem;
+            width:100%; padding:0.72rem 1rem;
+            background:none; border:none; cursor:pointer;
+            font-size:0.875rem; color:#222;
+            border-bottom:1px solid #f0f0f0;
+            text-align:left;
+          " onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit photo
+          </button>
+
+          <!-- Remove (hidden until photo set) -->
+          <button id="removeMenuBtn" onclick="removeAvatar(); closeAvatarMenu();" style="
+            display:none; align-items:center; gap:0.65rem;
+            width:100%; padding:0.72rem 1rem;
+            background:none; border:none; cursor:pointer;
+            font-size:0.875rem; color:#c0392b;
+            text-align:left;
+          " onmouseover="this.style.background='#fff5f5'" onmouseout="this.style.background='none'">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Remove photo
+          </button>
+        </div>
+
+      </div><!-- /avatarWrapper -->
+
+      <!-- Hidden file input -->
+      <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarChange(event)">
+
+      <p style="font-size:0.78rem; color:#999; margin-top:0.5rem; text-align:center;">Click photo to edit</p>
+
+      <p id="avatarError" style="display:none; color:#c0392b; font-size:12px; margin-top:6px; text-align:center;">
+        Image must be under 2 MB.
+      </p>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== CHANGE PASSWORD MODAL ===== -->
+<div class="modal" id="changePassModal" style="display:none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modalheader">
+        <h3>Change Password</h3>
+        <button class="close-btn" type="button" onclick="closeModal()">×</button>
+      </div>
+
+      <div class="modalbody">
+        <form onsubmit="return false;">
+          <label>Current Password</label>
+          <input type="password" id="currentPass">
+
+          <label>New Password</label>
+          <input type="password" id="newPass">
+
+          <label>Confirm Password</label>
+          <input type="password" id="confirmPass">
+
+          <p id="passError" style="display:none; color:#c0392b; font-size:13px; margin-top:4px;"></p>
+        </form>
+
+        <div class="edit-form-btn">
+          <button class="btn-close-modal" type="button" onclick="closeModal()">Cancel</button>
+          <button class="btn-save" type="button" onclick="savePassword()">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ─── NAVIGATION ─── */
+  function goBack() {
+    window.history.back();
+  }
+
+  /* ─── MODAL ─── */
+  function changePassModal() {
+    document.getElementById("changePassModal").style.display = "flex";
+    ["currentPass","newPass","confirmPass"].forEach(id => document.getElementById(id).value = "");
+    const err = document.getElementById("passError");
+    err.style.display = "none";
+    err.textContent = "";
+  }
+
+  function closeModal() {
+    document.getElementById("changePassModal").style.display = "none";
+  }
+
+  async function savePassword() {
+    const err = document.getElementById("passError");
+    const cp  = document.getElementById("currentPass").value;
+    const np  = document.getElementById("newPass").value;
+    const cfp = document.getElementById("confirmPass").value;
+
+    if (!cp)           { err.textContent = "Current password cannot be empty."; err.style.display = "block"; return; }
+    if (!np)           { err.textContent = "New password cannot be empty.";     err.style.display = "block"; return; }
+    if (np.length < 6) { err.textContent = "Password must be at least 6 characters."; err.style.display = "block"; return; }
+    if (np !== cfp)    { err.textContent = "Passwords do not match.";           err.style.display = "block"; return; }
+
+    const username = localStorage.getItem("username");
+    try {
+      const res = await fetch("/api/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, currentPassword: cp, newPassword: np })
+      });
+      const data = await res.json();
+      if (!data.success) {
+        err.textContent = data.message;
+        err.style.display = "block";
+        return;
+      }
+      closeModal();
+      showToast("Password updated successfully.");
+    } catch (e) {
+      err.textContent = "Network error. Try again.";
+      err.style.display = "block";
+    }
+  }
+
+  /* ─── DELETE ACCOUNT MODAL ─── */
+  function openDeleteModal() {
+    const username = localStorage.getItem("username") || "";
+    document.getElementById("deleteConfirmHint").textContent = username;
+    document.getElementById("deleteConfirmInput").value = "";
+    const err = document.getElementById("deleteError");
+    err.style.display = "none";
+    err.textContent = "";
+    const btn = document.getElementById("deleteConfirmBtn");
+    btn.style.opacity = "0.4";
+    btn.style.pointerEvents = "none";
+    document.getElementById("deleteAccountModal").style.display = "flex";
+  }
+
+  function closeDeleteModal() {
+    document.getElementById("deleteAccountModal").style.display = "none";
+  }
+
+  function validateDeleteInput() {
+    const username = localStorage.getItem("username") || "";
+    const input = document.getElementById("deleteConfirmInput").value;
+    const btn = document.getElementById("deleteConfirmBtn");
+    if (input === username) {
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    } else {
+      btn.style.opacity = "0.4";
+      btn.style.pointerEvents = "none";
+    }
+  }
+
+  async function confirmDeleteAccount() {
+    const username = localStorage.getItem("username");
+    const err = document.getElementById("deleteError");
+    const btn = document.getElementById("deleteConfirmBtn");
+
+    btn.disabled = true;
+    btn.textContent = "Deleting…";
+
+    try {
+      const res = await fetch("/api/delete-account", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username })
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        err.textContent = data.message || "Failed to delete account. Please try again.";
+        err.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Delete Account";
+        return;
+      }
+
+      // Clear all local storage and redirect to login
+      localStorage.clear();
+      closeDeleteModal();
+      showToast("Account deleted. Redirecting…", false);
+      setTimeout(() => { window.location.href = "/login"; }, 2000);
+    } catch (e) {
+      err.textContent = "Network error. Please try again.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Delete Account";
+    }
+  }
+
+  /* ─── CANVAS AVATAR ─── */
+  function getCanvas() { return document.getElementById("avatarCanvas"); }
+
+  function getInitials(name) {
+    if (!name) return "?";
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  }
+
+  // Draw person icon on canvas
+  function showInitials(name) {
+    const canvas = getCanvas();
+    const ctx = canvas.getContext("2d");
+    const size = canvas.width;
+
+    // Clear
+    ctx.clearRect(0, 0, size, size);
+
+    // Clip to circle
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+
+    // Background
+    ctx.fillStyle = "#1d6e8f";
+    ctx.fillRect(0, 0, size, size);
+
+    // Person icon (head + body)
+    ctx.fillStyle = "#ffffff";
+    // Head
+    ctx.beginPath();
+    ctx.arc(size/2, size * 0.35, size * 0.18, 0, Math.PI * 2);
+    ctx.fill();
+    // Body
+    ctx.beginPath();
+    ctx.arc(size/2, size * 0.85, size * 0.28, Math.PI, 0);
+    ctx.fill();
+
+    ctx.restore();
+    document.getElementById("editPicBtn").style.display = "none";
+    document.getElementById("removeMenuBtn").style.display = "none";
+    window._currentAvatarSrc = null;
+  }
+
+  // Draw photo on canvas
+  function showPhoto(src) {
+    const canvas = getCanvas();
+    const ctx = canvas.getContext("2d");
+    const size = canvas.width;
+    const img = new Image();
+
+    img.onload = function() {
+      ctx.clearRect(0, 0, size, size);
+
+      // Clip to circle
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+
+      // Cover-fit the image (like object-fit: cover)
+      const scale = Math.max(size / img.width, size / img.height);
+      const w = img.width  * scale;
+      const h = img.height * scale;
+      const x = (size - w) / 2;
+      const y = (size - h) / 2;
+      ctx.drawImage(img, x, y, w, h);
+
+      ctx.restore();
+      document.getElementById("editPicBtn").style.display = "flex";
+      document.getElementById("removeMenuBtn").style.display = "flex";
+      // Store src so Edit Photo can reopen it
+      if (!window._editingInProgress) window._currentAvatarSrc = src;
+    };
+
+    img.onerror = function() {
+      // If image fails to load, fall back to initials
+      const fullname = localStorage.getItem("fullname") || "";
+      showInitials(fullname);
+    };
+
+    img.src = src;
+  }
+
+  function triggerFileInput() {
+    closeAvatarMenu();
+    document.getElementById("avatarInput").click();
+  }
+
+  /* ─── AVATAR DROPDOWN ─── */
+  function toggleAvatarMenu() {
+    const menu = document.getElementById("avatarMenu");
+    menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
+  }
+  function closeAvatarMenu() {
+    document.getElementById("avatarMenu").style.display = "none";
+  }
+  // Close menu when clicking outside
+  document.addEventListener("click", function(e) {
+    const wrapper = document.getElementById("avatarWrapper");
+    if (wrapper && !wrapper.contains(e.target)) closeAvatarMenu();
+  });
+
+  /* ─── EDIT MODAL (re-open crop on existing photo) ─── */
+  function openEditModal() {
+    if (!window._currentAvatarSrc) return;
+    document.getElementById("cropModalTitle").textContent = "Edit Photo";
+    openCropModal(window._currentAvatarSrc);
+  }
+
+  function handleAvatarChange(event) {
+    const file  = event.target.files[0];
+    const errEl = document.getElementById("avatarError");
+    errEl.style.display = "none";
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      errEl.style.display = "block";
+      event.target.value = "";
+      return;
+    }
+
+    // Open crop modal instead of directly showing photo
+    const reader = new FileReader();
+    reader.onload = e => {
+      window._currentAvatarSrc = e.target.result;
+      document.getElementById("cropModalTitle").textContent = "Crop & Zoom Photo";
+      openCropModal(e.target.result);
+    };
+    reader.readAsDataURL(file);
+    event.target.value = "";
+  }
+
+  /* ─── CROP MODAL ─── */
+  let _cropState = {
+    img: null, originalImg: null,
+    scale: 1, minScale: 1, maxScale: 5,
+    offsetX: 0, offsetY: 0,
+    dragging: false, lastX: 0, lastY: 0,
+    pinchDist: null,
+    rotation: 0, flipH: false, flipV: false
+  };
+
+  function openCropModal(src) {
+    const modal = document.getElementById("cropModal");
+    const canvas = document.getElementById("cropCanvas");
+    const s = _cropState;
+
+    // Reset transform state
+    s.rotation = 0;
+    s.flipH = false;
+    s.flipV = false;
+
+    const img = new Image();
+    img.onload = function() {
+      s.img = img;
+      s.originalImg = img; // keep original for re-applying transforms
+      const size = canvas.width;
+      const fit = Math.min(size / img.width, size / img.height);
+      s.minScale = fit;
+      s.scale = fit;
+      s.offsetX = (size - img.width * fit) / 2;
+      s.offsetY = (size - img.height * fit) / 2;
+      drawCrop();
+    };
+    img.src = src;
+    document.getElementById("cropZoom").value = 0;
+    modal.style.display = "flex";
+  }
+
+  function drawCrop() {
+    const canvas = document.getElementById("cropCanvas");
+    const ctx = canvas.getContext("2d");
+    const s = _cropState;
+    const size = canvas.width;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // 1. Draw image with rotation + flip applied via canvas transforms
+    ctx.save();
+    ctx.translate(size / 2, size / 2);
+    ctx.rotate((s.rotation * Math.PI) / 180);
+    ctx.scale(s.flipH ? -1 : 1, s.flipV ? -1 : 1);
+    ctx.translate(-size / 2, -size / 2);
+    ctx.drawImage(s.img, s.offsetX, s.offsetY, s.img.width * s.scale, s.img.height * s.scale);
+    ctx.restore();
+
+    // 2. Build dark overlay on offscreen canvas so destination-out never touches the image
+    const offscreen = document.createElement("canvas");
+    offscreen.width = size;
+    offscreen.height = size;
+    const octx = offscreen.getContext("2d");
+
+    octx.fillStyle = "rgba(0,0,0,0.55)";
+    octx.fillRect(0, 0, size, size);
+
+    octx.globalCompositeOperation = "destination-out";
+    octx.beginPath();
+    octx.arc(size / 2, size / 2, size / 2 - 4, 0, Math.PI * 2);
+    octx.fill();
+
+    // 3. Composite overlay onto main canvas
+    ctx.drawImage(offscreen, 0, 0);
+
+    // 4. White circle border
+    ctx.save();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, size / 2 - 4, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ─── ROTATE & FLIP ─── */
+  function cropRotate(deg) {
+    _cropState.rotation = (_cropState.rotation + deg + 360) % 360;
+    // When rotating 90/270, swap image dimensions for clamping
+    drawCrop();
+  }
+
+  function cropFlip(axis) {
+    if (axis === "h") _cropState.flipH = !_cropState.flipH;
+    else              _cropState.flipV = !_cropState.flipV;
+    drawCrop();
+  }
+
+  function cropResetTransform() {
+    const s = _cropState;
+    s.rotation = 0;
+    s.flipH = false;
+    s.flipV = false;
+    const size = 380;
+    const fit = Math.min(size / s.img.width, size / s.img.height);
+    s.minScale = fit;
+    s.scale = fit;
+    s.offsetX = (size - s.img.width * fit) / 2;
+    s.offsetY = (size - s.img.height * fit) / 2;
+    document.getElementById("cropZoom").value = 0;
+    drawCrop();
+  }
+
+  function clampOffset() {
+    const s = _cropState;
+    const size = 380;
+    const iw = s.img.width * s.scale;
+    const ih = s.img.height * s.scale;
+    const r = size / 2 - 4;
+    // ensure circle is fully covered by image
+    s.offsetX = Math.min(size/2 - r, Math.max(size/2 + r - iw, s.offsetX));
+    s.offsetY = Math.min(size/2 - r, Math.max(size/2 + r - ih, s.offsetY));
+  }
+
+  function applyCrop() {
+    const s = _cropState;
+    const size = 380;
+    const r = size / 2 - 4;
+
+    const out = document.createElement("canvas");
+    out.width = 300; out.height = 300;
+    const octx = out.getContext("2d");
+
+    octx.save();
+    octx.beginPath();
+    octx.arc(150, 150, 150, 0, Math.PI * 2);
+    octx.clip();
+
+    // Apply the same rotation + flip that the preview shows
+    const factor = 300 / (r * 2);
+    octx.translate(150, 150);
+    octx.rotate((s.rotation * Math.PI) / 180);
+    octx.scale(s.flipH ? -1 : 1, s.flipV ? -1 : 1);
+    octx.translate(-150, -150);
+
+    const ox = (s.offsetX - (size / 2 - r)) * factor;
+    const oy = (s.offsetY - (size / 2 - r)) * factor;
+    octx.drawImage(s.img, ox, oy, s.img.width * s.scale * factor, s.img.height * s.scale * factor);
+    octx.restore();
+
+    const dataURL = out.toDataURL("image/jpeg", 0.92);
+    // Save the result as the current source so "Edit photo" can re-edit it
+    window._currentAvatarSrc = dataURL;
+    showPhoto(dataURL);
+
+    out.toBlob(blob => {
+      window._pendingFile = new File([blob], "avatar.jpg", { type: "image/jpeg" });
+      window._removeAvatar = false;
+    }, "image/jpeg", 0.92);
+
+    closeCropModal();
+  }
+
+  function closeCropModal() {
+    document.getElementById("cropModal").style.display = "none";
+  }
+
+  // Mouse events
+  function cropMouseDown(e) {
+    const s = _cropState;
+    s.dragging = true;
+    s.lastX = e.clientX;
+    s.lastY = e.clientY;
+  }
+  function cropMouseMove(e) {
+    const s = _cropState;
+    if (!s.dragging) return;
+    s.offsetX += e.clientX - s.lastX;
+    s.offsetY += e.clientY - s.lastY;
+    s.lastX = e.clientX;
+    s.lastY = e.clientY;
+    clampOffset();
+    drawCrop();
+  }
+  function cropMouseUp() { _cropState.dragging = false; }
+
+  // Scroll to zoom
+  function cropWheel(e) {
+    e.preventDefault();
+    const s = _cropState;
+    const delta = e.deltaY < 0 ? 0.08 : -0.08;
+    const newScale = Math.min(s.maxScale, Math.max(s.minScale, s.scale + delta));
+    // zoom toward center
+    const size = 380;
+    const cx = size / 2, cy = size / 2;
+    s.offsetX = cx - (cx - s.offsetX) * (newScale / s.scale);
+    s.offsetY = cy - (cy - s.offsetY) * (newScale / s.scale);
+    s.scale = newScale;
+    clampOffset();
+    drawCrop();
+    document.getElementById("cropZoom").value = Math.round((s.scale - s.minScale) / (s.maxScale - s.minScale) * 100);
+  }
+
+  // Slider zoom
+  function cropSliderChange(val) {
+    const s = _cropState;
+    const newScale = s.minScale + (val / 100) * (s.maxScale - s.minScale);
+    const size = 380;
+    const cx = size / 2, cy = size / 2;
+    s.offsetX = cx - (cx - s.offsetX) * (newScale / s.scale);
+    s.offsetY = cy - (cy - s.offsetY) * (newScale / s.scale);
+    s.scale = newScale;
+    clampOffset();
+    drawCrop();
+  }
+
+  // Touch support
+  function cropTouchStart(e) {
+    if (e.touches.length === 1) {
+      _cropState.dragging = true;
+      _cropState.lastX = e.touches[0].clientX;
+      _cropState.lastY = e.touches[0].clientY;
+    } else if (e.touches.length === 2) {
+      _cropState.pinchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  }
+  function cropTouchMove(e) {
+    e.preventDefault();
+    const s = _cropState;
+    if (e.touches.length === 1 && s.dragging) {
+      s.offsetX += e.touches[0].clientX - s.lastX;
+      s.offsetY += e.touches[0].clientY - s.lastY;
+      s.lastX = e.touches[0].clientX;
+      s.lastY = e.touches[0].clientY;
+      clampOffset();
+      drawCrop();
+    } else if (e.touches.length === 2 && s.pinchDist != null) {
+      const newDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const newScale = Math.min(s.maxScale, Math.max(s.minScale, s.scale * (newDist / s.pinchDist)));
+      const size = 380;
+      const cx = size/2, cy = size/2;
+      s.offsetX = cx - (cx - s.offsetX) * (newScale / s.scale);
+      s.offsetY = cy - (cy - s.offsetY) * (newScale / s.scale);
+      s.scale = newScale;
+      s.pinchDist = newDist;
+      clampOffset();
+      drawCrop();
+      document.getElementById("cropZoom").value = Math.round((s.scale - s.minScale) / (s.maxScale - s.minScale) * 100);
+    }
+  }
+  function cropTouchEnd() { _cropState.dragging = false; _cropState.pinchDist = null; }
+
+  async function removeAvatar() {
+    const username = localStorage.getItem("username");
+    const fullname = localStorage.getItem("fullname") || "";
+
+    try {
+      const res  = await fetch("/api/remove-picture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username })
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.removeItem("profilePicture");
+        localStorage.removeItem("profilePictureCache");
+        window._currentAvatarSrc = null;
+        showInitials(fullname);
+        window._pendingFile  = null;
+        window._removeAvatar = false;
+        document.getElementById("avatarInput").value = "";
+        showToast("Profile picture removed.");
+      } else {
+        showToast("Failed to remove picture.", true);
+      }
+    } catch (e) {
+      showToast("Network error.", true);
+    }
+  }
+
+  /* ─── SAVE SETTINGS ─── */
+  async function saveSettings() {
+    const username = localStorage.getItem("username");
+
+    if (window._pendingFile) {
+      const formData = new FormData();
+      formData.append("picture", window._pendingFile);
+      formData.append("username", username);
+
+      // Disable save button while uploading
+      const saveBtn = document.querySelector(".btn-save");
+      if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = "Saving..."; }
+
+      try {
+        const res  = await fetch("/api/upload-picture", { method: "POST", body: formData });
+        const data = await res.json();
+
+        if (!data.success) {
+          showToast(data.message || "Upload failed.", true);
+          return;
+        }
+
+        // ✅ Cache the canvas drawing as base64 so it survives page refresh
+        //    (server URL is stored for future loads via /api/profile)
+        localStorage.setItem("profilePicture", data.pictureUrl);
+        // Also cache as base64 for instant display on next load before server responds
+        const canvas = document.getElementById("avatarCanvas");
+        localStorage.setItem("profilePictureCache", canvas.toDataURL());
+        window._pendingFile = null;
+
+      } catch (e) {
+        showToast("Network error during upload.", true);
+        return;
+      } finally {
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = "Save"; }
+      }
+    }
+
+    showToast("Changes saved successfully.");
+  }
+
+  /* ─── TOAST ─── */
+  function showToast(msg, isError = false) {
+    const toast = document.getElementById("toast");
+    toast.textContent = (isError ? "⚠ " : "✔ ") + msg;
+    toast.style.background = isError ? "#c0392b" : "#2e7d32";
+    toast.style.display = "block";
+    toast.style.opacity = "1";
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      setTimeout(() => { toast.style.display = "none"; }, 300);
+    }, 3000);
+  }
+
+  /* ─── PAGE INIT ─── */
+  document.addEventListener("DOMContentLoaded", async () => {
+    const fullname = localStorage.getItem("fullname");
+    const username = localStorage.getItem("username");
+
+    if (!fullname || !username) {
+      window.location.href = "/login";
+      return;
+    }
+
+    document.getElementById("accFullname").textContent = fullname;
+    document.getElementById("accUsername").textContent = username;
+
+    const email = localStorage.getItem("email");
+    if (email) document.getElementById("accEmail").textContent = email;
+
+    // Hover overlay on canvas
+    const canvas  = document.getElementById("avatarCanvas");
+    const overlay = document.getElementById("avatarOverlay");
+    canvas.addEventListener("mouseenter", () => overlay.style.opacity = "1");
+    canvas.addEventListener("mouseleave", () => overlay.style.opacity = "0");
+    window._currentAvatarSrc = null;
+
+    // ✅ Load profile picture — server is source of truth
+    //    Show cached base64 instantly while server responds
+    const cachedBase64 = localStorage.getItem("profilePictureCache");
+    if (cachedBase64) showPhoto(cachedBase64);
+    else showInitials(fullname);
+
+    try {
+      const res  = await fetch(`/api/profile?username=${encodeURIComponent(username)}`);
+      const data = await res.json();
+
+      if (data.success && data.user.profile_picture) {
+        // Load from server URL — canvas img.onerror will fall back to initials if it fails
+        showPhoto(data.user.profile_picture + "?t=" + Date.now());
+        localStorage.setItem("profilePicture", data.user.profile_picture);
+      } else {
+        // No picture in DB — clear cache and show initials
+        localStorage.removeItem("profilePicture");
+        localStorage.removeItem("profilePictureCache");
+        showInitials(fullname);
+      }
+    } catch (e) {
+      // Server unreachable — cached base64 already shown above, keep it
+    }
+  });
+</script>
+
+<!-- ===== DELETE ACCOUNT MODAL ===== -->
+<div class="modal" id="deleteAccountModal" style="display:none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modalheader" style="border-bottom:1px solid #fde8e8;">
+        <h3 style="color:#c0392b;">Delete Account</h3>
+        <button class="close-btn" type="button" onclick="closeDeleteModal()">×</button>
+      </div>
+      <div class="modalbody">
+        <p style="font-size:0.9rem; color:#444; margin-top:0; line-height:1.6;">
+          This action is <strong>permanent and cannot be undone.</strong>
+          All your data will be deleted immediately.
+        </p>
+        <p style="font-size:0.85rem; color:#666; margin-bottom:0.4rem;">
+          Type your username <strong id="deleteConfirmHint"></strong> to confirm:
+        </p>
+        <input type="text" id="deleteConfirmInput" placeholder="Enter your username"
+          style="width:100%; padding:0.65rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.5rem; font-size:0.95rem;"
+          oninput="validateDeleteInput()">
+        <p id="deleteError" style="display:none; color:#c0392b; font-size:13px; margin-top:0; margin-bottom:0.8rem;"></p>
+        <div class="edit-form-btn" style="margin-top:0.5rem;">
+          <button class="btn-close-modal" type="button" onclick="closeDeleteModal()">Cancel</button>
+          <button id="deleteConfirmBtn" type="button" onclick="confirmDeleteAccount()"
+            style="background:#c0392b; color:#fff; border:none; padding:0.6rem 1.8rem; border-radius:6px; cursor:pointer; font-size:0.95rem; opacity:0.4; pointer-events:none;">
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CROP / ZOOM / EDIT MODAL ===== -->
+<div id="cropModal" style="
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.7);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+">
+  <div style="
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+    width:460px;
+    max-width:96vw;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  ">
+    <!-- Header -->
+    <div style="padding:1rem 1.5rem; border-bottom:1px solid #e5e5e5; display:flex; justify-content:space-between; align-items:center;">
+      <h3 id="cropModalTitle" style="margin:0; font-size:1.05rem;">Edit Photo</h3>
+      <button onclick="closeCropModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; line-height:1; color:#555;">×</button>
+    </div>
+
+    <!-- Rotate / Flip toolbar -->
+    <div style="background:#f8f8f8; border-bottom:1px solid #eee; padding:0.6rem 1.2rem; display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+      <span style="font-size:0.75rem; color:#888; margin-right:0.4rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">Transform</span>
+
+      <!-- Rotate Left -->
+      <button title="Rotate left 90°" onclick="cropRotate(-90)" style="
+        display:flex; align-items:center; justify-content:center;
+        width:34px; height:34px; border-radius:6px;
+        background:#fff; border:1px solid #ddd; cursor:pointer;
+      " onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">
+        <svg width="17" height="17" fill="none" stroke="#444" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="1 4 1 10 7 10"/>
+          <path d="M3.51 15a9 9 0 1 0 .49-4.5"/>
+        </svg>
+      </button>
+
+      <!-- Rotate Right -->
+      <button title="Rotate right 90°" onclick="cropRotate(90)" style="
+        display:flex; align-items:center; justify-content:center;
+        width:34px; height:34px; border-radius:6px;
+        background:#fff; border:1px solid #ddd; cursor:pointer;
+      " onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">
+        <svg width="17" height="17" fill="none" stroke="#444" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-.49-4.5"/>
+        </svg>
+      </button>
+
+      <div style="width:1px; height:22px; background:#ddd; margin:0 0.3rem;"></div>
+
+      <!-- Flip Horizontal -->
+      <button title="Flip horizontal" onclick="cropFlip('h')" style="
+        display:flex; align-items:center; justify-content:center;
+        width:34px; height:34px; border-radius:6px;
+        background:#fff; border:1px solid #ddd; cursor:pointer;
+      " onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">
+        <svg width="17" height="17" fill="none" stroke="#444" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 3v18M3 7l4 5-4 5M21 7l-4 5 4 5"/>
+        </svg>
+      </button>
+
+      <!-- Flip Vertical -->
+      <button title="Flip vertical" onclick="cropFlip('v')" style="
+        display:flex; align-items:center; justify-content:center;
+        width:34px; height:34px; border-radius:6px;
+        background:#fff; border:1px solid #ddd; cursor:pointer;
+      " onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">
+        <svg width="17" height="17" fill="none" stroke="#444" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 12h18M7 3l5 4 5-4M7 21l5-4 5 4"/>
+        </svg>
+      </button>
+
+      <!-- Reset -->
+      <div style="width:1px; height:22px; background:#ddd; margin:0 0.3rem;"></div>
+      <button title="Reset all transforms" onclick="cropResetTransform()" style="
+        display:flex; align-items:center; justify-content:center; gap:4px;
+        height:34px; padding:0 0.7rem; border-radius:6px;
+        background:#fff; border:1px solid #ddd; cursor:pointer;
+        font-size:0.78rem; color:#555;
+      " onmouseover="this.style.background='#fff3e0'" onmouseout="this.style.background='#fff'">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        Reset
+      </button>
+    </div>
+
+    <!-- Canvas -->
+    <div style="background:#1a1a1a; display:flex; flex-direction:column; align-items:center; padding:1.2rem 1.5rem 0;">
+      <canvas id="cropCanvas" width="380" height="380"
+        style="cursor:grab; display:block; touch-action:none; max-width:100%;"
+        onmousedown="cropMouseDown(event)"
+        onmousemove="cropMouseMove(event)"
+        onmouseup="cropMouseUp()"
+        onmouseleave="cropMouseUp()"
+        onwheel="cropWheel(event)"
+        ontouchstart="cropTouchStart(event)"
+        ontouchmove="cropTouchMove(event)"
+        ontouchend="cropTouchEnd()"
+      ></canvas>
+      <!-- Zoom slider -->
+      <div style="width:100%; display:flex; align-items:center; gap:0.8rem; padding:0.8rem 0;">
+        <svg width="15" height="15" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <input type="range" id="cropZoom" min="0" max="100" value="0" oninput="cropSliderChange(this.value)" style="flex:1; accent-color:#0b4f6c; cursor:pointer;">
+        <svg width="15" height="15" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <p style="font-size:0.75rem; color:#777; margin:0 0 0.8rem; text-align:center;">Drag to reposition · Scroll or slider to zoom · Pinch on mobile</p>
+    </div>
+
+    <!-- Footer buttons -->
+    <div style="padding:1rem 1.5rem; display:flex; justify-content:flex-end; gap:0.8rem;">
+      <button onclick="closeCropModal()" style="background:#e6e6e6; border:none; padding:0.6rem 1.8rem; border-radius:6px; cursor:pointer; font-size:0.9rem;">Cancel</button>
+      <button onclick="applyCrop()" style="background:#0b4f6c; color:#fff; border:none; padding:0.6rem 1.8rem; border-radius:6px; cursor:pointer; font-size:0.9rem; font-weight:600;">Apply</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

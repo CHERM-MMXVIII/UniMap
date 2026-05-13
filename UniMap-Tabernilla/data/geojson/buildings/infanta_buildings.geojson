@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "infanta_buildings",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 121.620732862559393, 14.713621309845886 ], [ 121.620906566136384, 14.713541884585862 ], [ 121.620797552721186, 14.713349666493817 ], [ 121.620631601537383, 14.713448294756365 ], [ 121.620732862559393, 14.713621309845886 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 121.62087574952217, 14.713434422378951 ], [ 121.621057397734518, 14.71334355011173 ], [ 121.621010835805635, 14.713235994222755 ], [ 121.620821218758479, 14.713342144575606 ], [ 121.62087574952217, 14.713434422378951 ] ] ] ] } },
+{ "type": "Feature", "properties": { "name": null, "building_type": "academic", "status": "", "damage": "", "recovery": "" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 121.621151388043529, 14.713420737120636 ], [ 121.621475200668982, 14.713257914033978 ], [ 121.621366331210169, 14.713042708712697 ], [ 121.6210346462221, 14.713205484823247 ], [ 121.621151388043529, 14.713420737120636 ] ] ] ] } }
+]
+}

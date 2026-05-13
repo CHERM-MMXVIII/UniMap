@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--
+    org-chart.html
+    ==============
+    "People Behind CHERM" — Organizational chart page for the SLSU CHERM website.
+
+        Displays the personnel behind CHERM (Center for Halal and Emerging Research Management)
+        organized into four distinct groups:
+          1. SLSU Leadership & Research Division
+          2. DOST Regional & Provincial Leadership
+          3. SLSU CHERM Team (core staff)
+          4. Web Development Interns
+
+    FORWARDS / OUTPUTS:
+        - Clicking the Back button navigates the user to ../index.html
+        - Social overlay links (Facebook, Email, LinkedIn/GitHub) forward the user
+          to each member's respective external profile or email client.
+          NOTE: Most email links use Cloudflare email-protection encoding (/cdn-cgi/l/email-protection#...)
+          to obfuscate addresses from scrapers; the browser decodes these transparently.
+       
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>People Behind CHERM</title>
+
+    <!-- Ensures correct scaling on mobile/tablet devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page-specific stylesheet: defines .team-card, .image-wrapper, .social-overlay,
+         .name-panel, .leadership-row, .card-col, .card-row, and section/title variants -->
+    <link rel="stylesheet" href="../css/org-chart.css">
+
+    <!-- Font Awesome icon library (CDN) — provides fa-arrow-left, fa-envelope,
+         fab fa-facebook-f, fab fa-linkedin-in, fab fa-github icons used throughout -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ============================================================
+     BACK NAVIGATION
+     Renders a floating "Back" button in the top-left corner.
+     Forwards the user to the parent index page (../index.html).
+     Styled via .back-btn in org-chart.css.
+============================================================ -->
+<a href="/index" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back
+</a>
+
+<!-- ============================================================
+     MAIN CONTAINER
+     Centers and constrains all page content horizontally.
+     Styled via .container in org-chart.css.
+============================================================ -->
+<div class="container">
+
+    <!-- ============================================================
+         PAGE HEADER
+         Displays the page title "People Behind CHERM" with a
+         decorative eyebrow label and a horizontal divider below.
+         - "People Behind" uses a white text with black drop shadow.
+         - "CHERM" uses a white drop shadow for contrast against
+           the section background.
+    ============================================================ -->
+    <header class="page-header">
+        <p class="eyebrow">Meet the Team</p>
+        <h1><span style="color: #ffffff; text-shadow: -3px 3px 0 #000000;">People Behind</span> <span style="font-style: normal; text-shadow: -2.5px 3px 0 #ffffff;">CHERM</span></h1>
+        
+        <!-- Decorative horizontal rule beneath the title -->
+        <div class="header-divider"></div>
+    </header>
+
+    <!-- ============================================================
+         LEADERSHIP ROW
+         A flex/grid wrapper that places the SLSU and DOST leadership
+         sections side by side on wider viewports.
+         Each child <section> is independently styled for its
+         respective organization (slsu-section, dost-section).
+    ============================================================ -->
+    <div class="leadership-row">
+
+        <!-- --------------------------------------------------------
+             SECTION 1: SLSU LEADERSHIP & RESEARCH DIVISION
+             Displays three senior SLSU officials in a vertical column:
+               1. University President
+               2. VP for Research, Extension, Production, Development & Innovation
+               3. Director, Office of Research Services
+             Each card shows a photo, social overlay on hover, and a
+             name/role panel anchored to the bottom of the image.
+        -------------------------------------------------------- -->
+        <section class="team-section slsu-section">
+            <h2 class="section-title slsu-title">SLSU Leadership &amp; Research Division</h2>
+
+            <!-- .card-col: vertical stack layout for this group's cards -->
+            <div class="card-col">
+
+                <!-- Team Card: University President -->
+                <div class="team-card">
+                    <div class="image-wrapper">
+                        <img src="../img/University President.jpg" alt="Dr. Frederick T. Villa">
+
+                        <!-- Social overlay: appears on hover, contains icon links.
+                             Email uses Cloudflare obfuscation; Facebook/LinkedIn are placeholders (#). -->
+                        <div class="social-overlay">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="/cdn-cgi/l/email-protection#305548515d405c5570575d51595c1e535f5d"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+
+                        <!-- Name panel: overlaid at the bottom of the image -->
+                        <div class="name-panel">
+                            <span class="card-name">Dr. Frederick T. Villa</span>
+                            <span class="card-role">University President</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Card: VP for REPDI -->
+                <div class="team-card">
+                    <div class="image-wrapper">
+                        <img src="../img/Vice-President for REPDI.png" alt="Marissa C. Esperal">
+                        <div class="social-overlay">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="/cdn-cgi/l/email-protection#03667b626e736f6643646e626a6f2d606c6e"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="name-panel">
+                            <span class="card-name">Marissa C. Esperal, PhD</span>
+                            <span class="card-role">VP for Research, Extension, Production, Development &amp; Innovation of SLSU</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Card: Director, Office of Research Services -->
+                <div class="team-card">
+                    <div class="image-wrapper">
+                        <img src="../img/Director, Research Services.jpg" alt="Dr. Nicanor L. Guinto">
+                        <div class="social-overlay">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="/cdn-cgi/l/email-protection#82e7fae3eff2eee7c2e5efe3ebeeace1edef"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="name-panel">
+                            <span class="card-name">Dr. Nicanor L. Guinto</span>
+                            <span class="card-role">Director, SLSU Office of Research Services</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /card-col (SLSU) -->
+        </section><!-- /slsu-section -->
+
+        <!-- --------------------------------------------------------
+             SECTION 2: DOST REGIONAL & PROVINCIAL LEADERSHIP
+             Displays two DOST officials in a vertical column:
+               1. Regional Director, DOST IV-A (CALABARZON)
+               2. Director, DOST-Provincial Science and Technology Office Quezon
+             Mirrors the structure of the SLSU section but uses
+             dost-section and dost-title CSS variants for distinct styling.
+        -------------------------------------------------------- -->
+        <section class="team-section dost-section">
+            <h2 class="section-title dost-title">DOST Regional &amp; Provincial Leadership</h2>
+            <div class="card-col">
+
+                <!-- Team Card: DOST Regional Director -->
+                <div class="team-card">
+                    <div class="image-wrapper">
+                        <img src="../img/Regional Director.jpg" alt="Dir. Emelita Bagsit">
+                        <div class="social-overlay">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="/cdn-cgi/l/email-protection#5a3f223b372a363f1a3d373b333674393537"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="name-panel">
+                            <span class="card-name">Dir. Emelita Bagsit</span>
+                            <span class="card-role">Regional Director, Department of Science and Technology IV-A</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Card: DOST Provincial Director (Quezon) -->
+                <div class="team-card">
+                    <div class="image-wrapper">
+                        <img src="../img/DOST-PSTO.png" alt="Maria Esperanza E. Jawili">
+                        <div class="social-overlay">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="/cdn-cgi/l/email-protection#bdd8c5dcd0cdd1d8fddad0dcd4d193ded2d0"><i class="fas fa-envelope"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="name-panel">
+                            <span class="card-name">Maria Esperanza E. Jawili</span>
+                            <span class="card-role">Director, DOST-Provincial Science and Technology Office Quezon</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /card-col (DOST) -->
+        </section><!-- /dost-section -->
+
+    </div><!-- /leadership-row -->
+
+    <!-- ============================================================
+         SECTION 3: SLSU CHERM TEAM (Core Staff)
+         Displays the three permanent staff members of the CHERM center:
+           1. Center Chief
+           2. Science Research Analyst
+           3. Science Aide
+         Uses .card-col--center modifier to horizontally center the
+         card group within the section, as there are only 3 members.
+         Social overlays for all three use Cloudflare-encoded email links.
+    ============================================================ -->
+    <section class="team-section cherm-section">
+        <h2 class="section-title cherm-title">SLSU CHERM Team</h2>
+
+        <!-- .card-col--center: centers the card group (used when card count
+             doesn't fill a full row, e.g., 3 cards in a wider layout) -->
+        <div class="card-col card-col--center">
+
+            <!-- Team Card: Center Chief -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Center Chief.png" alt="Anthony L. Empamano">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#dbbea3bab6abb7be9bbcb6bab2b7f5b8b4b6"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Anthony L. Empamano</span>
+                        <span class="card-role">Center Chief, SLSU CHERM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Card: Science Research Analyst -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Science Research Analyst.png" alt="Phoebe Ann Hadaza V. Barba">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#14716c7579647871547379757d783a777b79"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Phoebe Ann Hadaza V. Barba</span>
+                        <span class="card-role">Science Research Analyst, SLSU CHERM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Card: Science Aide -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Science Aide.jpg" alt="Ranjit G. San Jose">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#a6c3dec7cbd6cac3e6c1cbc7cfca88c5c9cb"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Ranjit G. San Jose</span>
+                        <span class="card-role">Science Aide, SLSU CHERM</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /card-col (CHERM Team) -->
+    </section><!-- /cherm-section -->
+
+    <!-- ============================================================
+         SECTION 4: WEB DEVELOPMENT INTERNS
+         Displays six intern cards in a horizontal wrapping row (.card-row).
+         Unlike the leadership and CHERM sections that use a vertical column,
+         this section uses .card-row so cards wrap across multiple lines
+         on smaller screens.
+
+         Social overlays use GitHub instead of LinkedIn for interns, since
+         GitHub is more relevant for developers.
+
+         Email link variations:
+           - Perez, Abarracoso, Gener, Hebrado → Cloudflare-encoded hrefs
+           - Avila  → plain mailto:chloeirenea@gmail.com
+           - Tabernilla → plain mailto:example@gmail.com (placeholder address)
+
+         GitHub link variations:
+           - Avila → live link (https://github.com/chloeavila23, opens in new tab)
+           - All others → placeholder (#)
+    ============================================================ -->
+    <section class="team-section intern-section">
+        <h2 class="section-title intern-title">Web Development Interns</h2>
+
+        <!-- .card-row: flex-wrap row layout; cards flow left-to-right
+             and wrap onto the next line when the viewport is too narrow -->
+        <div class="card-row">
+
+            <!-- Intern Card 1: Gemma Rose Perez -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Programmer1.jfif" alt="Gemma Rose Perez">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#a7c2dfc6cad7cbc2e7c0cac6cecb89c4c8ca"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Gemma Rose Perez</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intern Card 2: Anthony M. Abarracoso -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Programmer2.jfif" alt="Anthony M. Abarracoso">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#1b7e637a766b777e5b7c767a727735787476"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Anthony M. Abarracoso</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intern Card 3: Chloe Irene C. Avila -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Avila.png" alt="Intern 3">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="mailto:chloeirenea@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/chloeavila23" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Chloe Irene C. Avila</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intern Card 4: Joergie Leanne B. Gener -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Gener.png" alt="Intern 4">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#c0a5b8a1adb0aca580a7ada1a9aceea3afad"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Joergie Leanne B. Gener</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intern Card 5: Andre Reiner U. Hebrado -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Hebrado.jfif" alt="Intern 5">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/cdn-cgi/l/email-protection#204558414d504c4560474d41494c0e434f4d"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Andre Reiner U. Hebrado</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intern Card 6: Romabel D. Tabernilla -->
+            <div class="team-card">
+                <div class="image-wrapper">
+                    <img src="../img/Tabernilla.png" alt="Intern 6">
+                    <div class="social-overlay">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="mailto:example@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                    <div class="name-panel">
+                        <span class="card-name">Romabel D. Tabernilla</span>
+                        <span class="card-role">Web Development Intern</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /card-row (Interns) -->
+    </section><!-- /intern-section -->
+
+</div><!-- /container -->
+
+</body>
+</html>

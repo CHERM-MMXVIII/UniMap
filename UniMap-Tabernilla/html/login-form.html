@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UNIMAP Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/stylesheets.css">
+</head>
+
+<body>
+  <div class="auth-wrap" id="authWrap">
+
+    <!-- BRAND / UNIMAP PANEL -->
+    <div class="auth-brand">
+      <img src="../img/slsu-logo.webp" alt="SLSU Logo">
+      <h2>Southern Luzon State University</h2>
+      <h1>U N I M A P</h1>
+    </div>
+
+    <!-- FORMS PANEL -->
+    <div class="auth-forms">
+
+      <!-- TOP TOGGLE TEXT/LINK -->
+      <div class="create-acc">
+        <span id="authTopText">Don’t have an account?</span>
+        <a href="#" id="authToggleLink">Create account</a>
+      </div>
+
+      <!-- LOGIN FORM (RIGHT by default) -->
+      <form id="loginForm" class="auth-form form-login">
+        <h2 class="login-title">Log into UNIMAP</h2>
+        <p class="login-subtitle">Enter your login details below.</p>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="login_username" placeholder="Username" required>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="login_password" placeholder="Password" required>
+          <button type="button" class="toggle-password" data-target="login_password" aria-label="Show password">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="login-btn">Login</button>
+          <button type="button" class="guest-btn" id="guestBtn">Login as Guest</button>
+        </div>
+      </form>
+
+      <!-- REGISTER FORM (LEFT when toggled) -->
+      <form id="registerForm" class="auth-form form-register">
+        <h2 class="login-title">CREATE ACCOUNT</h2>
+        <p class="login-subtitle">Fill out the details below.</p>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="reg_fullname" placeholder="Full Name" required>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-user-tag"></i>
+          <input type="text" id="reg_username" placeholder="Username" required>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="reg_email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="reg_password" placeholder="Password" required>
+          <button type="button" class="toggle-password" data-target="reg_password" aria-label="Show password">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="reg_confirmPassword" placeholder="Confirm Password" required>
+          <button type="button" class="toggle-password" data-target="reg_confirmPassword" aria-label="Show confirm password">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <button class="create-btn" type="submit">Create</button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const authWrap = document.getElementById("authWrap");
+    const authTopText = document.getElementById("authTopText");
+    const authToggleLink = document.getElementById("authToggleLink");
+
+    // Start mode based on URL: /register => register mode, /login => login mode
+    const startRegister = (window.location.pathname === "/register");
+    if (startRegister) authWrap.classList.add("is-register");
+    updateTopLinkText();
+
+    authToggleLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      authWrap.classList.toggle("is-register");
+      updateTopLinkText();
+    });
+
+    function updateTopLinkText() {
+      const isReg = authWrap.classList.contains("is-register");
+      authTopText.textContent = isReg ? "Already have an account?" : "Don’t have an account?";
+      authToggleLink.textContent = isReg ? "Login" : "Create account";
+      // Optional: update URL without refresh
+      window.history.replaceState({}, "", isReg ? "/register" : "/login");
+    }
+
+    // Password eye toggle (works for all)
+    document.querySelectorAll(".toggle-password").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-target");
+        const input = document.getElementById(targetId);
+        const icon = btn.querySelector("i");
+        if (!input) return;
+
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+      });
+    });
+
+    // LOGIN submit
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("login_username").value.trim();
+      const password = document.getElementById("login_password").value.trim();
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem("fullname", data.user.fullname);
+          localStorage.setItem("username", data.user.username);
+          localStorage.setItem("email", data.user.email);
+          window.location.href = "/";
+        } else {
+          alert(data.message || "Login failed");
+        }
+      } catch (err) {
+        alert("Cannot reach server");
+        console.error(err);
+      }
+    });
+
+    // Guest login
+    document.getElementById("guestBtn").addEventListener("click", () => {
+      localStorage.setItem("fullname", "Guest");
+      localStorage.setItem("username", "guest");
+      window.location.href = "/";
+    });
+
+    // REGISTER submit
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const fullname = document.getElementById("reg_fullname").value.trim();
+      const email = document.getElementById("reg_email").value.trim();
+      const username = document.getElementById("reg_username").value.trim();
+      const password = document.getElementById("reg_password").value;
+      const confirmPassword = document.getElementById("reg_confirmPassword").value;
+
+      try {
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fullname, email, username, password, confirmPassword })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          alert("Account created! Please log in.");
+          // slide back to login
+          authWrap.classList.remove("is-register");
+          updateTopLinkText();
+        } else {
+          alert(data.message || "Registration failed");
+        }
+      } catch (err) {
+        alert("Cannot reach server");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
