@@ -198,9 +198,11 @@ app.post("/api/register", async (req, res) => {
    LOGIN API
 ========================= */
 app.post("/api/login", async (req, res) => {
-  console.log("🔐 LOGIN REQUEST:", req.body);
-
   const { username, password } = req.body;
+  
+  console.log("🔐 LOGIN attempt by:", username);
+
+  
 
   if (!username || !password) {
     return res.json({ success: false, message: "Username and password required" });

@@ -3,63 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
-    <link rel="stylesheet" href="../css/stylesheets.css">
+    <title>Feedback Form – UniMap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green-dark:  #1a4a2e;
+            --green-mid:   #2d6a4f;
+            --green-light: #52b788;
+            --gold:        #c9a84c;
+            --gold-light:  #f0d080;
+            --cream:       #faf8f3;
+            --white:       #ffffff;
+            --text-dark:   #1c2b1e;
+            --text-muted:  #5a6e5c;
+            --border:      #d4e3d8;
+            --shadow:      rgba(26, 74, 46, 0.12);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            width: 100%;
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+            padding: 20px 48px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header a { display: flex; align-items: center; flex-shrink: 0; }
+
+        .header img {
+            width: 68px;
+            height: 68px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .header img:hover { transform: scale(1.05); }
+
+        .header-text { display: flex; flex-direction: column; gap: 2px; }
+
+        .header-text h1 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.04em;
+        }
+
+        .unimap {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 1.7rem !important;
+            font-weight: 700 !important;
+            color: var(--gold-light) !important;
+            letter-spacing: 0.18em !important;
+            display: flex;
+            gap: 1px;
+        }
+
+        .unimap span {
+            display: inline-block;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .unimap span:hover {
+            color: var(--white) !important;
+            transform: translateY(-2px);
+        }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            width: 100%;
+            max-width: 680px;
+            padding: 18px 0 0;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .breadcrumb a { color: var(--green-mid); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+
+        /* ── CARD ── */
+        .form-container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 48px 52px;
+            margin: 24px 0 48px;
+            box-shadow: 0 8px 40px var(--shadow), 0 1px 0 var(--border);
+            border: 1px solid var(--border);
+            animation: slideUp 0.5s ease both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── FORM HEADING ── */
+        .form-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 36px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .form-heading-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .form-heading-icon svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; }
+
+        .form-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            color: var(--text-dark);
+        }
+
+        .form-heading p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── FIELD ── */
+        .field { margin-bottom: 26px; }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+
+        .field label .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            margin-left: 4px;
+        }
+
+        .field input[type="text"] {
+            width: 100%;
+            padding: 11px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            background: var(--cream);
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .field input[type="text"]:focus {
+            border-color: var(--green-mid);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+        }
+
+        /* ── RATING ── */
+        .rating-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .rating-group label {
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .rating-group input[type="radio"] { display: none; }
+
+        .rating-group .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 18px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--cream);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .rating-group .chip .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .rating-group label:hover .chip {
+            border-color: var(--green-light);
+            color: var(--green-dark);
+            background: rgba(82, 183, 136, 0.06);
+        }
+
+        .rating-group input:checked + .chip {
+            border-color: var(--green-mid);
+            background: linear-gradient(135deg, rgba(45,106,79,0.08), rgba(82,183,136,0.08));
+            color: var(--green-dark);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(45,106,79,0.15);
+        }
+
+        .rating-group input:checked + .chip .dot {
+            background: var(--green-mid);
+            border-color: var(--green-mid);
+        }
+
+        /* ── DIVIDER ── */
+        .section-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 28px 0;
+        }
+
+        /* ── BUTTONS ── */
+        .form-btn {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .form-btn button {
+            padding: 11px 28px;
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-back {
+            background: var(--cream);
+            color: var(--text-muted);
+            border: 1.5px solid var(--border) !important;
+        }
+
+        .btn-back:hover {
+            background: var(--border);
+            color: var(--text-dark);
+        }
+
+        .btn-send {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(26, 74, 46, 0.3);
+        }
+
+        .btn-send:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(26, 74, 46, 0.4);
+        }
+
+        .btn-send:active { transform: translateY(0); }
+
+        /* ── SUCCESS STATE ── */
+        .success-msg {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 24px 0 8px;
+            animation: slideUp 0.4s ease both;
+        }
+
+        .success-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .success-icon svg { width: 32px; height: 32px; stroke: #fff; stroke-width: 2.5; fill: none; }
+
+        .success-msg h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .success-msg p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .header { padding: 16px 20px; }
+            .form-container { padding: 32px 24px; margin: 16px 16px 32px; }
+            .rating-group { gap: 8px; }
+            .rating-group .chip { padding: 8px 14px; font-size: 0.8rem; }
+            .form-btn { flex-direction: column-reverse; }
+            .form-btn button { width: 100%; text-align: center; }
+        }
+    </style>
 </head>
 <body>
+
     <div class="header">
-        <a href="../index.html"><img src="../img/slsu-logo.webp" alt="SLSU Logo"></a>
+        <a href="/index">
+            <img src="../img/slsu-logo.webp" alt="SLSU Logo">
+        </a>
         <div class="header-text">
             <h1>Southern Luzon State University</h1>
             <h1 class="unimap">
-              <span>U</span><span>N</span><span>I</span><span>M</span><span>A</span><span>P</span>
+                <span>U</span><span>N</span><span>I</span><span>M</span><span>A</span><span>P</span>
             </h1>
         </div>
     </div>
 
+    <div class="breadcrumb">
+        <a href="/index">Home</a>
+        <span>›</span>
+        Feedback
+    </div>
+
     <div class="form-container">
-        <h2>Feedback Form</h2>
+
+        <div class="form-heading">
+            <div class="form-heading-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div>
+                <h2>Feedback Form</h2>
+                <p>Help us improve UniMap with your honest feedback.</p>
+            </div>
+        </div>
+
         <form id="feedbackForm">
-          <label>Name (Optional):</label>
-          <input type="text" name="name">
-    
-          <label>1. How would you rate your overall experience using the website?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="rating" value="excellent"> Excellent</label>
-            <label><input type="radio" name="rating" value="good"> Good</label>
-            <label><input type="radio" name="rating" value="fair"> Fair</label>
-            <label><input type="radio" name="rating" value="poor"> Poor</label>
-            <label><input type="radio" name="rating" value="verypoor"> Very Poor</label>
-          </div>
-    
-          <label>2. What issues or difficulties did you encounter?</label>
-          <input type="text" name="issues" id="issues">
-    
-          <label>3. Suggestions for improvement:</label>
-          <input type="text" name="suggestions" id="suggestions">
-    
-          <div class="form-btn">
-            <button type="button" onclick="history.back()">Back</button>
-            <button type="submit">Send</button>
-          </div>
+
+            <div class="field">
+                <label>Name <span class="optional">(Optional)</span></label>
+                <input type="text" name="name" placeholder="Enter your name">
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="field">
+                <label>1. How would you rate your overall experience using the website?</label>
+                <div class="rating-group">
+                    <label>
+                        <input type="radio" name="rating" value="excellent">
+                        <span class="chip"><span class="dot"></span>Excellent</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="rating" value="good">
+                        <span class="chip"><span class="dot"></span>Good</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="rating" value="fair">
+                        <span class="chip"><span class="dot"></span>Fair</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="rating" value="poor">
+                        <span class="chip"><span class="dot"></span>Poor</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="rating" value="verypoor">
+                        <span class="chip"><span class="dot"></span>Very Poor</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>2. What issues or difficulties did you encounter?</label>
+                <input type="text" name="issues" id="issues" placeholder="Describe any problems you faced…">
+            </div>
+
+            <div class="field">
+                <label>3. Suggestions for improvement:</label>
+                <input type="text" name="suggestions" id="suggestions" placeholder="Share your ideas…">
+            </div>
+
+            <div class="form-btn">
+                <button type="button" class="btn-back" onclick="history.back()">← Back</button>
+                <button type="submit" class="btn-send">Send Feedback</button>
+            </div>
+
         </form>
-      </div>
-    
-      <script>
+
+        <div class="success-msg" id="successMsg">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Thank you for your feedback!</h3>
+            <p>Your response has been recorded. We appreciate your time.</p>
+        </div>
+
+    </div>
+
+    <script>
         document.getElementById("feedbackForm").addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent form from submitting
-    
-          const rating = document.querySelector('input[name="rating"]:checked');
-          const issues = document.getElementById("issues").value.trim();
-          const suggestions = document.getElementById("suggestions").value.trim();
-    
-          if (!rating || issues === "" || suggestions === "") {
-            alert("Please complete all required fields before sending your feedback.");
-            return;
-          }
-    
-          alert("Thank you for your feedback!");
-          this.submit(); // Submit the form manually after validation
+            event.preventDefault();
+
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const issues = document.getElementById("issues").value.trim();
+            const suggestions = document.getElementById("suggestions").value.trim();
+
+            if (!rating || issues === "" || suggestions === "") {
+                alert("Please complete all required fields before sending your feedback.");
+                return;
+            }
+
+            // Show success state
+            this.style.display = "none";
+            const msg = document.getElementById("successMsg");
+            msg.style.display = "flex";
+
+            // Submit after short delay
+            setTimeout(() => { this.submit(); }, 1200);
         });
     </script>
 </body>
